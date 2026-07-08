@@ -1,0 +1,2466 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>🇯🇵 Japanese CBT Test — BEGGINER</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   ROOT & RESET
+============================================================ */
+:root{
+  --primary:#2563EB;
+  --primary-dark:#1D4ED8;
+  --primary-light:#60A5FA;
+  --primary-bg:#EFF6FF;
+  --green:#16A34A;
+  --red:#DC2626;
+  --gray:#9CA3AF;
+  --gray-dark:#4B5563;
+  --text:#1E293B;
+  --white:#FFFFFF;
+  --shadow-sm:0 2px 8px rgba(37,99,235,.08);
+  --shadow-md:0 8px 24px rgba(37,99,235,.12);
+  --shadow-lg:0 16px 40px rgba(37,99,235,.18);
+  --radius:16px;
+}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+html{scroll-behavior:smooth;}
+body{
+  font-family:'Poppins',sans-serif;
+  background:linear-gradient(160deg,#DCEBFF 0%,#F5F9FF 45%,#FFFFFF 100%);
+  color:var(--text);
+  min-height:100vh;
+  overflow-x:hidden;
+}
+button{font-family:'Poppins',sans-serif;cursor:pointer;border:none;outline:none;}
+input{font-family:'Poppins',sans-serif;}
+::-webkit-scrollbar{height:8px;width:8px;}
+::-webkit-scrollbar-thumb{background:var(--primary-light);border-radius:10px;}
+::-webkit-scrollbar-track{background:transparent;}
+
+/* ============================================================
+   LOADING SCREEN
+============================================================ */
+#loading-screen{
+  position:fixed;inset:0;background:linear-gradient(160deg,#2563EB,#1D4ED8);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  z-index:9999;transition:opacity .5s ease, visibility .5s ease;
+}
+#loading-screen.hide{opacity:0;visibility:hidden;}
+.spinner{
+  width:56px;height:56px;border:5px solid rgba(255,255,255,.3);
+  border-top-color:#fff;border-radius:50%;animation:spin 1s linear infinite;margin-bottom:18px;
+}
+@keyframes spin{to{transform:rotate(360deg);}}
+.loading-text{color:#fff;font-weight:600;letter-spacing:1px;font-size:15px;}
+
+/* ============================================================
+   LAYOUT
+============================================================ */
+.app-wrap{max-width:1000px;margin:0 auto;padding:24px 16px 80px;}
+.screen{display:none;animation:fadeIn .45s ease;}
+.screen.active{display:block;}
+@keyframes fadeIn{from{opacity:0;transform:translateY(12px);}to{opacity:1;transform:translateY(0);}}
+
+.card{
+  background:var(--white);
+  border-radius:var(--radius);
+  box-shadow:var(--shadow-md);
+  padding:32px;
+  transition:box-shadow .3s ease, transform .3s ease;
+}
+.card-hover:hover{box-shadow:var(--shadow-lg);transform:translateY(-2px);}
+
+/* ============================================================
+   HOME SCREEN
+============================================================ */
+.home-card{max-width:560px;margin:40px auto 0;text-align:center;}
+.home-title{font-size:28px;font-weight:800;color:var(--primary-dark);margin-bottom:4px;}
+.home-sub{font-size:14px;color:var(--gray-dark);font-weight:500;margin-bottom:14px;}
+.home-desc{font-size:13.5px;color:var(--gray-dark);line-height:1.6;margin-bottom:24px;}
+.input-group{text-align:left;margin-bottom:22px;}
+.input-group label{font-size:13px;font-weight:600;color:var(--text);display:block;margin-bottom:6px;}
+.input-group input{
+  width:100%;padding:14px 16px;border:2px solid #E2E8F0;border-radius:12px;
+  font-size:15px;transition:border-color .25s ease, box-shadow .25s ease;
+}
+.input-group input:focus{border-color:var(--primary);box-shadow:0 0 0 4px rgba(37,99,235,.12);}
+.menu-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:8px;}
+.menu-btn{
+  background:var(--primary-bg);color:var(--primary-dark);border-radius:14px;
+  padding:18px 10px;font-weight:600;font-size:14px;display:flex;flex-direction:column;
+  align-items:center;gap:8px;transition:all .25s ease;border:2px solid transparent;position:relative;overflow:hidden;
+}
+.menu-btn .emoji{font-size:26px;}
+.menu-btn:hover{background:var(--primary);color:#fff;transform:translateY(-3px);box-shadow:var(--shadow-md);}
+.menu-btn.wide{grid-column:1/-1;}
+
+/* ============================================================
+   BUTTONS (generic)
+============================================================ */
+.btn{
+  padding:13px 26px;border-radius:12px;font-weight:600;font-size:14.5px;
+  transition:all .25s ease;position:relative;overflow:hidden;
+}
+.btn-primary{background:var(--primary);color:#fff;box-shadow:0 4px 14px rgba(37,99,235,.35);}
+.btn-primary:hover{background:var(--primary-dark);transform:translateY(-2px);box-shadow:0 8px 20px rgba(37,99,235,.4);}
+.btn-outline{background:#fff;color:var(--primary);border:2px solid var(--primary);}
+.btn-outline:hover{background:var(--primary-bg);}
+.btn-danger{background:var(--red);color:#fff;}
+.btn-danger:hover{background:#B91C1C;}
+.btn-green{background:var(--green);color:#fff;}
+.btn-green:hover{background:#15803D;}
+.btn-block{width:100%;}
+.btn:disabled{opacity:.5;cursor:not-allowed;transform:none !important;}
+.ripple{position:absolute;border-radius:50%;background:rgba(255,255,255,.55);transform:scale(0);animation:rippleAnim .55s ease-out;pointer-events:none;}
+@keyframes rippleAnim{to{transform:scale(3.2);opacity:0;}}
+
+.back-row{margin-bottom:18px;}
+.back-btn{background:transparent;color:var(--primary-dark);font-weight:600;font-size:14px;display:inline-flex;align-items:center;gap:6px;padding:8px 4px;}
+.back-btn:hover{text-decoration:underline;}
+
+/* ============================================================
+   LEVEL / SETTINGS SCREEN
+============================================================ */
+.section-title{font-size:22px;font-weight:800;color:var(--primary-dark);margin-bottom:6px;}
+.section-sub{font-size:13.5px;color:var(--gray-dark);margin-bottom:22px;}
+.level-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+.level-card{
+  background:#fff;border-radius:var(--radius);padding:24px;text-align:left;
+  box-shadow:var(--shadow-sm);border:2px solid #E2E8F0;transition:all .25s ease;
+}
+.level-card:hover{border-color:var(--primary);box-shadow:var(--shadow-md);transform:translateY(-3px);}
+.level-card h3{color:var(--primary-dark);font-size:17px;margin-bottom:8px;}
+.level-card p{font-size:12.5px;color:var(--gray-dark);line-height:1.6;margin-bottom:14px;}
+.level-card .tag{display:inline-block;background:var(--primary-bg);color:var(--primary-dark);font-size:11px;font-weight:700;padding:4px 10px;border-radius:20px;margin-bottom:10px;}
+
+.timer-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(110px,1fr));gap:10px;margin-bottom:26px;}
+.timer-opt{
+  background:#fff;border:2px solid #E2E8F0;border-radius:12px;padding:14px 8px;
+  text-align:center;font-weight:600;font-size:13.5px;color:var(--text);transition:all .2s ease;
+}
+.timer-opt:hover{border-color:var(--primary-light);}
+.timer-opt.selected{background:var(--primary);color:#fff;border-color:var(--primary);}
+
+/* ============================================================
+   EXAM HEADER / DASHBOARD
+============================================================ */
+.exam-header{
+  background:#fff;border-radius:var(--radius);padding:16px 20px;box-shadow:var(--shadow-sm);
+  display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:10px;margin-bottom:16px;
+  position:sticky;top:8px;z-index:50;
+}
+.exam-header .who{font-size:13px;color:var(--gray-dark);}
+.exam-header .who b{color:var(--text);}
+.timer-box{
+  background:var(--primary);color:#fff;font-weight:700;font-size:16px;padding:8px 18px;
+  border-radius:10px;letter-spacing:1px;min-width:96px;text-align:center;
+}
+.timer-box.warning{background:var(--red);animation:pulseWarn 1s infinite;}
+@keyframes pulseWarn{0%,100%{transform:scale(1);}50%{transform:scale(1.06);}}
+
+.stat-dashboard{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:14px;}
+.stat-box{background:#fff;border-radius:12px;padding:12px 8px;text-align:center;box-shadow:var(--shadow-sm);}
+.stat-box .num{font-size:19px;font-weight:800;}
+.stat-box .lbl{font-size:10.5px;color:var(--gray-dark);font-weight:600;text-transform:uppercase;letter-spacing:.5px;}
+.stat-box.total .num{color:var(--primary-dark);}
+.stat-box.correct .num{color:var(--green);}
+.stat-box.wrong .num{color:var(--red);}
+.stat-box.empty .num{color:var(--gray);}
+
+.progress-wrap{background:#fff;border-radius:12px;padding:14px 16px;box-shadow:var(--shadow-sm);margin-bottom:16px;}
+.progress-label{display:flex;justify-content:space-between;font-size:12px;font-weight:600;color:var(--gray-dark);margin-bottom:8px;}
+.progress-bar-bg{background:#E2E8F0;border-radius:20px;height:12px;overflow:hidden;}
+.progress-bar-fill{height:100%;background:linear-gradient(90deg,var(--primary),var(--primary-light));border-radius:20px;transition:width .4s ease, background .4s ease;width:0%;}
+.progress-bar-fill.complete{background:linear-gradient(90deg,#16A34A,#22C55E);}
+.progress-done-text{color:var(--green);font-weight:700;font-size:12.5px;margin-top:6px;display:none;}
+.progress-done-text.show{display:block;}
+
+.qnum-scroll{
+  display:flex;gap:8px;overflow-x:auto;padding:12px 4px 16px;margin-bottom:6px;
+  background:#fff;border-radius:12px;box-shadow:var(--shadow-sm);padding:14px;
+}
+.qnum-btn{
+  min-width:38px;height:38px;border-radius:10px;background:#E5E7EB;color:var(--gray-dark);
+  font-weight:700;font-size:12.5px;flex-shrink:0;transition:all .2s ease;
+}
+.qnum-btn.answered{background:var(--primary);color:#fff;}
+.qnum-btn.current{outline:2px solid var(--primary-dark);outline-offset:2px;}
+.qnum-btn.correct{background:var(--green);color:#fff;}
+.qnum-btn.wrong{background:var(--red);color:#fff;}
+
+/* ============================================================
+   QUESTION CARD
+============================================================ */
+.question-card{background:#fff;border-radius:var(--radius);box-shadow:var(--shadow-md);padding:28px;margin-bottom:16px;}
+.question-num-tag{font-size:12px;font-weight:700;color:var(--primary);margin-bottom:10px;letter-spacing:.5px;}
+.question-text{font-size:40px;font-weight:700;text-align:center;margin:18px 0 26px;color:var(--text);line-height:1.3;}
+.question-text.small-text{font-size:20px;font-weight:600;}
+.options-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+.option-card{
+  background:#F8FAFC;border:2px solid #E2E8F0;border-radius:14px;padding:16px 14px;
+  font-size:15px;font-weight:600;text-align:center;position:relative;overflow:hidden;
+  transition:all .22s ease;
+}
+.option-card:hover{border-color:var(--primary-light);background:var(--primary-bg);transform:translateY(-2px);}
+.option-card.selected{border-color:var(--primary);background:var(--primary);color:#fff;}
+.option-card.locked{pointer-events:none;}
+.option-card.correct-answer{border-color:var(--green);background:var(--green);color:#fff;}
+.option-card.wrong-answer{border-color:var(--red);background:var(--red);color:#fff;}
+.fill-input{
+  width:100%;padding:16px;border:2px solid #E2E8F0;border-radius:14px;font-size:17px;
+  text-align:center;font-weight:600;transition:border-color .2s ease;
+}
+.fill-input:focus{border-color:var(--primary);}
+.fill-input.locked{background:#F1F5F9;pointer-events:none;}
+.fill-next-btn{margin-top:12px;width:100%;}
+.fill-next-btn:disabled{opacity:.5;cursor:not-allowed;}
+.status-line{margin-top:16px;font-weight:700;font-size:13.5px;display:flex;align-items:center;gap:6px;}
+.status-line.correct{color:var(--green);}
+.status-line.wrong{color:var(--red);}
+.status-line.empty{color:var(--gray);}
+
+.exam-actions{display:flex;gap:12px;justify-content:center;margin:20px 0 6px;}
+
+/* ============================================================
+   POPUP
+============================================================ */
+#popup-overlay{
+  position:fixed;inset:0;background:rgba(15,23,42,.55);display:none;align-items:center;justify-content:center;
+  z-index:1000;padding:20px;
+}
+#popup-overlay.show{display:flex;animation:fadeIn .25s ease;}
+.popup-box{background:#fff;border-radius:18px;padding:28px;max-width:400px;width:100%;box-shadow:var(--shadow-lg);animation:popupIn .3s ease;}
+@keyframes popupIn{from{opacity:0;transform:scale(.9);}to{opacity:1;transform:scale(1);}}
+.popup-title{font-size:18px;font-weight:800;color:var(--text);margin-bottom:10px;}
+.popup-body{font-size:13.5px;color:var(--gray-dark);line-height:1.6;margin-bottom:22px;}
+.popup-actions{display:flex;gap:10px;flex-wrap:wrap;}
+.popup-actions .btn{flex:1;}
+
+/* ============================================================
+   RESULT SCREEN
+============================================================ */
+.result-card{max-width:520px;margin:0 auto;text-align:center;}
+.result-title{font-size:13px;font-weight:700;color:var(--primary);letter-spacing:2px;margin-bottom:6px;}
+.result-grade{
+  width:110px;height:110px;border-radius:50%;background:linear-gradient(140deg,var(--primary),var(--primary-dark));
+  color:#fff;font-size:40px;font-weight:800;display:flex;align-items:center;justify-content:center;
+  margin:14px auto 18px;box-shadow:var(--shadow-lg);
+}
+.result-score{font-size:42px;font-weight:800;color:var(--text);margin-bottom:4px;}
+.result-info-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;text-align:left;margin:20px 0;}
+.result-info-item{background:var(--primary-bg);border-radius:12px;padding:12px 14px;}
+.result-info-item .l{font-size:10.5px;color:var(--gray-dark);font-weight:600;text-transform:uppercase;}
+.result-info-item .v{font-size:15px;font-weight:700;color:var(--text);margin-top:2px;}
+
+/* ============================================================
+   DASHBOARD (Riwayat / High Score)
+============================================================ */
+.dash-cat{margin-bottom:22px;}
+.dash-cat h3{font-size:15px;font-weight:700;color:var(--primary-dark);margin-bottom:10px;}
+.dash-row{display:flex;justify-content:space-between;background:#fff;border-radius:10px;padding:12px 16px;margin-bottom:8px;box-shadow:var(--shadow-sm);font-size:13.5px;font-weight:600;}
+.dash-row .v{color:var(--primary);}
+.dash-row .v.empty{color:var(--gray);font-weight:500;}
+.history-item{background:#fff;border-radius:12px;padding:14px 16px;margin-bottom:10px;box-shadow:var(--shadow-sm);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:6px;}
+.history-item .h-left b{font-size:13.5px;}
+.history-item .h-left span{display:block;font-size:11.5px;color:var(--gray-dark);}
+.history-item .h-score{font-weight:800;font-size:17px;color:var(--primary-dark);}
+.empty-state{text-align:center;padding:40px 10px;color:var(--gray-dark);font-size:13.5px;}
+.empty-state .emoji{font-size:40px;display:block;margin-bottom:10px;}
+
+/* ============================================================
+   HAFALAN AKSARA
+============================================================ */
+.kana-section{margin-bottom:26px;}
+.kana-section:last-child{margin-bottom:0;}
+.kana-section h3{font-size:14.5px;font-weight:700;color:var(--primary-dark);margin-bottom:12px;padding-bottom:6px;border-bottom:2px solid var(--primary-bg);}
+.kana-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(72px,1fr));gap:10px;}
+.kana-tile{background:#F8FAFC;border:2px solid #E2E8F0;border-radius:12px;padding:12px 6px;text-align:center;transition:all .2s ease;}
+.kana-tile:hover{border-color:var(--primary-light);background:var(--primary-bg);transform:translateY(-2px);}
+.kana-tile .k{font-size:24px;font-weight:700;color:var(--text);line-height:1.2;}
+.kana-tile .r{font-size:11px;font-weight:700;color:var(--gray-dark);text-transform:uppercase;margin-top:4px;letter-spacing:.5px;}
+
+.tabs{display:flex;gap:8px;margin-bottom:20px;flex-wrap:wrap;}
+.tab-btn{background:#fff;border:2px solid #E2E8F0;padding:9px 18px;border-radius:20px;font-size:13px;font-weight:600;color:var(--gray-dark);}
+.tab-btn.active{background:var(--primary);color:#fff;border-color:var(--primary);}
+.hafalan-tab-btn{background:#fff;border:2px solid #E2E8F0;padding:9px 18px;border-radius:20px;font-size:13px;font-weight:600;color:var(--gray-dark);}
+.hafalan-tab-btn.active{background:var(--primary);color:#fff;border-color:var(--primary);}
+
+/* ============================================================
+   HAFALAN KANJI (tabel)
+============================================================ */
+.kanji-table-wrap{overflow-x:auto;}
+.kanji-table{width:100%;border-collapse:separate;border-spacing:0 8px;min-width:420px;}
+.kanji-table thead th{font-size:11px;font-weight:700;color:var(--gray-dark);text-transform:uppercase;letter-spacing:.5px;text-align:left;padding:0 14px 6px;}
+.kanji-table tbody tr{background:#F8FAFC;}
+.kanji-table tbody tr:hover td{background:var(--primary-bg);}
+.kanji-table tbody td{padding:12px 14px;font-size:13.5px;font-weight:600;color:var(--text);border-top:2px solid #E2E8F0;border-bottom:2px solid #E2E8F0;transition:background .2s ease;}
+.kanji-table tbody td:first-child{font-size:22px;font-weight:700;border-left:2px solid #E2E8F0;border-radius:10px 0 0 10px;}
+.kanji-table tbody td:last-child{border-right:2px solid #E2E8F0;border-radius:0 10px 10px 0;}
+
+/* ============================================================
+   TOAST / MISC
+============================================================ */
+#toast-container{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);z-index:2000;display:flex;flex-direction:column;gap:8px;align-items:center;}
+.toast{background:var(--text);color:#fff;padding:12px 20px;border-radius:10px;font-size:13px;font-weight:500;box-shadow:var(--shadow-md);animation:toastIn .3s ease;max-width:90vw;text-align:center;}
+.toast.error{background:var(--red);}
+.toast.success{background:var(--green);}
+@keyframes toastIn{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:translateY(0);}}
+
+#back-to-top{
+  position:fixed;bottom:24px;right:20px;width:46px;height:46px;border-radius:50%;
+  background:var(--primary);color:#fff;font-size:18px;box-shadow:var(--shadow-md);
+  display:none;align-items:center;justify-content:center;z-index:400;transition:all .25s ease;
+}
+#back-to-top.show{display:flex;}
+#back-to-top:hover{background:var(--primary-dark);transform:translateY(-3px);}
+
+.small-note{font-size:11.5px;color:var(--gray);text-align:center;margin-top:18px;}
+
+/* ============================================================
+   RESPONSIVE
+============================================================ */
+@media (max-width:640px){
+  .home-title{font-size:22px;}
+  .menu-grid{grid-template-columns:1fr 1fr;}
+  .level-grid{grid-template-columns:1fr;}
+  .options-grid{grid-template-columns:1fr;}
+  .question-text{font-size:32px;}
+  .stat-dashboard{grid-template-columns:repeat(2,1fr);}
+  .result-info-grid{grid-template-columns:1fr 1fr;}
+  .card{padding:22px;}
+  .exam-header{position:static;}
+}
+</style>
+</head>
+<body>
+
+<div id="loading-screen">
+  <div class="spinner"></div>
+  <div class="loading-text">Memuat Japanese CBT Test...</div>
+</div>
+
+<div class="app-wrap" id="app">
+
+  <!-- ============ HOME ============ -->
+  <section class="screen active" id="screen-home">
+    <div class="card home-card">
+      <div class="home-title">🇯🇵 Japanese CBT Test</div>
+      <div class="home-sub">ひらがなとカタカナを学ぶ</div>
+      <div class="home-desc">Uji kemampuan Hiragana, Katakana, dan Kosakata (Kotoba) Bahasa Jepang level JLPT N5 dengan sistem ujian berbasis komputer yang profesional, lengkap dengan penilaian otomatis, riwayat nilai, dan high score.</div>
+      <div class="input-group">
+        <label for="input-name">Nama Peserta</label>
+        <input type="text" id="input-name" placeholder="Masukkan Nama Kamu" maxlength="40">
+      </div>
+      <div class="menu-grid">
+        <button class="menu-btn" data-menu="hiragana"><span class="emoji">📖</span>Test Hiragana</button>
+        <button class="menu-btn" data-menu="katakana"><span class="emoji">✍️</span>Test Katakana</button>
+        <button class="menu-btn" data-menu="kotoba"><span class="emoji">💬</span>Test Kotoba</button>
+        <button class="menu-btn" data-menu="kanji"><span class="emoji">🈶</span>Test Kanji</button>
+        <button class="menu-btn" data-menu="riwayat"><span class="emoji">⭐</span>Riwayat Nilai</button>
+        <button class="menu-btn wide" data-menu="hafalan"><span class="emoji">📖</span>Tabel Hikana & Kanji</button>
+        <button class="menu-btn wide" data-menu="highscore"><span class="emoji">🏆</span>High Score</button>
+      </div>
+      <div style="background:var(--primary-bg);border-radius:14px;padding:14px;margin-top:18px;display:flex;justify-content:space-around;flex-wrap:wrap;gap:8px;">
+        <div style="text-align:center;">
+          <div style="font-size:10px;font-weight:700;color:var(--primary-dark);letter-spacing:.5px;">🏆 TOTAL SCORE</div>
+          <div style="font-size:17px;font-weight:800;color:var(--text);" id="home-global-score">0</div>
+        </div>
+        <div style="text-align:center;">
+          <div style="font-size:10px;font-weight:700;color:var(--primary-dark);letter-spacing:.5px;">⚡ WAKTU TERCEPAT</div>
+          <div style="font-size:17px;font-weight:800;color:var(--text);" id="home-global-time">--:--:--</div>
+        </div>
+      </div>
+      <div class="small-note">© Shinn — Japanese CBT Test v1.0</div>
+    </div>
+  </section>
+
+  <!-- ============ LEVEL SELECT ============ -->
+  <section class="screen" id="screen-level">
+    <div class="back-row"><button class="back-btn" data-back="home">← Kembali ke Menu</button></div>
+    <div class="card">
+      <div class="section-title" id="level-title">Pilih Level</div>
+      <div class="section-sub" id="level-sub"></div>
+      <div class="level-grid" id="level-grid"></div>
+    </div>
+  </section>
+
+  <!-- ============ SETTINGS ============ -->
+  <section class="screen" id="screen-settings">
+    <div class="back-row"><button class="back-btn" data-back="level">← Kembali</button></div>
+    <div class="card">
+      <div class="section-title">⏱️ Pengaturan Ujian</div>
+      <div class="section-sub" id="settings-sub"></div>
+      <div class="timer-grid" id="timer-grid"></div>
+      <button class="btn btn-primary btn-block" id="btn-start-exam">Mulai Ujian</button>
+    </div>
+  </section>
+
+  <!-- ============ EXAM ============ -->
+  <section class="screen" id="screen-exam">
+    <div class="back-row" id="review-back-row" style="display:none;">
+      <button class="back-btn" id="btn-back-home-review">← Back to Home</button>
+    </div>
+    <div class="exam-header">
+      <div class="who">👤 <b id="exam-name"></b> &nbsp;|&nbsp; <b id="exam-type"></b> &nbsp;|&nbsp; <span id="exam-level"></span></div>
+      <div style="text-align:right;">
+        <div style="font-size:10px;font-weight:700;color:var(--gray-dark);letter-spacing:.5px;margin-bottom:3px;">⏱ WAKTU SOAL INI</div>
+        <div class="timer-box" id="exam-timer">00:00:30</div>
+      </div>
+    </div>
+    <div class="stat-dashboard">
+      <div class="stat-box total"><div class="num" id="stat-total">100</div><div class="lbl">Total Soal</div></div>
+      <div class="stat-box correct"><div class="num" id="stat-correct">0</div><div class="lbl">Benar</div></div>
+      <div class="stat-box wrong"><div class="num" id="stat-wrong">0</div><div class="lbl">Salah</div></div>
+      <div class="stat-box empty"><div class="num" id="stat-empty">100</div><div class="lbl">Belum Jawab</div></div>
+    </div>
+    <div class="progress-wrap">
+      <div class="progress-label"><span>Progress Pengerjaan</span><span id="progress-percent">0%</span></div>
+      <div class="progress-bar-bg"><div class="progress-bar-fill" id="progress-bar"></div></div>
+      <div class="progress-done-text" id="progress-done-text">✅ Semua soal telah dijawab.</div>
+    </div>
+    <div class="qnum-scroll" id="qnum-scroll"></div>
+    <div class="question-card" id="question-card">
+      <div class="question-num-tag" id="question-tag">SOAL 1 / 100</div>
+      <div class="question-text" id="question-text">あ</div>
+      <div class="options-grid" id="options-grid"></div>
+    </div>
+    <div class="exam-actions" id="exam-give-up-row">
+      <button class="btn btn-danger" id="btn-give-up">🏳️ Menyerah &amp; Selesaikan</button>
+    </div>
+  </section>
+
+  <!-- ============ RESULT ============ -->
+  <section class="screen" id="screen-result">
+    <div class="card result-card">
+      <div class="result-title">HASIL TEST</div>
+      <div class="result-score" id="result-nilai">0</div>
+      <div class="result-grade" id="result-grade">E</div>
+      <div class="result-info-grid">
+        <div class="result-info-item"><div class="l">Nama Peserta</div><div class="v" id="r-nama"></div></div>
+        <div class="result-info-item"><div class="l">Jenis Ujian</div><div class="v" id="r-jenis"></div></div>
+        <div class="result-info-item"><div class="l">Level</div><div class="v" id="r-level"></div></div>
+        <div class="result-info-item"><div class="l">Waktu</div><div class="v" id="r-waktu"></div></div>
+        <div class="result-info-item"><div class="l">Benar</div><div class="v" id="r-benar"></div></div>
+        <div class="result-info-item"><div class="l">Salah</div><div class="v" id="r-salah"></div></div>
+        <div class="result-info-item"><div class="l">Tidak Dijawab</div><div class="v" id="r-kosong"></div></div>
+        <div class="result-info-item"><div class="l">Persentase</div><div class="v" id="r-persen"></div></div>
+      </div>
+      <div style="background:linear-gradient(120deg,var(--primary),var(--primary-dark));border-radius:14px;padding:16px;margin-bottom:20px;display:flex;justify-content:space-around;color:#fff;flex-wrap:wrap;gap:10px;">
+        <div style="text-align:center;">
+          <div style="font-size:10.5px;opacity:.85;font-weight:600;letter-spacing:.5px;">🏆 TOTAL SCORE</div>
+          <div style="font-size:20px;font-weight:800;" id="r-global-score">0</div>
+        </div>
+        <div style="text-align:center;">
+          <div style="font-size:10.5px;opacity:.85;font-weight:600;letter-spacing:.5px;">⚡ WAKTU TERCEPAT</div>
+          <div style="font-size:20px;font-weight:800;" id="r-global-time">--:--:--</div>
+        </div>
+      </div>
+      <div style="display:flex;gap:10px;flex-wrap:wrap;">
+        <button class="btn btn-outline" style="flex:1;" id="btn-review">🔍 Lihat Koreksi</button>
+        <button class="btn btn-primary" style="flex:1;" id="btn-home-from-result">🏠 Menu Utama</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ DASHBOARD (Riwayat & Highscore) ============ -->
+  <section class="screen" id="screen-dashboard">
+    <div class="back-row"><button class="back-btn" data-back="home">← Kembali ke Menu</button></div>
+    <div class="card">
+      <div style="background:linear-gradient(120deg,var(--primary),var(--primary-dark));border-radius:14px;padding:16px;margin-bottom:20px;display:flex;justify-content:space-around;color:#fff;flex-wrap:wrap;gap:10px;">
+        <div style="text-align:center;">
+          <div style="font-size:10.5px;opacity:.85;font-weight:600;letter-spacing:.5px;">🏆 TOTAL SCORE</div>
+          <div style="font-size:22px;font-weight:800;" id="dash-global-score">0</div>
+        </div>
+        <div style="text-align:center;">
+          <div style="font-size:10.5px;opacity:.85;font-weight:600;letter-spacing:.5px;">⚡ WAKTU TERCEPAT</div>
+          <div style="font-size:22px;font-weight:800;" id="dash-global-time">--:--:--</div>
+        </div>
+      </div>
+      <div class="tabs">
+        <button class="tab-btn" data-tab="highscore">🏆 High Score</button>
+        <button class="tab-btn" data-tab="riwayat">⭐ Riwayat Nilai</button>
+      </div>
+      <div id="dash-content"></div>
+    </div>
+  </section>
+
+  <!-- ============ HAFALAN AKSARA ============ -->
+  <section class="screen" id="screen-hafalan">
+    <div class="back-row"><button class="back-btn" data-back="home">← Kembali ke Menu</button></div>
+    <div class="card">
+      <div class="section-title">📖 Hirakana & Kanji</div>
+      <div class="section-sub">Tabel referensi lengkap untuk dihafal. Halaman ini khusus belajar dan tidak dapat diedit.</div>
+      <div class="tabs">
+        <button class="hafalan-tab-btn active" data-hafalan-tab="hiragana">📖 Hiragana</button>
+        <button class="hafalan-tab-btn" data-hafalan-tab="katakana">✍️ Katakana</button>
+        <button class="hafalan-tab-btn" data-hafalan-tab="kotoba">💬 Kosakata (Kotoba)</button>
+        <button class="hafalan-tab-btn" data-hafalan-tab="kanji">🈶 Kanji</button>
+      </div>
+      <div id="hafalan-hiragana-wrap">
+        <div class="kana-section">
+          <h3>Hiragana Dasar (Gojuon)</h3>
+          <div class="kana-grid" id="hafalan-dasar"></div>
+        </div>
+        <div class="kana-section">
+          <h3>Dakuten (゛)</h3>
+          <div class="kana-grid" id="hafalan-dakuten"></div>
+        </div>
+        <div class="kana-section">
+          <h3>Handakuten (゜)</h3>
+          <div class="kana-grid" id="hafalan-handakuten"></div>
+        </div>
+      </div>
+      <div id="hafalan-katakana-wrap" style="display:none;">
+        <div class="kana-section">
+          <h3>Katakana Dasar (Gojuon)</h3>
+          <div class="kana-grid" id="hafalan-katakana-dasar"></div>
+        </div>
+        <div class="kana-section">
+          <h3>Dakuten (゛)</h3>
+          <div class="kana-grid" id="hafalan-katakana-dakuten"></div>
+        </div>
+        <div class="kana-section">
+          <h3>Handakuten (゜)</h3>
+          <div class="kana-grid" id="hafalan-katakana-handakuten"></div>
+        </div>
+      </div>
+      <div id="hafalan-kanji-wrap" style="display:none;">
+        <div class="kana-section">
+          <h3>50 Kanji JLPT N5</h3>
+          <div class="kanji-table-wrap">
+            <table class="kanji-table">
+              <thead>
+                <tr><th>Kanji</th><th>Hiragana</th><th>Romaji</th><th>Arti Indonesia</th></tr>
+              </thead>
+              <tbody id="hafalan-kanji-tbody"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <div id="hafalan-kotoba-wrap" style="display:none;">
+        <div class="kana-section">
+          <h3>200+ Kosakata JLPT N5 Sehari-hari</h3>
+          <div class="kanji-table-wrap">
+            <table class="kanji-table">
+              <thead>
+                <tr><th>Kosakata Jepang</th><th>Romaji</th><th>Arti Indonesia</th></tr>
+              </thead>
+              <tbody id="hafalan-kotoba-tbody"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<div id="popup-overlay">
+  <div class="popup-box">
+    <div class="popup-title" id="popup-title">Judul</div>
+    <div class="popup-body" id="popup-body">Isi popup</div>
+    <div class="popup-actions" id="popup-actions"></div>
+  </div>
+</div>
+
+<div id="toast-container"></div>
+<button id="back-to-top">↑</button>
+
+<script>
+/* ============================================================
+   PENGAMAN LOADING SCREEN — diletakkan paling atas & di luar
+   logika utama, supaya error apa pun di bagian lain tidak
+   membuat loading screen macet selamanya.
+============================================================ */
+(function(){
+  function hideLoadingScreenSafe(){
+    const el = document.getElementById("loading-screen");
+    if(el) el.classList.add("hide");
+  }
+  window.addEventListener("error", hideLoadingScreenSafe);
+  if(document.readyState==="complete" || document.readyState==="interactive"){
+    setTimeout(hideLoadingScreenSafe, 300);
+  }else{
+    document.addEventListener("DOMContentLoaded", ()=> setTimeout(hideLoadingScreenSafe, 300));
+  }
+  setTimeout(hideLoadingScreenSafe, 2000);
+})();
+
+(function(){
+"use strict";
+
+/* ============================================================
+   DATABASE HURUF & KOSAKATA
+============================================================ */
+const HIRAGANA_BASE = [
+  ["あ","a"],["い","i"],["う","u"],["え","e"],["お","o"],
+  ["か","ka"],["き","ki"],["く","ku"],["け","ke"],["こ","ko"],
+  ["さ","sa"],["し","shi"],["す","su"],["せ","se"],["そ","so"],
+  ["た","ta"],["ち","chi"],["つ","tsu"],["て","te"],["と","to"],
+  ["な","na"],["に","ni"],["ぬ","nu"],["ね","ne"],["の","no"],
+  ["は","ha"],["ひ","hi"],["ふ","fu"],["へ","he"],["ほ","ho"],
+  ["ま","ma"],["み","mi"],["む","mu"],["め","me"],["も","mo"],
+  ["や","ya"],["ゆ","yu"],["よ","yo"],
+  ["ら","ra"],["り","ri"],["る","ru"],["れ","re"],["ろ","ro"],
+  ["わ","wa"],["を","wo"],["ん","n"]
+];
+const HIRAGANA_DAKUTEN = [
+  ["が","ga"],["ぎ","gi"],["ぐ","gu"],["げ","ge"],["ご","go"],
+  ["ざ","za"],["じ","ji"],["ず","zu"],["ぜ","ze"],["ぞ","zo"],
+  ["だ","da"],["ぢ","ji"],["づ","zu"],["で","de"],["ど","do"],
+  ["ば","ba"],["び","bi"],["ぶ","bu"],["べ","be"],["ぼ","bo"]
+];
+const HIRAGANA_HANDAKUTEN = [
+  ["ぱ","pa"],["ぴ","pi"],["ぷ","pu"],["ぺ","pe"],["ぽ","po"]
+];
+const KATAKANA_BASE = [
+  ["ア","a"],["イ","i"],["ウ","u"],["エ","e"],["オ","o"],
+  ["カ","ka"],["キ","ki"],["ク","ku"],["ケ","ke"],["コ","ko"],
+  ["サ","sa"],["シ","shi"],["ス","su"],["セ","se"],["ソ","so"],
+  ["タ","ta"],["チ","chi"],["ツ","tsu"],["テ","te"],["ト","to"],
+  ["ナ","na"],["ニ","ni"],["ヌ","nu"],["ネ","ne"],["ノ","no"],
+  ["ハ","ha"],["ヒ","hi"],["フ","fu"],["ヘ","he"],["ホ","ho"],
+  ["マ","ma"],["ミ","mi"],["ム","mu"],["メ","me"],["モ","mo"],
+  ["ヤ","ya"],["ユ","yu"],["ヨ","yo"],
+  ["ラ","ra"],["リ","ri"],["ル","ru"],["レ","re"],["ロ","ro"],
+  ["ワ","wa"],["ヲ","wo"],["ン","n"]
+];
+const KATAKANA_DAKUTEN = [
+  ["ガ","ga"],["ギ","gi"],["グ","gu"],["ゲ","ge"],["ゴ","go"],
+  ["ザ","za"],["ジ","ji"],["ズ","zu"],["ゼ","ze"],["ゾ","zo"],
+  ["ダ","da"],["ヂ","ji"],["ヅ","zu"],["デ","de"],["ド","do"],
+  ["バ","ba"],["ビ","bi"],["ブ","bu"],["ベ","be"],["ボ","bo"]
+];
+const KATAKANA_HANDAKUTEN = [
+  ["パ","pa"],["ピ","pi"],["プ","pu"],["ペ","pe"],["ポ","po"]
+];
+
+const KOTOBA_DB_MESSY = [
+  ["わたし", "watashi", "saya"],
+  ["あなた", "anata", "kamu"],
+  ["かれ", "kare", "dia laki-laki"],
+  ["かのじょ", "kanojo", "dia perempuan"],
+  ["ともだち", "tomodachi", "teman"],
+  ["せんせい", "sensei", "guru"],
+  ["がくせい", "gakusei", "siswa/mahasiswa"],
+  ["がっこう", "gakkou", "sekolah"],
+  ["にほん", "nihon", "Jepang"],
+  ["にほんご", "nihongo", "bahasa Jepang"],
+  ["いぬ", "inu", "anjing"],
+  ["ねこ", "neko", "kucing"],
+  ["さかな", "sakana", "ikan"],
+  ["みず", "mizu", "air"],
+  ["おちゃ", "ocha", "teh"],
+  ["ごはん", "gohan", "nasi"],
+  ["パン", "pan", "roti"],
+  ["コーヒー", "koohii", "kopi"],
+  ["たべる", "taberu", "makan"],
+  ["のむ", "nomu", "minum"],
+  ["いく", "iku", "pergi"],
+  ["くる", "kuru", "datang"],
+  ["よむ", "yomu", "membaca"],
+  ["かく", "kaku", "menulis"],
+  ["はなす", "hanasu", "berbicara"],
+  ["きkｕ", "kiku", "mendengar"],
+  ["みる", "miru", "melihat"],
+  ["あさ", "asa", "pagi"],
+  ["ひる", "hiru", "siang"],
+  ["よる", "yoru", "malam"],
+  ["きょう", "kyou", "hari ini"],
+  ["あした", "ashita", "besok"],
+  ["きのう", "kinou", "kemarin"],
+  ["うち", "uchi", "rumah"],
+  ["へや", "heya", "kamar"],
+  ["びょういん", "byouin", "rumah sakit"],
+  ["えき", "eki", "stasiun"],
+  ["くるま", "kuruma", "mobil"],
+  ["деんしゃ", "densha", "kereta"],
+  ["でんしゃ", "densha", "kereta"],
+  ["しごと", "shigoto", "pekerjaan"],
+  ["おかね", "okane", "uang"],
+  ["かいもの", "kaimono", "belanja"],
+  ["かぞく", "kazoku", "keluarga"],
+  ["ちち", "chichi", "ayah"],
+  ["はな", "hana", "bunga"],
+  ["はは", "haha", "ibu"],
+  ["あに", "ani", "kakak laki-laki"],
+  ["あね", "ane", "kakak perempuan"],
+  ["おとうと", "otouto", "adik laki-laki"],
+  ["いもうと", "imouto", "adik perempuan"],
+  ["おとこのこ", "otokonoko", "anak laki-laki"],
+  ["おannaのこ", "onnanoko", "anak perempuan"],
+  ["おんなのこ", "onnanoko", "anak perempuan"],
+  ["ひと", "hito", "orang"],
+  ["くに", "kuni", "negara"],
+  ["がいこく", "gaikoku", "luar negeri"],
+  ["ことば", "kotoba", "kata/bahasa"],
+  ["えいご", "eigo", "bahasa Inggris"],
+  ["つくえ", "tsukue", "meja"],
+  ["いす", "isu", "kursi"],
+  ["ほん", "hon", "buku"],
+  ["ノート", "nooto", "buku catatan"],
+  ["ペン", "pen", "pulpen"],
+  ["えんぴつ", "enpitsu", "pensil"],
+  ["かban", "kaban", "tas"],
+  ["かبان", "kaban", "tas"],
+  ["かبان", "kaban", "tas"],
+  ["かばん", "kaban", "tas"],
+  ["とけい", "tokei", "jam"],
+  ["でんわ", "denwa", "telepon"],
+  ["テレビ", "terebi", "televisi"],
+  ["バス", "basu", "bus"],
+  ["ひkouki", "hikouki", "pesawat terbang"],
+  ["ひkouき", "hikouki", "pesawat terbang"],
+  ["じてんしゃ", "jitensha", "sepeda"],
+  ["みち", "michi", "jalan"],
+  ["machi", "machi", "kota"],
+  ["まち", "machi", "kota"],
+  ["まど", "mado", "jendela"],
+  ["ドア", "doa", "pintu"],
+  ["いえ", "ie", "rumah"],
+  ["にく", "niku", "daging"],
+  ["やさい", "yasai", "sayur"],
+  ["くだもの", "kudamono", "buah"],
+  ["たまご", "tamago", "telur"],
+  ["おいしい", "oishii", "enak"],
+  ["まずい", "mazui", "tidak enak"],
+  ["あつい", "atsui", "panas"],
+  ["samui", "samui", "dingin (cuaca)"],
+  ["さむい", "samui", "dingin (cuaca)"],
+  ["つめたい", "tsumetai", "dingin (benda)"],
+  ["あたたかい", "atatakai", "hangat"],
+  ["すずしい", "suzushii", "sejuk"],
+  ["いい", "ii", "bagus/baik"],
+  ["わるい", "warui", "buruk/jelek"],
+  ["たのしい", "tanoshii", "menyenangkan"],
+  ["うれしい", "ureshii", "senang"],
+  ["かなしい", "kanashii", "sedih"],
+  ["おもしろい", "omoshiroi", "menarik/lucu"],
+  ["いそがしい", "isogashii", "sibuk"],
+  ["ひま", "hima", "luang/senggang"],
+  ["しずか", "shizuka", "tenang/sepi"],
+  ["にぎやか", "nigiyaka", "ramai"],
+  ["きれい", "kirei", "cantik/bersih"],
+  ["げんき", "genki", "sehat/semangat"],
+  ["すき", "suki", "suka"],
+  ["きらい", "kirai", "tidak suka"],
+  ["じょうず", "jouzu", "pandai/mahir"],
+  ["へた", "heta", "tidak mahir"],
+  ["かんたん", "kantan", "mudah"],
+  ["むずかしい", "muzukashii", "sulit"],
+  ["べんり", "benri", "praktis/nyaman"],
+  ["ふべん", "fuben", "tidak praktis"],
+  ["あんぜん", "anzen", "aman"],
+  ["きけん", "kiken", "berbahaya"],
+  ["ゆうめい", "yuumei", "terkenal"],
+  ["たいせつ", "taisetsu", "penting"],
+  ["いち", "ichi", "satu"],
+  ["に", "ni", "dua"],
+  ["さん", "san", "tiga"],
+  ["よん", "yon", "empat"],
+  ["ご", "go", "lima"],
+  ["ろく", "roku", "enam"],
+  ["なな", "nana", "tujuh"],
+  ["はち", "hachi", "delapan"],
+  ["きゅう", "kyuu", "sembilan"],
+  ["じゅう", "juu", "sepuluh"],
+  ["ひゃく", "hyaku", "seratus"],
+  ["せん", "sen", "seribu"],
+  ["まん", "man", "sepuluh ribu"],
+  ["かいしゃ", "kaisha", "perusahaan"],
+  ["かいしゃいん", "kaishain", "karyawan"],
+  ["shachou", "shachou", "direktur"],
+  ["しゃちょう", "shachou", "direktur"],
+  ["みせ", "mise", "toko"],
+  ["レストラン", "resutoran", "restoran"],
+  ["ホテル", "hoteru", "hotel"],
+  ["くうこう", "kuukou", "bandara"],
+  ["kouえん", "kouen", "taman"],
+  ["こうえん", "kouen", "taman"],
+  ["としょかん", "toshokan", "perpustakaan"],
+  ["ぎんこう", "ginkou", "bank"],
+  ["yuubinkyoku", "yuubinkyoku", "kantor pos"],
+  ["ゆうびんきょく", "yuubinkyoku", "kantor pos"],
+  ["スーパー", "suupaa", "supermarket"],
+  ["デパート", "depaato", "department store"],
+  ["まつり", "matsuri", "festival"],
+  ["おんがく", "ongaku", "musik"],
+  ["うた", "uta", "lagu"],
+  ["うたう", "utau", "menyanyi"],
+  ["えいが", "eiga", "film"],
+  ["shashin", "shashin", "foto"],
+  ["とる", "toru", "mengambil/memotret"],
+  ["かみ", "kami", "kertas"],
+  ["かさ", "kasa", "payung"],
+  ["くつ", "kutsu", "sepatu"],
+  ["fuku", "fuku", "pakaian"],
+  ["ふく", "fuku", "pakaian"],
+  ["boushi", "boushi", "topi"],
+  ["ぼうし", "boushi", "topi"],
+  ["めがね", "megane", "kacamata"],
+  ["さいふ", "saifu", "dompet"],
+  ["かがみ", "kagami", "cermin"],
+  ["て", "te", "tangan"],
+  ["あし", "ashi", "kaki"],
+  ["め", "me", "mata"],
+  ["みみ", "mimi", "telinga"],
+  ["はな", "hana", "hidung"],
+  ["くち", "kuchi", "mulut"],
+  ["あたま", "atama", "kepala"],
+  ["からだ", "karada", "tubuh"],
+  ["こえ", "koe", "suara"],
+  ["かお", "kao", "wajah"],
+  ["たいよう", "taiyou", "matahari"],
+  ["tsuki", "tsuki", "bulan"],
+  ["つき", "tsuki", "bulan"],
+  ["ほし", "hoshi", "bintang"],
+  ["そら", "sora", "langit"],
+  ["yama", "yama", "gunung"],
+  ["かわ", "kawa", "sungai"],
+  ["うみ", "umi", "laut"],
+  ["ki", "ki", "pohon"],
+  ["き", "ki", "pohon"],
+  ["はな", "hana", "bunga"],
+  ["くも", "kumo", "awan"],
+  ["あめ", "ame", "hujan"],
+  ["yuki", "yuki", "salju"],
+  ["ゆき", "yuki", "salju"],
+  ["かぜ", "kaze", "angin"],
+  ["てんき", "tenki", "cuaca"],
+  ["だいがく", "daigaku", "universitas"],
+  ["きょうしつ", "kyoushitsu", "ruang kelas"],
+  ["shukudai", "shukudai", "pekerjaan rumah"],
+  ["しゅくだい", "shukudai", "pekerjaan rumah"],
+  ["テスト", "tesuto", "tes/ujian"],
+  ["mondai", "mondai", "soal/masalah"],
+  ["こたえ", "kotae", "jawaban"],
+  ["shitsumon", "shitsumon", "pertanyaan"],
+  ["わかる", "wakaru", "mengerti"],
+  ["おぼえる", "oboeru", "mengingat"],
+  ["わすれる", "wasureru", "lupa"],
+  ["おしえる", "oshieru", "mengajar"],
+  ["ならう", "narau", "belajar"],
+  ["てがみ", "tegami", "surat"],
+  ["しんぶん", "shinbun", "koran"],
+  ["ざっし", "zasshi", "majalah"],
+  ["じしょ", "jisho", "kamus"],
+  ["ちず", "chizu", "peta"],
+  ["ryokou", "ryokou", "perjalanan"],
+  ["やすみ", "yasumi", "libur/istirahat"],
+  ["shuppatsu", "shuppatsu", "keberangkatan"],
+  ["touchaku", "touchaku", "kedatangan"],
+  ["neru", "neru", "tidur"],
+  ["おきる", "okiru", "bangun"],
+  ["haたらく", "hataraku", "bekerja"],
+  ["はたらく", "hataraku", "bekerja"],
+  ["あそぶ", "asobu", "bermain"],
+  ["かえる", "kaeru", "pulang"],
+  ["はしる", "hashiru", "berlari"],
+  ["fuyu", "fuyu", "musim dingin"],
+  ["いしゃ", "isha", "dokter"],
+  ["くすり", "kusuri", "obat"],
+  ["びょうき", "byouki", "sakit"]
+];
+
+const KOTOBA_DB = [
+["わたし","watashi","saya"],["あなた","anata","kamu"],["かれ","kare","dia laki-laki"],["かのじょ","kanojo","dia perempuan"],
+["せんせい","sensei","guru"],["がくせい","gakusei","siswa/mahasiswa"],["がっこう","gakkou","sekolah"],["ともだち","tomodachi","teman"],
+["かぞく","kazoku","keluarga"],["ちち","chichi","ayah (saya)"],["はは","haha","ibu (saya)"],["あに","ani","kakak laki-laki"],
+["あね","ane","kakak perempuan"],["おとうと","otouto","adik laki-laki"],["いもうと","imouto","adik perempuan"],["いぬ","inu","anjing"],
+["ねこ","neko","kucing"],["とり","tori","burung"],["さかな","sakana","ikan"],["みず","mizu","air"],
+["おちゃ","ocha","teh"],["コーヒー","koohii","kopi"],["ごはん","gohan","nasi"],["パン","pan","roti"],
+["たまご","tamago","telur"],["にく","niku","daging"],["やさい","yasai","sayur"],["くだもの","kudamono","buah"],
+["たべる","taberu","makan"],["のむ","nomu","minum"],["みる","miru","melihat"],["きく","kiku","mendengar"],
+["はなす","hanasu","berbicara"],["よむ","yomu","membaca"],["かく","kaku","menulis"],["いく","iku","pergi"],
+["くる","kuru","datang"],["かえる","kaeru","pulang"],["ねる","neru","tidur"],["おきる","okiru","bangun"],
+["はたらく","hataraku","bekerja"],["べんきょうする","benkyousuru","belajar"],["あそぶ","asobu","bermain"],["かう","kau","membeli"],
+["うる","uru","menjual"],["つくる","tsukuru","membuat"],["すわる","suwaru","duduk"],["たつ","tatsu","berdiri"],
+["あるく","aruku","berjalan"],["はしる","hashiru","berlari"],["おおきい","ookii","besar"],["ちいさい","chiisai","kecil"],
+["たかい","takai","tinggi/mahal"],["ひくい","hikui","rendah"],["やすい","yasui","murah"],["あたらしい","atarashii","baru"],
+["ふるい","furui","lama/tua"],["あつい","atsui","panas"],["さむい","samui","dingin (cuaca)"],["つめたい","tsumetai","dingin (benda)"],
+["あたたかい","atatakai","hangat"],["おいしい","oishii","enak"],["まずい","mazui","tidak enak"],["いい","ii","bagus"],
+["わるい","warui","buruk"],["たのしい","tanoshii","menyenangkan"],["うれしい","ureshii","senang"],["かなしい","kanashii","sedih"],
+["いそがしい","isogashii","sibuk"],["ひま","hima","luang/senggang"],["しずか","shizuka","tenang"],["にぎやか","nigiyaka","ramai"],
+["きれい","kirei","cantik/bersih"],["げんき","genki","sehat/semangat"],["すき","suki","suka"],["きらい","kirai","tidak suka"],
+["じょうず","jouzu","pandai/mahir"],["へた","heta","tidak mahir"],["いち","ichi","satu"],["に","ni","dua"],
+["さん","san","tiga"],["よん","yon","empat"],["ご","go","lima"],["ろく","roku","enam"],
+["なな","nana","tujuh"],["はち","hachi","delapan"],["きゅう","kyuu","sembilan"],["じゅう","juu","sepuluh"],
+["ひゃく","hyaku","seratus"],["せん","sen","seribu"],["きょう","kyou","hari ini"],["あした","ashita","besok"],
+["きのう","kinou","kemarin"],["あさ","asa","pagi"],["ひる","hiru","siang"],["よる","yoru","malam"],
+["まいにち","mainichi","setiap hari"],["いま","ima","sekarang"],["とき","toki","waktu (saat)"],["じかん","jikan","waktu/jam"],
+["にちようび","nichiyoubi","hari minggu"],["げつようび","getsuyoubi","hari senin"],["かようび","kayoubi","hari selasa"],["すいようび","suiyoubi","hari rabu"],
+["もくようび","mokuyoubi","hari kamis"],["きんようび","kinyoubi","hari jumat"],["どようび","doyoubi","hari sabtu"],["はる","haru","musim semi"],
+["なつ","natsu","musim panas"],["あき","aki","musim gugur"],["ふゆ","fuyu","musim dingin"],["うち","uchi","rumah"],
+["いえ","ie","rumah"],["へや","heya","kamar"],["まど","mado","jendela"],["ドア","doa","pintu"],
+["つくえ","tsukue","meja"],["いす","isu","kursi"],["ほん","hon","buku"],["ノート","nooto","buku catatan"],
+["ペン","pen","pulpen"],["えんぴつ","enpitsu","pensil"],["かばん","kaban","tas"],["とけい","tokei","jam"],
+["でんわ","denwa","telepon"],["テレビ","terebi","televisi"],["くるま","kuruma","mobil"],["でんしゃ","densha","kereta"],
+["バス","basu","bus"],["ひこうき","hikouki","pesawat terbang"],["じてんしゃ","jitensha","sepeda"],["みち","michi","jalan"],
+["えき","eki","stasiun"],["まち","machi","kota"],["くに","kuni","negara"],["にほん","nihon","Jepang"],
+["がいこく","gaikoku","luar negeri"],["ことば","kotoba","kata/bahasa"],["にほんご","nihongo","bahasa Jepang"],["えいご","eigo","bahasa Inggris"],
+["ゆうめい","yuumei","terkenal"],["たいせつ","taisetsu","penting"],["かんたん","kantan","mudah"],["むずかしい","muzukashii","sulit"],
+["べんり","benri","praktis"],["ふべん","fuben","tidak praktis"],["あんぜん","anzen","aman"],["きけん","kiken","berbahaya"],
+["びょういん","byouin","rumah sakit"],["びょうき","byouki","sakit (penyakit)"],["くすり","kusuri","obat"],["いしゃ","isha","dokter"],
+["かいしゃ","kaisha","perusahaan"],["しごと","shigoto","pekerjaan"],["かいしゃいん","kaishain","karyawan"],["しゃちょう","shachou","direktur"],
+["おかね","okane","uang"],["かいもの","kaimono","belanja"],["みせ","mise","toko"],["レストラン","resutoran","restoran"],
+["ホテル","hoteru","hotel"],["くうこう","kuukou","bandara"],["こうえん","kouen","taman"],["としょかん","toshokan","perpustakaan"],
+["ぎんこう","ginkou","bank"],["ゆうびんきょく","yuubinkyoku","kantor pos"],["スーパー","suupaa","supermarket"],["デパート","depaato","department store"],
+["まつり","matsuri","festival"],["おんがく","ongaku","musik"],["うた","uta","lagu"],["うたう","utau","menyanyi"],
+["えいが","eiga","film"],["しゃしん","shashin","foto"],["とる","toru","mengambil/memotret"],["かみ","kami","kertas"],
+["かさ","kasa","payung"],["くつ","kutsu","sepatu"],["ふく","fuku","pakaian"],["ぼうし","boushi","topi"],
+["めがね","megane","kacamata"],["さいふ","saifu","dompet"],["かがみ","kagami","cermin"],["て","te","tangan"],
+["あし","ashi","kaki"],["め","me","mata"],["みみ","mimi","telinga"],["鼻(はな)","hana","hidung"],
+["くち","kuchi","mulut"],["あたま","atama","kepala"],["からだ","karada","tubuh"],["こえ","koe","suara"],
+["かお","kao","wajah"],["たいよう","taiyou","matahari"],["つき","tsuki","bulan"],["ほし","hoshi","bintang"],
+["そら","sora","langit"],["やま","yama","gunung"],["かわ","kawa","sungai"],["うみ","umi","laut"],
+["き","ki","pohon"],["花(はな)","hana","bunga"],["くも","kumo","awan"],["あめ","ame","hujan"],
+["ゆき","yuki","salju"],["かぜ","kaze","angin"],["てんき","tenki","cuaca"],["だいがく","daigaku","universitas"],
+["きょうしつ","kyoushitsu","ruang kelas"],["しゅくだい","shukudai","pekerjaan rumah"],["テスト","tesuto","tes/ujian"],["もんだい","mondai","soal/masalah"],
+["こたえ","kotae","jawaban"],["しつもん","shitsumon","pertanyaan"],["わかる","wakaru","mengerti"],["おぼえる","oboeru","mengingat"],
+["わすれる","wasureru","lupa"],["おしえる","oshieru","mengajar"],["ならう","narau","belajar (dari orang)"],["てがみ","tegami","surat"],
+["しんぶん","shinbun","koran"],["ざっし","zasshi","majalah"],["じしょ","jisho","kamus"],["ちず","chizu","peta"],
+["りょこう","ryokou","perjalanan/wisata"],["やすみ","yasumi","libur/istirahat"],["しゅっぱつ","shuppatsu","keberangkatan"],["とうちゃく","touchaku","kedatangan"]
+];
+/* Database kotoba dapat dikembangkan lebih lanjut dengan menambah entri di atas */
+
+/* ============================================================
+   DATABASE KANJI JLPT N5 (50 Kanji)
+   Format: [kanji, hiragana, romaji, arti_indonesia]
+============================================================ */
+const KANJI_DB = [
+  ["一","いち","ichi","satu"],
+  ["二","に","ni","dua"],
+  ["三","さん","san","tiga"],
+  ["四","よん","yon","empat"],
+  ["五","ご","go","lima"],
+  ["六","ろく","roku","enam"],
+  ["七","なな","nana","tujuh"],
+  ["八","はち","hachi","delapan"],
+  ["九","きゅう","kyuu","sembilan"],
+  ["十","じゅう","juu","sepuluh"],
+  ["百","ひゃく","hyaku","seratus"],
+  ["千","せん","sen","seribu"],
+  ["日","ひ","hi","hari"],
+  ["月","げつ","getsu","bulan"],
+  ["年","ねん","nen","tahun"],
+  ["人","じん","jin","orang"],
+  ["男","おとこ","otoko","laki-laki"],
+  ["女","おんな","onna","perempuan"],
+  ["子","こ","ko","anak"],
+  ["母","はは","haha","ibu"],
+  ["父","ちち","chichi","ayah"],
+  ["友","とも","tomo","teman"],
+  ["上","うえ","ue","atas"],
+  ["下","した","shita","bawah"],
+  ["中","なか","naka","tengah"],
+  ["外","そと","soto","luar"],
+  ["左","ひだり","hidari","kiri"],
+  ["右","みぎ","migi","kanan"],
+  ["北","きた","kita","utara"],
+  ["南","みなみ","minami","selatan"],
+  ["東","ひがし","higashi","timur"],
+  ["西","にし","nishi","barat"],
+  ["国","くに","kuni","negara"],
+  ["学","がく","gaku","belajar"],
+  ["校","こう","kou","sekolah"],
+  ["本","ほん","hon","buku"],
+  ["語","ご","go","bahasa"],
+  ["円","えん","en","yen"],
+  ["時","じ","ji","jam"],
+  ["分","ふん","fun","menit"],
+  ["半","はん","han","setengah"],
+  ["見","みる","miru","melihat"],
+  ["行","いく","iku","pergi"],
+  ["来","くる","kuru","datang"],
+  ["食","たべる","taberu","makan"],
+  ["飲","のむ","nomu","minum"],
+  ["大","おおきい","ookii","besar"],
+  ["小","ちいさい","chiisai","kecil"],
+  ["新","あたらしい","atarashii","baru"],
+  ["天","てん","ten","langit"]
+];
+
+/* ============================================================
+   DATABASE GABUNGAN KANJI (untuk Test Kanji Level 2)
+   Format: [gabungan_kanji, hiragana_bacaan, romaji, arti_indonesia]
+============================================================ */
+const KANJI_COMPOUND_DB = [
+  ["山田","やまだ","yamada","nama keluarga (Yamada)"],
+  ["中村","なかむら","nakamura","nama keluarga (Nakamura)"],
+  ["田中","たなか","tanaka","nama keluarga (Tanaka)"],
+  ["小川","おがわ","ogawa","nama keluarga (Ogawa)"],
+  ["大島","おおしま","oshima","nama keluarga (Oshima)"],
+  ["長谷川","はせがわ","hasegawa","nama keluarga (Hasegawa)"],
+  ["日本","にほん","nihon","negara Jepang"],
+  ["東京","とうきょう","toukyou","kota Tokyo"],
+  ["学生","がくせい","gakusei","siswa/mahasiswa"],
+  ["先生","せんせい","sensei","guru"],
+  ["大学","だいがく","daigaku","universitas"],
+  ["会社","かいしゃ","kaisha","perusahaan"],
+  ["銀行","ぎんこう","ginkou","bank"],
+  ["時間","じかん","jikan","waktu"],
+  ["今日","きょう","kyou","hari ini"],
+  ["明日","あした","ashita","besok"],
+  ["毎日","まいにち","mainichi","setiap hari"],
+  ["火山","かざん","kazan","gunung berapi"],
+  ["電車","でんしゃ","densha","kereta listrik"],
+  ["駅前","えきまえ","ekimae","depan stasiun"],
+  ["高校","こうこう","koukou","sekolah menengah atas"]
+];
+
+/* ============================================================
+   DATABASE KANJI JLPT N4 (50 Kanji) — untuk Test Kanji Level 3
+   Format: [kanji, hiragana, romaji, arti_indonesia]
+============================================================ */
+const KANJI_N4_SINGLE = [
+  ["曜","よう","you","hari (dalam nama hari)"],
+  ["週","しゅう","shuu","minggu (pekan)"],
+  ["間","あいだ","aida","antara"],
+  ["今","いま","ima","sekarang"],
+  ["昨","さく","saku","yang lalu"],
+  ["明","あかるい","akarui","terang"],
+  ["駅","えき","eki","stasiun"],
+  ["道","みち","michi","jalan"],
+  ["車","くるま","kuruma","mobil"],
+  ["電","でん","den","listrik"],
+  ["港","みなと","minato","pelabuhan"],
+  ["空","そら","sora","langit"],
+  ["海","うみ","umi","laut"],
+  ["山","やま","yama","gunung"],
+  ["川","かわ","kawa","sungai"],
+  ["歩","あるく","aruku","berjalan kaki"],
+  ["体","からだ","karada","tubuh"],
+  ["顔","かお","kao","wajah"],
+  ["髪","かみ","kami","rambut"],
+  ["手","て","te","tangan"],
+  ["足","あし","ashi","kaki"],
+  ["病","びょう","byou","sakit"],
+  ["元","げん","gen","asal"],
+  ["気","き","ki","semangat"],
+  ["忙","いそがしい","isogashii","sibuk"],
+  ["早","はやい","hayai","cepat/pagi-pagi"],
+  ["勉","べん","ben","rajin"],
+  ["強","つよい","tsuyoi","kuat"],
+  ["仕","し","shi","kerja"],
+  ["会","あう","au","bertemu"],
+  ["社","しゃ","sha","perusahaan"],
+  ["店","みせ","mise","toko"],
+  ["料","りょう","ryou","bahan/biaya"],
+  ["飯","めし","meshi","nasi/makanan"],
+  ["薬","くすり","kusuri","obat"],
+  ["紙","かみ","kami","kertas"],
+  ["話","はなす","hanasu","berbicara"],
+  ["聞","きく","kiku","mendengar"],
+  ["読","よむ","yomu","membaca"],
+  ["書","かく","kaku","menulis"],
+  ["作","つくる","tsukuru","membuat"],
+  ["持","もつ","motsu","membawa"],
+  ["貸","かす","kasu","meminjamkan"],
+  ["借","かりる","kariru","meminjam"],
+  ["売","うる","uru","menjual"],
+  ["買","かう","kau","membeli"],
+  ["死","しぬ","shinu","mati"],
+  ["生","いきる","ikiru","hidup"],
+  ["立","たつ","tatsu","berdiri"],
+  ["座","すわる","suwaru","duduk"]
+];
+
+/* ============================================================
+   DATABASE GABUNGAN KANJI (JUKUGO) JLPT N4 — untuk Test Kanji Level 3
+   Format: [gabungan_kanji, hiragana_bacaan, romaji, arti_indonesia]
+============================================================ */
+const KANJI_N4_COMPOUND = [
+  ["今日","きょう","kyou","hari ini"],
+  ["昨日","きのう","kinou","kemarin"],
+  ["明日","あした","ashita","besok"],
+  ["時間","じかん","jikan","waktu"],
+  ["毎週","まいしゅう","maishuu","setiap minggu"],
+  ["駅前","えきまえ","ekimae","depan stasiun"],
+  ["電車","でんしゃ","densha","kereta listrik"],
+  ["会社","かいしゃ","kaisha","perusahaan"],
+  ["仕事","しごと","shigoto","pekerjaan"],
+  ["勉強","べんきょう","benkyou","belajar"],
+  ["病院","びょういん","byouin","rumah sakit"],
+  ["薬屋","くすりや","kusuriya","toko obat"],
+  ["料理","りょうり","ryouri","masakan"],
+  ["読書","どくしょ","dokusho","membaca buku"],
+  ["会話","かいわ","kaiwa","percakapan"],
+  ["空港","くうこう","kuukou","bandara"],
+  ["山道","やまみち","yamamichi","jalan gunung"],
+  ["海岸","かいがん","kaigan","pantai"],
+  ["元気","げんき","genki","sehat/semangat"],
+  ["手紙","てがみ","tegami","surat"],
+  ["新聞","しんぶん","shinbun","koran"],
+  ["店員","てんいん","ten'in","pegawai toko"],
+  ["買物","かいもの","kaimono","belanja"],
+  ["売店","ばいてん","baiten","kios"],
+  ["歩道","ほどう","hodou","trotoar"],
+  ["自転車","じてんしゃ","jitensha","sepeda"],
+  ["学生","がくせい","gakusei","siswa/mahasiswa"],
+  ["先生","せんせい","sensei","guru"],
+  ["高校","こうこう","koukou","SMA"],
+  ["大学","だいがく","daigaku","universitas"],
+  ["日本語","にほんご","nihongo","bahasa Jepang"],
+  ["外国人","がいこくじん","gaikokujin","orang asing"],
+  ["電話","でんわ","denwa","telepon"],
+  ["写真","しゃしん","shashin","foto"],
+  ["朝食","ちょうしょく","choushoku","sarapan"],
+  ["夕飯","ゆうはん","yuuhan","makan malam"],
+  ["昼飯","ひるめし","hirumeshi","makan siang"],
+  ["立入口","たちいりぐち","tachiiriguchi","pintu masuk"],
+  ["座席","ざせき","zaseki","tempat duduk"],
+  ["貸出","かしだし","kashidashi","peminjaman"],
+  ["借金","しゃっきん","shakkin","hutang"]
+];
+
+/* ============================================================
+   UTIL
+============================================================ */
+function shuffle(arr){
+  const a = arr.slice();
+  for(let i=a.length-1;i>0;i--){
+    const j = Math.floor(Math.random()*(i+1));
+    [a[i],a[j]]=[a[j],a[i]];
+  }
+  return a;
+}
+function randPick(arr,n){ return shuffle(arr).slice(0,n); }
+function randInt(min,max){ return Math.floor(Math.random()*(max-min+1))+min; }
+function pad2(n){ return n.toString().padStart(2,"0"); }
+function formatHMS(sec){
+  if(sec===null) return "∞";
+  sec = Math.max(0,sec);
+  const h = Math.floor(sec/3600), m = Math.floor((sec%3600)/60), s = Math.floor(sec%60);
+  return pad2(h)+":"+pad2(m)+":"+pad2(s);
+}
+function normalizeAnswer(str){
+  return str.toString().trim().toLowerCase().replace(/\s+/g," ");
+}
+function todayDateStr(){
+  const d = new Date();
+  return d.toLocaleDateString('id-ID',{day:'2-digit',month:'long',year:'numeric'});
+}
+function nowTimeStr(){
+  const d = new Date();
+  return d.toLocaleTimeString('id-ID',{hour:'2-digit',minute:'2-digit',second:'2-digit'});
+}
+
+/* Ripple effect untuk semua elemen ber-class .btn, .menu-btn, .option-card, .qnum-btn */
+document.addEventListener("click", function(e){
+  const target = e.target.closest(".btn, .menu-btn, .option-card, .qnum-btn, .timer-opt, .level-card, .tab-btn, .hafalan-tab-btn");
+  if(!target) return;
+  const rect = target.getBoundingClientRect();
+  const ripple = document.createElement("span");
+  ripple.className = "ripple";
+  const size = Math.max(rect.width, rect.height);
+  ripple.style.width = ripple.style.height = size+"px";
+  ripple.style.left = (e.clientX - rect.left - size/2)+"px";
+  ripple.style.top = (e.clientY - rect.top - size/2)+"px";
+  target.style.position = target.style.position || "relative";
+  target.appendChild(ripple);
+  setTimeout(()=>ripple.remove(),600);
+});
+
+/* Toast */
+function showToast(msg, type){
+  const el = document.createElement("div");
+  el.className = "toast"+(type?" "+type:"");
+  el.textContent = msg;
+  document.getElementById("toast-container").appendChild(el);
+  setTimeout(()=>{ el.style.opacity="0"; el.style.transition="opacity .4s"; setTimeout(()=>el.remove(),400); }, 3200);
+}
+
+/* Popup generik */
+function showPopup(title, body, buttons){
+  document.getElementById("popup-title").textContent = title;
+  document.getElementById("popup-body").textContent = body;
+  const actionsEl = document.getElementById("popup-actions");
+  actionsEl.innerHTML = "";
+  buttons.forEach(b=>{
+    const btn = document.createElement("button");
+    btn.className = "btn "+(b.cls||"btn-outline");
+    btn.textContent = b.label;
+    btn.addEventListener("click", ()=>{
+      closePopup();
+      if(b.onClick) b.onClick();
+    });
+    actionsEl.appendChild(btn);
+  });
+  document.getElementById("popup-overlay").classList.add("show");
+}
+function closePopup(){ document.getElementById("popup-overlay").classList.remove("show"); }
+function alertPopup(title, body){
+  showPopup(title, body, [{label:"OK", cls:"btn-primary"}]);
+}
+
+/* ============================================================
+   LOCALSTORAGE HELPERS
+============================================================ */
+const LS_NAME = "cbt_last_name";
+const LS_HISTORY = "cbt_history";
+const LS_HIGHSCORE = "cbt_highscore";
+const LS_GLOBAL_SCORE = "cbt_global_score";
+const LS_GLOBAL_TIME = "cbt_global_time";
+
+function getLastName(){ return localStorage.getItem(LS_NAME) || ""; }
+function saveLastName(n){ localStorage.setItem(LS_NAME, n); }
+
+function getHistory(){
+  try{ return JSON.parse(localStorage.getItem(LS_HISTORY)) || []; }catch(e){ return []; }
+}
+function addHistory(entry){
+  const h = getHistory();
+  h.unshift(entry);
+  localStorage.setItem(LS_HISTORY, JSON.stringify(h.slice(0,200)));
+}
+function getHighscore(){
+  try{ return JSON.parse(localStorage.getItem(LS_HIGHSCORE)) || {}; }catch(e){ return {}; }
+}
+function updateHighscore(key, nilai){
+  const hs = getHighscore();
+  if(!hs[key] || nilai > hs[key]){
+    hs[key] = nilai;
+    localStorage.setItem(LS_HIGHSCORE, JSON.stringify(hs));
+    return true;
+  }
+  return false;
+}
+
+/* Total Score: akumulasi terus bertambah setiap kali menyelesaikan
+   sebuah ujian (bukan nilai tertinggi, tapi TOTAL dari semua percobaan).
+   Waktu Tercepat: waktu penyelesaian ujian paling cepat yang pernah
+   dicapai (dari semua jenis/level ujian), bukan total waktu. */
+function getGlobalScore(){
+  return parseInt(localStorage.getItem(LS_GLOBAL_SCORE) || "0", 10);
+}
+function getFastestTime(){
+  const v = localStorage.getItem(LS_GLOBAL_TIME);
+  return v===null ? null : parseInt(v, 10);
+}
+function addToGlobalStats(nilai, waktuDetik, isFullyCompleted){
+  const newScore = getGlobalScore() + nilai;
+  const currentFastest = getFastestTime();
+  let newFastest = currentFastest;
+  if (isFullyCompleted) {
+    newFastest = (currentFastest===null || waktuDetik < currentFastest) ? waktuDetik : currentFastest;
+    localStorage.setItem(LS_GLOBAL_TIME, String(newFastest));
+  }
+  localStorage.setItem(LS_GLOBAL_SCORE, String(newScore));
+  return {score:newScore, time:newFastest};
+}
+function resetGlobalStats(){
+  localStorage.removeItem(LS_GLOBAL_SCORE);
+  localStorage.removeItem(LS_GLOBAL_TIME);
+}
+
+/* ============================================================
+   STATE UTAMA
+============================================================ */
+const State = {
+  name:"",
+  examType:"", // hiragana | katakana | kotoba
+  level:1,
+  kotobaMode:"", // info mode kotoba (PG / campuran)
+  perQuestionSeconds:30, // detik per soal, null = tanpa batas
+  questionTimeLeft:30,
+  timerInterval:null,
+  questions:[], // {id, type:'mc'|'fill', prompt, options:[], correct, userAnswer:null, status:'unanswered'|'answered'}
+  currentIndex:0,
+  submitted:false,
+  startTimestamp:null,
+  elapsedSeconds:0
+};
+
+/* ============================================================
+   NAVIGASI SCREEN
+============================================================ */
+function goScreen(id){
+  document.querySelectorAll(".screen").forEach(s=>s.classList.remove("active"));
+  document.getElementById("screen-"+id).classList.add("active");
+  window.scrollTo({top:0, behavior:"smooth"});
+}
+
+/* ============================================================
+   HOME LOGIC
+============================================================ */
+const inputName = document.getElementById("input-name");
+inputName.value = getLastName();
+
+function refreshHomeGlobalWidget(){
+  const scoreEl = document.getElementById("home-global-score");
+  const timeEl = document.getElementById("home-global-time");
+  if(scoreEl) scoreEl.textContent = getGlobalScore();
+  if(timeEl){
+    const fastest = getFastestTime();
+    timeEl.textContent = fastest===null ? "--:--:--" : formatHMS(fastest);
+  }
+}
+refreshHomeGlobalWidget();
+inputName.addEventListener("input", ()=> saveLastName(inputName.value));
+
+document.querySelectorAll(".menu-btn[data-menu]").forEach(btn=>{
+  btn.addEventListener("click", ()=>{
+    const menu = btn.getAttribute("data-menu");
+    if(menu==="riwayat"){ openDashboard("riwayat"); return; }
+    if(menu==="highscore"){ openDashboard("highscore"); return; }
+    if(menu==="hafalan"){ openHafalan(); return; }
+    const name = inputName.value.trim();
+    if(!name){
+      alertPopup("Nama Belum Diisi", "Nama belum diisi.");
+      return;
+    }
+    State.name = name;
+    saveLastName(name);
+    openLevelSelect(menu);
+  });
+});
+
+document.querySelectorAll("[data-back]").forEach(btn=>{
+  btn.addEventListener("click", ()=>{
+    const target = btn.getAttribute("data-back");
+    if(target==="home") refreshHomeGlobalWidget();
+    goScreen(target);
+  });
+});
+
+/* ============================================================
+   LEVEL SELECT
+============================================================ */
+const LEVEL_INFO = {
+  hiragana:{
+    title:"📖 Test Hiragana", 
+    levels:[
+      {n:1, tag:"100% Pilihan Ganda", desc:"Menggunakan seluruh huruf Hiragana (dasar, dakuten, handakuten). 100% soal pilihan ganda, diacak. 100 soal."},
+      {n:2, tag:"100% Isian Keyboard", desc:"Menggunakan seluruh huruf Hiragana (dasar, dakuten, handakuten). Jawaban wajib diketik menggunakan Romaji. 100 soal."},
+      {n:3, tag:"Campuran (70% PG / 30% Isian)", desc:"Campuran 70% soal pilihan ganda dan 30% isian keyboard (Romaji) dari seluruh huruf Hiragana. 100 soal."}
+    ]
+  },
+  katakana:{
+    title:"✍️ Test Katakana",
+    levels:[
+      {n:1, tag:"100% Pilihan Ganda", desc:"Menggunakan seluruh huruf Katakana dan kosakata Katakana dasar. 100% soal pilihan ganda, diacak. 100 soal."},
+      {n:2, tag:"100% Isian Keyboard", desc:"Menggunakan seluruh huruf Katakana dan kosakata Katakana dasar. Jawaban wajib diketik menggunakan Romaji. 100 soal."},
+      {n:3, tag:"Campuran (70% PG / 30% Isian)", desc:"Campuran 70% soal pilihan ganda dan 30% isian keyboard (Romaji) dari seluruh huruf Katakana dan kosakata Katakana. 100 soal."}
+    ]
+  },
+  kotoba:{
+    title:"💬 Test Kotoba",
+    levels:[
+      {n:1, tag:"Hanya Hiragana", desc:"100% Pilihan Ganda dari kosakata JLPT N5 dasar, khusus menggunakan huruf Hiragana saja. 50 soal."},
+      {n:2, tag:"Hiragana & Katakana", desc:"100% Pilihan Ganda dari kosakata JLPT N5, menggunakan Hiragana dan Katakana tanpa Kanji. 50 soal."},
+      {n:3, tag:"Kanji JLPT N5", desc:"100% Pilihan Ganda dari kosakata JLPT N5, menggunakan Kanji yang ada pada tabel Hafalan Kanji. 50 soal."},
+      {n:4, tag:"Campuran Lengkap", desc:"Campuran Hiragana, Katakana, dan Kanji JLPT N5. 70% Pilihan Ganda dan 30% Isian Keyboard (mengetik arti Indonesia). 50 soal."}
+    ]
+  },
+  kanji:{
+    title:"🈶 Test Kanji",
+    levels:[
+      {n:1, tag:"50 Kanji JLPT N5", desc:"Full 50 soal pilihan ganda: kanji → arti, kanji → bacaan, hiragana → kanji, dan arti → kanji. Diacak."},
+      {n:2, tag:"Gabungan Kanji", desc:"Fokus membaca gabungan kanji (nama tempat, nama orang, kata umum JLPT N5). Campuran 25 pilihan ganda & 25 isian (isian wajib diketik full romaji, tidak boleh hiragana/indo). 50 soal, diacak."},
+      {n:3, tag:"50 Kanji JLPT N4", desc:"Level lebih sulit, fokus banyak kosakata gabungan (jukugo) JLPT N4. 80% isian wajib full romaji (40 soal) & 20% pilihan ganda (10 soal). Semua soal dijamin unik (anti-duplikat), diacak."},
+      {n:4, tag:"Campuran N5 & N4", desc:"Uji campuran seluruh Kanji JLPT N5 dan N4. Campuran 25 pilihan ganda & 25 isian keyboard (Romaji). 50 soal."}
+    ]
+  }
+};
+
+function openLevelSelect(type){
+  State.examType = type;
+  const info = LEVEL_INFO[type];
+  document.getElementById("level-title").textContent = info.title;
+  document.getElementById("level-sub").textContent = "Pilih level kesulitan ujian di bawah ini.";
+  const grid = document.getElementById("level-grid");
+  grid.innerHTML = "";
+  info.levels.forEach(lv=>{
+    const div = document.createElement("div");
+    div.className = "level-card";
+    div.innerHTML = `<span class="tag">${lv.tag}</span><h3>Level ${lv.n}</h3><p>${lv.desc}</p><button class="btn btn-primary btn-block">Pilih Level ${lv.n}</button>`;
+    div.querySelector("button").addEventListener("click", ()=> openSettings(lv.n));
+    grid.appendChild(div);
+  });
+  goScreen("level");
+}
+
+/* ============================================================
+   SETTINGS (TIMER)
+============================================================ */
+const TIMER_OPTIONS = [
+  {label:"30 Detik", val:30},
+  {label:"1 Menit", val:60},
+  {label:"3 Menit", val:180},
+  {label:"5 Menit", val:300},
+  {label:"10 Menit", val:600},
+  {label:"15 Menit", val:900},
+  {label:"Tanpa Batas", val:null}
+];
+let selectedTimer = 30;
+
+function openSettings(level){
+  State.level = level;
+  document.getElementById("settings-sub").innerHTML = 
+    `${LEVEL_INFO[State.examType].title} — Level ${level}. Pilih waktu tenggat <b>per soal</b>. Timer akan berjalan mundur untuk setiap soal dan otomatis reset ke waktu awal setiap kali kamu pindah ke soal berikutnya.`;
+  const grid = document.getElementById("timer-grid");
+  grid.innerHTML = "";
+  selectedTimer = 30;
+  TIMER_OPTIONS.forEach(opt=>{
+    const btn = document.createElement("button");
+    btn.className = "timer-opt"+(opt.val===30?" selected":"");
+    btn.textContent = opt.label;
+    btn.addEventListener("click", ()=>{
+      grid.querySelectorAll(".timer-opt").forEach(b=>b.classList.remove("selected"));
+      btn.classList.add("selected");
+      selectedTimer = opt.val;
+    });
+    grid.appendChild(btn);
+  });
+  goScreen("settings");
+}
+
+document.getElementById("btn-start-exam").addEventListener("click", ()=>{
+  State.perQuestionSeconds = selectedTimer;
+  startExam();
+});
+
+/* ============================================================
+   GENERATE SOAL
+============================================================ */
+function generateKanaQuestions(baseList, dakutenList, handakutenList, level){
+  let pool = baseList.concat(dakutenList).concat(handakutenList);
+  if (baseList === KATAKANA_BASE) {
+    const katakanaWords = KOTOBA_DB.filter(item => /^[\u30a0-\u30ff]+$/.test(item[0])).map(item => [item[0], item[1]]);
+    pool = pool.concat(katakanaWords);
+  }
+  const questions = [];
+  const poolSize = pool.length;
+  for(let i=0;i<100;i++){
+    const item = pool[randInt(0, poolSize-1)];
+    const [kana, romaji] = item;
+    let isFill = false;
+    if (level === 2) {
+      isFill = true;
+    } else if (level === 3) {
+      isFill = i < 30;
+    }
+
+    if (isFill) {
+      questions.push({
+        id: i + 1, type: "fill", prompt: kana, correct: romaji,
+        userAnswer: null, status: "unanswered", locked: false
+      });
+    } else {
+      let wrongPool = shuffle(pool.filter(p => p[1] !== romaji));
+      const wrongs = [];
+      const seen = new Set([romaji]);
+      for (const w of wrongPool) {
+        if (wrongs.length >= 3) break;
+        if (!seen.has(w[1])) {
+          wrongs.push(w[1]);
+          seen.add(w[1]);
+        }
+      }
+      const options = shuffle([romaji, ...wrongs]);
+      questions.push({
+        id: i + 1, type: "mc", prompt: kana, options, correct: romaji,
+        userAnswer: null, status: "unanswered", locked: false
+      });
+    }
+  }
+  return shuffle(questions).map((q, idx) => ({ ...q, id: idx + 1 }));
+}
+
+function generateKotobaQuestions(level){
+  const questions = [];
+  const KOTOBA_SOAL_COUNT = 50;
+
+  const getHiraganaOnlyWord = (word) => {
+    const match = word.match(/\(([^)]+)\)/);
+    return match ? match[1] : word;
+  };
+
+  const KANJI_MAPPING = {
+    "가っこう": "学校",
+    "ともだち": "友だち",
+    "ちち": "父",
+    "はは": "母",
+    "たべる": "食べる",
+    "のむ": "飲む",
+    "みる": "見る",
+    "いく": "行く",
+    "くる": "来る",
+    "おおきい": "大きい",
+    "ちいさい": "小さい",
+    "あたらしい": "新しい",
+    "いち": "一",
+    "に": "二",
+    "さん": "三",
+    "よん": "四",
+    "ご": "五",
+    "ろく": "六",
+    "なな": "七",
+    "はち": "八",
+    "きゅう": "九",
+    "じゅう": "十",
+    "ひゃく": "百",
+    "せん": "千",
+    "ほん": "本",
+    "くに": "国",
+    "にほん": "日本",
+    "にほんご": "日本語",
+    "がいこく": "外国",
+    "つき": "月",
+    "だいがく": "大学",
+    "ひだり": "左",
+    "みぎ": "右",
+    "きた": "北",
+    "みなみ": "南",
+    "ひgaし": "東",
+    "ひ가시": "東",
+    "ひがし": "東",
+    "にし": "西",
+    "とき": "時",
+    "なか": "中",
+    "うえ": "上",
+    "した": "下",
+    "そと": "外",
+    "えん": "円",
+    "ひ": "日",
+    "とし": "年"
+  };
+
+  let pool = [];
+
+  if (level === 1) {
+    pool = KOTOBA_DB.map(item => {
+      const [word, reading, meaning] = item;
+      const hWord = getHiraganaOnlyWord(word);
+      return [hWord, reading, meaning];
+    }).filter(item => {
+      const [word] = item;
+      const hasKatakana = /[\u30a0-\u30ff]/.test(word);
+      const hasKanji = /[\u4e00-\u9faf]/.test(word);
+      return !hasKatakana && !hasKanji;
+    });
+  } else if (level === 2) {
+    pool = KOTOBA_DB.map(item => {
+      const [word, reading, meaning] = item;
+      const hWord = getHiraganaOnlyWord(word);
+      return [hWord, reading, meaning];
+    }).filter(item => {
+      const [word] = item;
+      const hasKanji = /[\u4e00-\u9faf]/.test(word);
+      return !hasKanji;
+    });
+  } else if (level === 3) {
+    const seen = new Set();
+    KANJI_DB.forEach(item => {
+      const [kanji, hira, romaji, arti] = item;
+      const key = kanji + "_" + arti;
+      if (!seen.has(key)) {
+        pool.push([kanji, romaji, arti]);
+        seen.add(key);
+      }
+    });
+    KOTOBA_DB.forEach(item => {
+      const [word, reading, meaning] = item;
+      const cleaned = getHiraganaOnlyWord(word);
+      if (KANJI_MAPPING[cleaned]) {
+        const kanjiWord = KANJI_MAPPING[cleaned];
+        const key = kanjiWord + "_" + meaning;
+        if (!seen.has(key)) {
+          pool.push([kanjiWord, reading, meaning]);
+          seen.add(key);
+        }
+      }
+    });
+  } else {
+    pool = KOTOBA_DB.map(item => {
+      const [word, reading, meaning] = item;
+      const hWord = getHiraganaOnlyWord(word);
+      const finalWord = KANJI_MAPPING[hWord] || hWord;
+      return [finalWord, reading, meaning];
+    });
+  }
+
+  const shuffledPool = shuffle(pool);
+  const selectedItems = shuffledPool.slice(0, KOTOBA_SOAL_COUNT);
+
+  selectedItems.forEach((item, i) => {
+    const [word, reading, meaning] = item;
+
+    let isFill = false;
+    if (level === 4) {
+      isFill = i < 15;
+    }
+
+    if (isFill) {
+      questions.push({
+        id: i + 1,
+        type: "fill",
+        prompt: word,
+        extra: reading,
+        correct: meaning,
+        userAnswer: null,
+        status: "unanswered",
+        locked: false
+      });
+    } else {
+      let wrongPool = shuffle(KOTOBA_DB.filter(k => k[2] !== meaning));
+      const wrongs = [];
+      const seenWrong = new Set([meaning]);
+      for (const w of wrongPool) {
+        if (wrongs.length >= 3) break;
+        if (!seenWrong.has(w[2])) {
+          wrongs.push(w[2]);
+          seenWrong.add(w[2]);
+        }
+      }
+      const options = shuffle([meaning, ...wrongs]);
+      questions.push({
+        id: i + 1,
+        type: "mc",
+        prompt: word,
+        extra: reading,
+        options,
+        correct: meaning,
+        userAnswer: null,
+        status: "unanswered",
+        locked: false
+      });
+    }
+  });
+
+  return shuffle(questions).map((q, idx) => ({ ...q, id: idx + 1 }));
+}
+
+/* ============================================================
+   GENERATE SOAL — TEST KANJI
+============================================================ */
+function pickWrongOptions(pool, correct, count){
+  const wrongs = [];
+  const seen = new Set([correct]);
+  shuffle(pool).forEach(w=>{
+    if(wrongs.length>=count) return;
+    if(!seen.has(w)){ wrongs.push(w); seen.add(w); }
+  });
+  return wrongs;
+}
+
+function generateKanjiLevel1(){
+  const questions = [];
+  const mcTypes = [1,2,3,4]; // 1:kanji->arti 2:kanji->bacaan 3:hiragana->kanji 4:arti->kanji
+
+  for(let i=0;i<50;i++){
+    const item = KANJI_DB[randInt(0,KANJI_DB.length-1)];
+    const [kanji, hira, romaji, arti] = item;
+    const type = mcTypes[randInt(0,mcTypes.length-1)];
+    let prompt, correct, optionsPool, smallText;
+    if(type===1){
+      prompt = kanji; correct = arti; smallText = false;
+      optionsPool = KANJI_DB.filter(k=>k[3]!==arti).map(k=>k[3]);
+    }else if(type===2){
+      prompt = kanji; correct = hira; smallText = false;
+      optionsPool = KANJI_DB.filter(k=>k[1]!==hira).map(k=>k[1]);
+    }else if(type===3){
+      prompt = hira; correct = kanji; smallText = true;
+      optionsPool = KANJI_DB.filter(k=>k[0]!==kanji).map(k=>k[0]);
+    }else{
+      prompt = arti; correct = kanji; smallText = true;
+      optionsPool = KANJI_DB.filter(k=>k[0]!==kanji).map(k=>k[0]);
+    }
+    const wrongs = pickWrongOptions(optionsPool, correct, 3);
+    const options = shuffle([correct, ...wrongs]);
+    questions.push({id:0, type:"mc", prompt, options, correct, userAnswer:null, status:"unanswered", locked:false, smallText});
+  }
+
+  return shuffle(questions).map((q,idx)=>({...q, id:idx+1}));
+}
+
+function generateKanjiLevel2(){
+  const questions = [];
+  const pool = KANJI_COMPOUND_DB;
+  const mcTypes = ["kanji_to_reading","reading_to_kanji","arti_to_kanji"];
+
+  for(let i=0;i<25;i++){
+    const item = pool[randInt(0,pool.length-1)];
+    const [word, hira, romaji, arti] = item;
+    const type = mcTypes[randInt(0,mcTypes.length-1)];
+    let prompt, correct, optionsPool, smallText;
+    if(type==="kanji_to_reading"){
+      prompt = word; correct = hira; smallText = false;
+      optionsPool = pool.filter(k=>k[1]!==hira).map(k=>k[1]);
+    }else if(type==="reading_to_kanji"){
+      prompt = hira; correct = word; smallText = true;
+      optionsPool = pool.filter(k=>k[0]!==word).map(k=>k[0]);
+    }else{
+      prompt = arti; correct = word; smallText = true;
+      optionsPool = pool.filter(k=>k[0]!==word).map(k=>k[0]);
+    }
+    const wrongs = pickWrongOptions(optionsPool, correct, 3);
+    const options = shuffle([correct, ...wrongs]);
+    questions.push({id:0, type:"mc", prompt, options, correct, userAnswer:null, status:"unanswered", locked:false, smallText});
+  }
+
+  for(let i=0;i<25;i++){
+    const item = pool[randInt(0,pool.length-1)];
+    const [word, hira, romaji] = item;
+    const correct = romaji;
+    questions.push({id:0, type:"fill", prompt:word, correct, userAnswer:null, status:"unanswered", locked:false, smallText:false});
+  }
+
+  return shuffle(questions).map((q,idx)=>({...q, id:idx+1}));
+}
+
+/* ============================================================
+   GENERATE SOAL — TEST KANJI LEVEL 3 (JLPT N4)
+   50 soal: 40 isian (80%) + 10 pilihan ganda (20%)
+   Anti-duplikat: setiap kanji/kosakata gabungan hanya dipakai
+   SATU KALI sebagai objek soal dalam satu sesi ujian
+   (sampling without replacement).
+============================================================ */
+function generateKanjiLevel3(){
+  // Gabungan seluruh database N4 (kanji tunggal + jukugo) sebagai
+  // sumber tambahan otomatis apabila database utama belum cukup.
+  const ALL_N4 = KANJI_N4_SINGLE.concat(KANJI_N4_COMPOUND);
+
+  const compoundShuffled = shuffle(KANJI_N4_COMPOUND);
+  const singleShuffled = shuffle(KANJI_N4_SINGLE);
+
+  // Prioritaskan kosakata gabungan (jukugo) untuk soal isian,
+  // sesuai fokus ujian Level 3.
+  let fillItems = compoundShuffled.slice(0, 35).concat(singleShuffled.slice(0, 5));
+  const usedWords = new Set(fillItems.map(it=>it[0]));
+
+  // Sisa data (belum dipakai) dijadikan kandidat pilihan ganda.
+  let mcCandidates = compoundShuffled.slice(35).concat(singleShuffled.slice(5))
+    .filter(it=>!usedWords.has(it[0]));
+  mcCandidates = shuffle(mcCandidates);
+  let mcItems = mcCandidates.slice(0, 10);
+  mcItems.forEach(it=>usedWords.add(it[0]));
+
+  // Jaga-jaga (WAJIB): jika database belum cukup untuk 50 soal unik,
+  // otomatis tambah dari ALL_N4 yang belum pernah dipakai.
+  while(fillItems.length < 40){
+    const extra = shuffle(ALL_N4).find(it=>!usedWords.has(it[0]));
+    if(!extra) break;
+    fillItems.push(extra);
+    usedWords.add(extra[0]);
+  }
+  while(mcItems.length < 10){
+    const extra = shuffle(ALL_N4).find(it=>!usedWords.has(it[0]));
+    if(!extra) break;
+    mcItems.push(extra);
+    usedWords.add(extra[0]);
+  }
+
+  const questions = [];
+
+  // ---- 40 SOAL ISIAN (wajib ketik ROMAJI FULL) ----
+  fillItems.forEach(item=>{
+    const [word, hira, romaji, arti] = item;
+    questions.push({
+      id:0, type:"fill", prompt:word, correct:romaji,
+      userAnswer:null, status:"unanswered", locked:false, smallText:false
+    });
+  });
+
+  // ---- 10 SOAL PILIHAN GANDA (jenis diacak & jawaban diacak) ----
+  const mcTypeList = ["kanji_to_romaji","kanji_to_arti","hiragana_to_kanji","arti_to_kanji","kanji_to_hiragana"];
+  mcItems.forEach(item=>{
+    const [word, hira, romaji, arti] = item;
+    const type = mcTypeList[randInt(0, mcTypeList.length-1)];
+    let prompt, correct, optionsPool, smallText;
+    if(type==="kanji_to_romaji"){
+      prompt = word; correct = romaji; smallText = false;
+      optionsPool = ALL_N4.filter(k=>k[2]!==romaji).map(k=>k[2]);
+    }else if(type==="kanji_to_arti"){
+      prompt = word; correct = arti; smallText = false;
+      optionsPool = ALL_N4.filter(k=>k[3]!==arti).map(k=>k[3]);
+    }else if(type==="hiragana_to_kanji"){
+      prompt = hira; correct = word; smallText = true;
+      optionsPool = ALL_N4.filter(k=>k[0]!==word).map(k=>k[0]);
+    }else if(type==="arti_to_kanji"){
+      prompt = arti; correct = word; smallText = true;
+      optionsPool = ALL_N4.filter(k=>k[0]!==word).map(k=>k[0]);
+    }else{
+      prompt = word; correct = hira; smallText = false;
+      optionsPool = ALL_N4.filter(k=>k[1]!==hira).map(k=>k[1]);
+    }
+    const wrongs = pickWrongOptions(optionsPool, correct, 3);
+    const options = shuffle([correct, ...wrongs]);
+    questions.push({
+      id:0, type:"mc", prompt, options, correct,
+      userAnswer:null, status:"unanswered", locked:false, smallText
+    });
+  });
+
+  return shuffle(questions).map((q,idx)=>({...q, id:idx+1}));
+}
+
+function generateKanjiLevel4(){
+  const poolN5 = KANJI_DB.concat(KANJI_COMPOUND_DB);
+  const poolN4 = KANJI_N4_SINGLE.concat(KANJI_N4_COMPOUND);
+  const ALL_COMBINED = poolN5.concat(poolN4);
+
+  const n5Shuffled = shuffle(poolN5);
+  const n4Shuffled = shuffle(poolN4);
+
+  let fillItems = n5Shuffled.slice(0, 13).concat(n4Shuffled.slice(0, 12));
+  const usedWords = new Set(fillItems.map(it=>it[0]));
+
+  let mcCandidates = n5Shuffled.slice(13).concat(n4Shuffled.slice(12))
+    .filter(it=>!usedWords.has(it[0]));
+  mcCandidates = shuffle(mcCandidates);
+  let mcItems = mcCandidates.slice(0, 25);
+  mcItems.forEach(it=>usedWords.add(it[0]));
+
+  while(fillItems.length < 25){
+    const extra = shuffle(ALL_COMBINED).find(it=>!usedWords.has(it[0]));
+    if(!extra) break;
+    fillItems.push(extra);
+    usedWords.add(extra[0]);
+  }
+  while(mcItems.length < 25){
+    const extra = shuffle(ALL_COMBINED).find(it=>!usedWords.has(it[0]));
+    if(!extra) break;
+    mcItems.push(extra);
+    usedWords.add(extra[0]);
+  }
+
+  const questions = [];
+
+  fillItems.forEach(item=>{
+    const [word, hira, romaji, arti] = item;
+    questions.push({
+      id:0, type:"fill", prompt:word, correct:romaji,
+      userAnswer:null, status:"unanswered", locked:false, smallText:false
+    });
+  });
+
+  const mcTypeList = ["kanji_to_romaji","kanji_to_arti","hiragana_to_kanji","arti_to_kanji","kanji_to_hiragana"];
+  mcItems.forEach(item=>{
+    const [word, hira, romaji, arti] = item;
+    const type = mcTypeList[randInt(0, mcTypeList.length-1)];
+    let prompt, correct, optionsPool, smallText;
+    if(type==="kanji_to_romaji"){
+      prompt = word; correct = romaji; smallText = false;
+      optionsPool = ALL_COMBINED.filter(k=>k[2]!==romaji).map(k=>k[2]);
+    }else if(type==="kanji_to_arti"){
+      prompt = word; correct = arti; smallText = false;
+      optionsPool = ALL_COMBINED.filter(k=>k[3]!==arti).map(k=>k[3]);
+    }else if(type==="hiragana_to_kanji"){
+      prompt = hira; correct = word; smallText = true;
+      optionsPool = ALL_COMBINED.filter(k=>k[0]!==word).map(k=>k[0]);
+    }else if(type==="arti_to_kanji"){
+      prompt = arti; correct = word; smallText = true;
+      optionsPool = ALL_COMBINED.filter(k=>k[0]!==word).map(k=>k[0]);
+    }else{
+      prompt = word; correct = hira; smallText = false;
+      optionsPool = ALL_COMBINED.filter(k=>k[1]!==hira).map(k=>k[1]);
+    }
+    const wrongs = pickWrongOptions(optionsPool, correct, 3);
+    const options = shuffle([correct, ...wrongs]);
+    questions.push({
+      id:0, type:"mc", prompt, options, correct,
+      userAnswer:null, status:"unanswered", locked:false, smallText
+    });
+  });
+
+  return shuffle(questions).map((q,idx)=>({...q, id:idx+1}));
+}
+
+function generateKanjiQuestions(level){
+  if(level===4) return generateKanjiLevel4();
+  if(level===3) return generateKanjiLevel3();
+  return level===2 ? generateKanjiLevel2() : generateKanjiLevel1();
+}
+
+function buildQuestions(){
+  if(State.examType==="hiragana"){
+    return generateKanaQuestions(HIRAGANA_BASE, HIRAGANA_DAKUTEN, HIRAGANA_HANDAKUTEN, State.level);
+  }else if(State.examType==="katakana"){
+    return generateKanaQuestions(KATAKANA_BASE, KATAKANA_DAKUTEN, KATAKANA_HANDAKUTEN, State.level);
+  }else if(State.examType==="kanji"){
+    return generateKanjiQuestions(State.level);
+  }else{
+    return generateKotobaQuestions(State.level);
+  }
+}
+
+/* ============================================================
+   MULAI UJIAN
+============================================================ */
+function startExam(){
+  State.questions = buildQuestions();
+  State.currentIndex = 0;
+  State.submitted = false;
+  State.startTimestamp = Date.now();
+
+  document.getElementById("exam-name").textContent = State.name;
+  document.getElementById("exam-type").textContent = examTypeLabel(State.examType);
+  document.getElementById("exam-level").textContent = "Level "+State.level;
+  document.getElementById("stat-total").textContent = State.questions.length;
+
+  buildQnumGrid();
+  renderQuestion();
+  updateDashboard();
+  goScreen("exam");
+
+  startQuestionTimer();
+}
+
+function examTypeLabel(t){
+  if(t==="hiragana") return "Hiragana";
+  if(t==="katakana") return "Katakana";
+  if(t==="kanji") return "Kanji";
+  return "Kotoba";
+}
+
+/* Timer PER SOAL: dimulai/reset setiap kali pindah ke soal (manual atau otomatis).
+   Jika waktu satu soal habis, otomatis lanjut ke soal berikutnya (soal kosong = dianggap salah nanti).
+   Jika soal terakhir waktunya habis, ujian otomatis selesai & terkirim. */
+function startQuestionTimer(){
+  clearInterval(State.timerInterval);
+  const box = document.getElementById("exam-timer");
+  if(State.submitted) return;
+  if(State.perQuestionSeconds===null){
+    box.textContent = "∞";
+    box.classList.remove("warning");
+    return;
+  }
+  State.questionTimeLeft = State.perQuestionSeconds;
+  updateTimerDisplay();
+  State.timerInterval = setInterval(()=>{
+    State.questionTimeLeft--;
+    updateTimerDisplay();
+    if(State.questionTimeLeft<=0){
+      clearInterval(State.timerInterval);
+      handleQuestionTimeout();
+    }
+  }, 1000);
+}
+
+function updateTimerDisplay(){
+  const box = document.getElementById("exam-timer");
+  box.textContent = formatHMS(Math.max(0,State.questionTimeLeft));
+  box.classList.toggle("warning", State.questionTimeLeft<=5);
+}
+
+function handleQuestionTimeout(){
+  if(State.submitted) return;
+  if(State.currentIndex < State.questions.length-1){
+    showToast("⏰ Waktu soal ini habis, lanjut ke soal berikutnya.", "error");
+    goToQuestion(State.currentIndex+1);
+  }else{
+    showToast("⏰ Waktu soal terakhir habis. Ujian otomatis diselesaikan.", "error");
+    submitExam(true);
+  }
+}
+
+/* Pindah ke soal tertentu: hentikan timer soal sebelumnya, render, lalu mulai timer baru (reset) */
+function goToQuestion(idx){
+  if(idx<0 || idx>=State.questions.length) return;
+  clearInterval(State.timerInterval);
+  State.currentIndex = idx;
+  renderQuestion();
+  if(!State.submitted) startQuestionTimer();
+}
+
+/* ============================================================
+   RENDER SOAL & GRID NOMOR
+============================================================ */
+function buildQnumGrid(){
+  const wrap = document.getElementById("qnum-scroll");
+  wrap.innerHTML = "";
+  State.questions.forEach((q,idx)=>{
+    const btn = document.createElement("button");
+    btn.className = "qnum-btn";
+    btn.textContent = idx+1;
+    btn.dataset.idx = idx;
+    btn.addEventListener("click", ()=> goToQuestion(idx));
+    wrap.appendChild(btn);
+  });
+}
+
+function refreshQnumGrid(){
+  document.querySelectorAll(".qnum-btn").forEach((btn,idx)=>{
+    const q = State.questions[idx];
+    btn.classList.remove("answered","current","correct","wrong");
+    if(State.submitted){
+      if(q.status==="unanswered"){ /* abu default via base style, no class */ }
+      else if(q.userAnswer===q.correct){ btn.classList.add("correct"); }
+      else{ btn.classList.add("wrong"); }
+    }else{
+      if(q.status==="answered") btn.classList.add("answered");
+    }
+    if(idx===State.currentIndex) btn.classList.add("current");
+  });
+}
+
+function renderQuestion(){
+  const reviewBackRow = document.getElementById("review-back-row");
+  if(reviewBackRow) reviewBackRow.style.display = State.submitted ? "block" : "none";
+  const giveUpRow = document.getElementById("exam-give-up-row");
+  if(giveUpRow) giveUpRow.style.display = State.submitted ? "none" : "flex";
+  const q = State.questions[State.currentIndex];
+  document.getElementById("question-tag").textContent = `SOAL ${State.currentIndex+1} / ${State.questions.length}`;
+  const qTextEl = document.getElementById("question-text");
+  const optionsGrid = document.getElementById("options-grid");
+  optionsGrid.innerHTML = "";
+
+  if(State.examType==="kotoba"){
+    qTextEl.classList.add("small-text");
+    if(q.type==="fill"){
+      if(State.level===4){
+        qTextEl.innerHTML = `${q.prompt} <div style="font-size:13px;color:#64748B;margin-top:6px;font-weight:500;">Bacaan: ${q.extra}</div>`;
+      } else {
+        qTextEl.innerHTML = `${q.prompt} <div style="font-size:13px;color:#64748B;margin-top:6px;font-weight:500;">Arti: ${q.extra}</div>`;
+      }
+    } else {
+      qTextEl.innerHTML = `${q.prompt}`;
+    }
+  }else if(State.examType==="kanji"){
+    qTextEl.classList.toggle("small-text", !!q.smallText);
+    qTextEl.textContent = q.prompt;
+  }else{
+    qTextEl.classList.remove("small-text");
+    qTextEl.textContent = q.prompt;
+  }
+
+  if(q.type==="fill"){
+    const input = document.createElement("input");
+    input.type = "text";
+    input.className = "fill-input";
+    if(State.examType==="kotoba" && State.level===4){
+      input.placeholder = "Ketik arti dalam bahasa Indonesia lalu tekan Enter...";
+    } else {
+      input.placeholder = State.examType==="kanji" ? "Ketik jawaban pakai ROMAJI lalu tekan Enter..." : "Ketik jawaban lalu tekan Enter...";
+    }
+    input.value = q.userAnswer || "";
+    if(State.submitted || q.locked) input.classList.add("locked");
+    if(!State.submitted && !q.locked){
+      input.addEventListener("keydown", (e)=>{
+        if(e.key==="Enter"){
+          e.preventDefault();
+          submitFillAnswer(q, input);
+        }
+      });
+    }
+    optionsGrid.style.display="block";
+    optionsGrid.appendChild(input);
+
+    // Tombol Next: fungsinya sama seperti menekan Enter pada input isian
+    // (memudahkan pengguna HP yang keyboard-nya tidak selalu mengirim Enter).
+    const nextBtn = document.createElement("button");
+    nextBtn.type = "button";
+    nextBtn.className = "btn btn-primary fill-next-btn";
+    nextBtn.textContent = "Next ➜";
+    if(State.submitted || q.locked){
+      nextBtn.disabled = true;
+    }else{
+      nextBtn.addEventListener("click", ()=> submitFillAnswer(q, input));
+    }
+    optionsGrid.appendChild(nextBtn);
+
+    if(!State.submitted && !q.locked){
+      setTimeout(()=> input.focus(), 30);
+    }
+  }else{
+    optionsGrid.style.display="grid";
+    q.options.forEach(opt=>{
+      const card = document.createElement("div");
+      card.className = "option-card";
+      card.textContent = opt;
+      if(q.userAnswer===opt) card.classList.add("selected");
+      if(State.submitted){
+        card.classList.add("locked");
+        if(opt===q.correct) card.classList.add("correct-answer");
+        else if(opt===q.userAnswer && opt!==q.correct) card.classList.add("wrong-answer");
+      }else if(q.locked){
+        card.classList.add("locked");
+        if(opt===q.correct) card.classList.add("correct-answer");
+        else if(opt===q.userAnswer && opt!==q.correct) card.classList.add("wrong-answer");
+      }else{
+        card.addEventListener("click", ()=> selectOption(q, opt, card, optionsGrid));
+      }
+      optionsGrid.appendChild(card);
+    });
+  }
+
+  // status line jika sudah submit
+  const existingStatus = document.getElementById("status-line-el");
+  if(existingStatus) existingStatus.remove();
+  if(State.submitted){
+    const line = document.createElement("div");
+    line.id = "status-line-el";
+    let isCorrect;
+    if(q.type==="fill"){
+      isCorrect = q.userAnswer && normalizeAnswer(q.userAnswer)===normalizeAnswer(q.correct);
+    }else{
+      isCorrect = q.userAnswer===q.correct;
+    }
+    if(q.status==="unanswered" || !q.userAnswer){
+      line.className = "status-line empty";
+      line.innerHTML = "⚪ Tidak Dijawab — Jawaban benar: <b>"+q.correct+"</b>";
+    }else if(isCorrect){
+      line.className = "status-line correct";
+      line.innerHTML = "✔ Benar";
+    }else{
+      line.className = "status-line wrong";
+      line.innerHTML = "✖ Salah — Jawaban benar: <b>"+q.correct+"</b>";
+    }
+    document.getElementById("question-card").appendChild(line);
+  }
+
+  refreshQnumGrid();
+}
+
+/* ============================================================
+   SISTEM JAWAB OTOMATIS (klik pilihan / Enter untuk isian)
+============================================================ */
+function advanceOrFinish(){
+  if(State.submitted) return;
+  if(State.currentIndex < State.questions.length-1){
+    goToQuestion(State.currentIndex+1);
+  }else{
+    submitExam(false,false);
+  }
+}
+
+function selectOption(q, opt, card, optionsGrid){
+  if(q.locked || State.submitted) return;
+  clearInterval(State.timerInterval);
+  q.userAnswer = opt;
+  q.status = "answered";
+  q.locked = true;
+
+  const isCorrect = opt===q.correct;
+  const scheduledIndex = State.currentIndex;
+  Array.from(optionsGrid.children).forEach(c=> c.classList.add("locked"));
+  refreshQnumGrid();
+  updateDashboard();
+
+  if(isCorrect){
+    // Jawaban benar: langsung lanjut tanpa menampilkan apa pun
+    setTimeout(()=>{ if(State.currentIndex===scheduledIndex) advanceOrFinish(); }, 150);
+  }else{
+    card.classList.add("wrong-answer");
+    const correctCard = Array.from(optionsGrid.children).find(c=> c.textContent===q.correct);
+    if(correctCard) correctCard.classList.add("correct-answer");
+    // Tampilkan koreksi sekitar 1 detik lalu lanjut otomatis
+    setTimeout(()=>{ if(State.currentIndex===scheduledIndex) advanceOrFinish(); }, 1000);
+  }
+}
+
+function submitFillAnswer(q, input){
+  if(q.locked || State.submitted) return;
+  const val = input.value;
+  if(!val || val.trim()===""){ return; }
+  clearInterval(State.timerInterval);
+  q.userAnswer = val;
+  q.status = "answered";
+  q.locked = true;
+  input.classList.add("locked");
+
+  const isCorrect = normalizeAnswer(val)===normalizeAnswer(q.correct);
+  const scheduledIndex = State.currentIndex;
+  refreshQnumGrid();
+  updateDashboard();
+
+  if(isCorrect){
+    setTimeout(()=>{ if(State.currentIndex===scheduledIndex) advanceOrFinish(); }, 150);
+  }else{
+    const optionsGrid = document.getElementById("options-grid");
+    const fb = document.createElement("div");
+    fb.className = "status-line wrong";
+    fb.innerHTML = "✖ Jawaban benar: <b>"+q.correct+"</b>";
+    optionsGrid.appendChild(fb);
+    setTimeout(()=>{ if(State.currentIndex===scheduledIndex) advanceOrFinish(); }, 1000);
+  }
+}
+
+/* ============================================================
+   DASHBOARD REALTIME
+============================================================ */
+function updateDashboard(){
+  const total = State.questions.length;
+  const answered = State.questions.filter(q=>q.status==="answered").length;
+  const empty = total - answered;
+  document.getElementById("stat-empty").textContent = empty;
+
+  if(State.submitted){
+    let correct=0, wrong=0;
+    State.questions.forEach(q=>{
+      const ok = q.type==="fill" 
+        ? (q.userAnswer && normalizeAnswer(q.userAnswer)===normalizeAnswer(q.correct))
+        : (q.userAnswer===q.correct);
+      if(ok) correct++; else wrong++;
+    });
+    document.getElementById("stat-correct").textContent = correct;
+    document.getElementById("stat-wrong").textContent = wrong;
+  }else{
+    document.getElementById("stat-correct").textContent = 0;
+    document.getElementById("stat-wrong").textContent = 0;
+  }
+
+  const percent = Math.round((answered/total)*100);
+  const bar = document.getElementById("progress-bar");
+  bar.style.width = percent+"%";
+  document.getElementById("progress-percent").textContent = percent+"%";
+  const doneText = document.getElementById("progress-done-text");
+  if(percent===100){
+    bar.classList.add("complete");
+    doneText.classList.add("show");
+  }else{
+    bar.classList.remove("complete");
+    doneText.classList.remove("show");
+  }
+}
+
+/* ============================================================
+   SUBMIT UJIAN
+============================================================ */
+function submitExam(byTimeout, byGiveUp){
+  if(State.submitted) return;
+  State.submitted = true;
+  clearInterval(State.timerInterval);
+  State.elapsedSeconds = Math.round((Date.now()-State.startTimestamp)/1000);
+
+  let correct=0, wrong=0, empty=0;
+  State.questions.forEach(q=>{
+    if(q.status!=="answered" || !q.userAnswer){ empty++; return; }
+    const ok = q.type==="fill"
+      ? normalizeAnswer(q.userAnswer)===normalizeAnswer(q.correct)
+      : q.userAnswer===q.correct;
+    if(ok) correct++; else wrong++;
+  });
+
+  const total = State.questions.length;
+  const nilai = Math.round((correct/total)*100);
+  const persen = ((correct/total)*100).toFixed(1)+"%";
+  const grade = getGrade(nilai);
+
+  // simpan riwayat
+  const historyEntry = {
+    nama:State.name, jenis:examTypeLabel(State.examType), level:State.level,
+    kotobaMode: State.examType==="kotoba" ? (State.level===1?"Hanya Hiragana":State.level===2?"Hiragana & Katakana":"Kanji JLPT N5") : "-",
+    nilai, benar:correct, salah:wrong, kosong:empty, persen, grade,
+    waktu: formatHMS(State.elapsedSeconds),
+    tanggal: todayDateStr(), jam: nowTimeStr(),
+    alasan: byTimeout ? "Waktu Habis" : byGiveUp ? "Menyerah" : "Selesai"
+  };
+  addHistory(historyEntry);
+  const hsKey = State.examType+"_"+State.level;
+  updateHighscore(hsKey, nilai);
+  const isFullyCompleted = !byGiveUp && !byTimeout && (empty === 0);
+  const globalStats = addToGlobalStats(nilai, State.elapsedSeconds, isFullyCompleted);
+
+  // tampilkan hasil
+  document.getElementById("result-nilai").textContent = nilai;
+  document.getElementById("result-grade").textContent = grade;
+  document.getElementById("r-nama").textContent = State.name;
+  document.getElementById("r-jenis").textContent = examTypeLabel(State.examType);
+  document.getElementById("r-level").textContent = "Level "+State.level;
+  document.getElementById("r-waktu").textContent = formatHMS(State.elapsedSeconds);
+  document.getElementById("r-benar").textContent = correct;
+  document.getElementById("r-salah").textContent = wrong;
+  document.getElementById("r-kosong").textContent = empty;
+  document.getElementById("r-persen").textContent = persen;
+  document.getElementById("r-global-score").textContent = globalStats.score;
+  document.getElementById("r-global-time").textContent = formatHMS(globalStats.time);
+
+  renderQuestion();
+  updateDashboard();
+
+  if(byTimeout){
+    showToast("⏰ Waktu habis! Ujian otomatis diselesaikan.", "error");
+  }else if(byGiveUp){
+    showToast("🏳️ Ujian diselesaikan. Nilai tersimpan di Riwayat.", "error");
+  }
+
+  goScreen("result");
+}
+
+function getGrade(nilai){
+  if(nilai>=95) return "A+";
+  if(nilai>=90) return "A";
+  if(nilai>=80) return "B";
+  if(nilai>=70) return "C";
+  if(nilai>=60) return "D";
+  return "E";
+}
+
+document.getElementById("btn-review").addEventListener("click", ()=>{
+  State.currentIndex = 0;
+  renderQuestion();
+  goScreen("exam");
+});
+document.getElementById("btn-home-from-result").addEventListener("click", ()=>{ refreshHomeGlobalWidget(); goScreen("home"); });
+document.getElementById("btn-back-home-review").addEventListener("click", ()=>{ refreshHomeGlobalWidget(); goScreen("home"); });
+
+/* Tombol Menyerah: tersedia di setiap soal, tidak perlu menjawab semua
+   atau lompat ke soal terakhir untuk menyelesaikan ujian. Soal yang
+   belum dijawab akan dianggap kosong, nilai tetap tersimpan ke
+   Riwayat, High Score, dan Total Score seperti ujian yang selesai normal. */
+document.getElementById("btn-give-up").addEventListener("click", ()=>{
+  if(State.submitted) return;
+  clearInterval(State.timerInterval);
+  showPopup(
+    "🏳️ Menyerah dari Ujian?",
+    "Ujian akan diselesaikan sekarang. Soal yang belum dijawab akan dianggap kosong/salah, tapi nilai yang sudah kamu kumpulkan tetap tersimpan di Riwayat & High Score. Yakin ingin menyerah?",
+    [
+      {label:"Batal, Lanjut Ujian", cls:"btn-outline", onClick:()=>{ if(!State.submitted) startQuestionTimer(); }},
+      {label:"Ya, Menyerah", cls:"btn-danger", onClick:()=> submitExam(false, true)}
+    ]
+  );
+});
+
+/* ============================================================
+   DASHBOARD: RIWAYAT & HIGH SCORE
+============================================================ */
+const CATEGORY_LABELS = [
+  {key:"hiragana", emoji:"📖", label:"Hiragana", maxLevel:3},
+  {key:"katakana", emoji:"✍️", label:"Katakana", maxLevel:3},
+  {key:"kotoba", emoji:"💬", label:"Kotoba", maxLevel:4},
+  {key:"kanji", emoji:"🈶", label:"Kanji", maxLevel:4}
+];
+
+function openDashboard(tab){
+  document.querySelectorAll(".tab-btn").forEach(b=>b.classList.toggle("active", b.dataset.tab===tab));
+  renderDashboardTab(tab);
+  document.getElementById("dash-global-score").textContent = getGlobalScore();
+  const fastest = getFastestTime();
+  document.getElementById("dash-global-time").textContent = fastest===null ? "--:--:--" : formatHMS(fastest);
+  goScreen("dashboard");
+}
+document.querySelectorAll(".tab-btn").forEach(b=>{
+  b.addEventListener("click", ()=> openDashboard(b.dataset.tab));
+});
+
+function renderDashboardTab(tab){
+  const content = document.getElementById("dash-content");
+  content.innerHTML = "";
+  if(tab==="highscore"){
+    const hs = getHighscore();
+    CATEGORY_LABELS.forEach(cat=>{
+      const div = document.createElement("div");
+      div.className = "dash-cat";
+      let rows = "";
+      const maxLv = cat.maxLevel || 2;
+      const levelRange = [];
+      for(let lv=1; lv<=maxLv; lv++) levelRange.push(lv);
+      levelRange.forEach(lv=>{
+        const key = cat.key+"_"+lv;
+        const val = hs[key];
+        rows += `<div class="dash-row"><span>Level ${lv}</span><span class="v ${val===undefined?'empty':''}">${val!==undefined ? val : 'Belum Ada Nilai'}</span></div>`;
+      });
+      div.innerHTML = `<h3>${cat.emoji} ${cat.label}</h3>${rows}`;
+      content.appendChild(div);
+    });
+  }else{
+    const history = getHistory();
+    if(history.length===0){
+      content.innerHTML = `<div class="empty-state"><span class="emoji">📭</span>Belum ada riwayat ujian.<br>Mulai ujian pertamamu sekarang!</div>`;
+      return;
+    }
+    history.forEach(h=>{
+      const div = document.createElement("div");
+      div.className = "history-item";
+      div.innerHTML = `
+        <div class="h-left">
+          <b>${h.jenis} — Level ${h.level}</b>
+          <span>${h.nama} · ${h.tanggal} ${h.jam} · ${h.alasan}</span>
+        </div>
+        <div class="h-score">${h.nilai} <span style="font-size:11px;color:#64748B;">(${h.grade})</span></div>
+      `;
+      content.appendChild(div);
+    });
+  }
+}
+
+/* ============================================================
+   HAFALAN AKSARA (referensi belajar, tidak dapat diedit)
+============================================================ */
+function fillKanaGrid(id, list){
+  const el = document.getElementById(id);
+  if(!el) return;
+  el.innerHTML = "";
+  list.forEach(([kana, romaji])=>{
+    const tile = document.createElement("div");
+    tile.className = "kana-tile";
+    tile.innerHTML = `<div class="k">${kana}</div><div class="r">${romaji.toUpperCase()}</div>`;
+    el.appendChild(tile);
+  });
+}
+function renderKanjiHafalanTable(){
+  const tbody = document.getElementById("hafalan-kanji-tbody");
+  if(!tbody) return;
+  tbody.innerHTML = "";
+  KANJI_DB.forEach(([kanji, hira, romaji, arti])=>{
+    const tr = document.createElement("tr");
+    tr.innerHTML = `<td>${kanji}</td><td>${hira}</td><td>${romaji}</td><td>${arti}</td>`;
+    tbody.appendChild(tr);
+  });
+}
+function renderKotobaHafalanTable(){
+  const tbody = document.getElementById("hafalan-kotoba-tbody");
+  if(!tbody) return;
+  tbody.innerHTML = "";
+  KOTOBA_DB.forEach(([word, romaji, arti])=>{
+    const tr = document.createElement("tr");
+    tr.innerHTML = `<td>${word}</td><td>${romaji}</td><td>${arti}</td>`;
+    tbody.appendChild(tr);
+  });
+}
+function renderHafalanTable(){
+  fillKanaGrid("hafalan-dasar", HIRAGANA_BASE);
+  fillKanaGrid("hafalan-dakuten", HIRAGANA_DAKUTEN);
+  fillKanaGrid("hafalan-handakuten", HIRAGANA_HANDAKUTEN);
+  fillKanaGrid("hafalan-katakana-dasar", KATAKANA_BASE);
+  fillKanaGrid("hafalan-katakana-dakuten", KATAKANA_DAKUTEN);
+  fillKanaGrid("hafalan-katakana-handakuten", KATAKANA_HANDAKUTEN);
+  renderKanjiHafalanTable();
+  renderKotobaHafalanTable();
+}
+document.querySelectorAll(".hafalan-tab-btn").forEach(btn=>{
+  btn.addEventListener("click", ()=>{
+    document.querySelectorAll(".hafalan-tab-btn").forEach(b=>b.classList.toggle("active", b===btn));
+    const tab = btn.dataset.hafalanTab;
+    document.getElementById("hafalan-hiragana-wrap").style.display = tab==="hiragana" ? "block" : "none";
+    document.getElementById("hafalan-katakana-wrap").style.display = tab==="katakana" ? "block" : "none";
+    document.getElementById("hafalan-kotoba-wrap").style.display = tab==="kotoba" ? "block" : "none";
+    document.getElementById("hafalan-kanji-wrap").style.display = tab==="kanji" ? "block" : "none";
+  });
+});
+function openHafalan(){
+  renderHafalanTable();
+  goScreen("hafalan");
+}
+
+/* ============================================================
+   BACK TO TOP & LOADING
+============================================================ */
+window.addEventListener("scroll", ()=>{
+  document.getElementById("back-to-top").classList.toggle("show", window.scrollY>300);
+});
+document.getElementById("back-to-top").addEventListener("click", ()=>{
+  window.scrollTo({top:0, behavior:"smooth"});
+});
+
+/* Loading screen sudah ditangani oleh blok pengaman di paling atas script */
+
+/* Cegah refresh mengulang state ujian tanpa peringatan (opsional, tidak memblokir) */
+window.addEventListener("beforeunload", function(e){
+  if(document.getElementById("screen-exam").classList.contains("active") && !State.submitted){
+    e.preventDefault();
+    e.returnValue = "";
+  }
+});
+
+})();
+</script>
+</body>
+</html>

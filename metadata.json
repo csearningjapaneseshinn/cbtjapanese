@@ -1,0 +1,8 @@
+{
+  "name": "Japanese CBT Test",
+  "description": "Uji kemampuan Hiragana, Katakana, dan Kosakata (Kotoba) Bahasa Jepang level JLPT N5 dengan sistem ujian berbasis komputer yang profesional.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
