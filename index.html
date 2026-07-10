@@ -1874,8 +1874,8 @@ const LEVEL_INFO = {
     levels:[
       {n:1, tag:"Hanya Hiragana", desc:"100% Pilihan Ganda dari kosakata JLPT N5 dasar, khusus menggunakan huruf Hiragana saja. 50 soal."},
       {n:2, tag:"Hiragana & Katakana", desc:"100% Pilihan Ganda dengan porsi seimbang (50% Hiragana & 50% Katakana) dari kosakata JLPT N5 tanpa Kanji. 50 soal."},
-      {n:3, tag:"Kanji JLPT N5", desc:"100% Pilihan Ganda dari kosakata JLPT N5, menggunakan Kanji yang ada pada tabel Hafalan Kanji. 50 soal."},
-      {n:4, tag:"Campuran Lengkap", desc:"Campuran Hiragana, Katakana, dan Kanji JLPT N5. 70% Pilihan Ganda dan 30% Isian Keyboard (mengetik arti Indonesia). 50 soal."}
+      {n:3, tag:"Campuran N5 & N4", desc:"Uji campuran kosakata JLPT N5 dan N4 (Hiragana, Katakana, dan Kanji). 100% Pilihan Ganda. 50 soal."},
+      {n:4, tag:"Kosakata JLPT N4", desc:"Uji kosakata JLPT N4 secara mendalam. Campuran 70% Pilihan Ganda dan 30% Isian Keyboard (mengetik arti Indonesia). 50 soal."}
     ]
   },
   kanji:{
@@ -2085,47 +2085,65 @@ function generateKotobaQuestions(level){
     pool = selectedKatakana.concat(selectedHiragana);
   } else if (level === 3) {
     const seen = new Set();
-    KANJI_DB.forEach(item => {
-      const { kanji, arti, kunyomi, onyomi, contoh } = item;
-      const hira = kunyomi[0] || onyomi[0] || "";
-      const romaji = (contoh && contoh.length > 0) ? contoh[0].romaji : "";
-      const art = arti[0] || "";
-      const key = kanji + "_" + art;
-      if (!seen.has(key)) {
-        pool.push([kanji, romaji, art]);
-        seen.add(key);
-      }
-    });
+    const uniquePool = [];
+
+    // N5 Pool (with Kanji when possible)
     KOTOBA_DB.forEach(item => {
-      const [word, reading, meaning] = item;
-      const cleaned = getHiraganaOnlyWord(word);
-      if (KANJI_MAPPING[cleaned]) {
-        const kanjiWord = KANJI_MAPPING[cleaned];
-        const key = kanjiWord + "_" + meaning;
-        if (!seen.has(key)) {
-          pool.push([kanjiWord, reading, meaning]);
-          seen.add(key);
-        }
-      }
-    });
-  } else {
-    pool = KOTOBA_DB.map(item => {
       const [word, reading, meaning] = item;
       const hWord = getHiraganaOnlyWord(word);
       const finalWord = KANJI_MAPPING[hWord] || hWord;
-      return [finalWord, reading, meaning];
+      const key = finalWord + "_" + meaning;
+      if (!seen.has(key)) {
+        uniquePool.push([finalWord, reading, meaning]);
+        seen.add(key);
+      }
     });
+
+    // N4 Pool (from KANJI_N4_SINGLE and KANJI_N4_COMPOUND)
+    KANJI_N4_SINGLE.concat(KANJI_N4_COMPOUND).forEach(item => {
+      const key = item[0] + "_" + item[3];
+      if (!seen.has(key)) {
+        uniquePool.push([item[0], item[2], item[3]]);
+        seen.add(key);
+      }
+    });
+
+    pool = uniquePool;
+  } else {
+    // Level 4: Kosakata JLPT N4 only
+    const seen = new Set();
+    const uniquePool = [];
+
+    KANJI_N4_SINGLE.concat(KANJI_N4_COMPOUND).forEach(item => {
+      const key = item[0] + "_" + item[3];
+      if (!seen.has(key)) {
+        uniquePool.push([item[0], item[2], item[3]]);
+        seen.add(key);
+      }
+    });
+
+    pool = uniquePool;
   }
 
   const shuffledPool = shuffle(pool);
   const selectedItems = shuffledPool.slice(0, KOTOBA_SOAL_COUNT);
+
+  // Setup wrong options candidates based on current level
+  let wrongPoolCandidates = [];
+  if (level === 4 || level === 3) {
+    const n4Meanings = KANJI_N4_SINGLE.concat(KANJI_N4_COMPOUND).map(k => k[3]);
+    const n5Meanings = KOTOBA_DB.map(k => k[2]);
+    wrongPoolCandidates = n4Meanings.concat(n5Meanings);
+  } else {
+    wrongPoolCandidates = KOTOBA_DB.map(k => k[2]);
+  }
 
   selectedItems.forEach((item, i) => {
     const [word, reading, meaning] = item;
 
     let isFill = false;
     if (level === 4) {
-      isFill = i < 15;
+      isFill = i < 15; // 30% are fill questions (15 out of 50)
     }
 
     if (isFill) {
@@ -2140,14 +2158,14 @@ function generateKotobaQuestions(level){
         locked: false
       });
     } else {
-      let wrongPool = shuffle(KOTOBA_DB.filter(k => k[2] !== meaning));
+      let wrongPool = shuffle(wrongPoolCandidates.filter(m => m !== meaning));
       const wrongs = [];
       const seenWrong = new Set([meaning]);
       for (const w of wrongPool) {
         if (wrongs.length >= 3) break;
-        if (!seenWrong.has(w[2])) {
-          wrongs.push(w[2]);
-          seenWrong.add(w[2]);
+        if (!seenWrong.has(w)) {
+          wrongs.push(w);
+          seenWrong.add(w);
         }
       }
       const options = shuffle([meaning, ...wrongs]);
@@ -2813,7 +2831,7 @@ function submitExam(byTimeout, byGiveUp){
   // simpan riwayat
   const historyEntry = {
     nama:State.name, jenis:examTypeLabel(State.examType), level:State.level,
-    kotobaMode: State.examType==="kotoba" ? (State.level===1?"Hanya Hiragana":State.level===2?"Hiragana & Katakana":"Kanji JLPT N5") : "-",
+    kotobaMode: State.examType==="kotoba" ? (State.level===1?"Hanya Hiragana":State.level===2?"Hiragana & Katakana":State.level===3?"Campuran N5 & N4":"Kosakata JLPT N4") : "-",
     nilai, benar:correct, salah:wrong, kosong:empty, persen, grade,
     waktu: formatHMS(State.elapsedSeconds),
     tanggal: todayDateStr(), jam: nowTimeStr(),
