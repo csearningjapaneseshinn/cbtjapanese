@@ -535,7 +535,13 @@ input{font-family:'Poppins',sans-serif;}
           <div class="kanji-table-wrap">
             <table class="kanji-table">
               <thead>
-                <tr><th>Kanji</th><th>Hiragana</th><th>Romaji</th><th>Arti Indonesia</th></tr>
+                <tr>
+                  <th style="width: 10%;">Kanji</th>
+                  <th style="width: 20%;">Arti Indonesia</th>
+                  <th style="width: 20%;">Kunyomi (訓読み)</th>
+                  <th style="width: 20%;">Onyomi (音読み)</th>
+                  <th style="width: 30%;">Contoh Penggunaan (3+ Contoh)</th>
+                </tr>
               </thead>
               <tbody id="hafalan-kanji-tbody"></tbody>
             </table>
@@ -924,7 +930,14 @@ const KOTOBA_DB = [
 ["こたえ","kotae","jawaban"],["しつもん","shitsumon","pertanyaan"],["わかる","wakaru","mengerti"],["おぼえる","oboeru","mengingat"],
 ["わすれる","wasureru","lupa"],["おしえる","oshieru","mengajar"],["ならう","narau","belajar (dari orang)"],["てがみ","tegami","surat"],
 ["しんぶん","shinbun","koran"],["ざっし","zasshi","majalah"],["じしょ","jisho","kamus"],["ちず","chizu","peta"],
-["りょこう","ryokou","perjalanan/wisata"],["やすみ","yasumi","libur/istirahat"],["しゅっぱつ","shuppatsu","keberangkatan"],["とうちゃく","touchaku","kedatangan"]
+["りょこう","ryokou","perjalanan/wisata"],["やすみ","yasumi","libur/istirahat"],["しゅっぱつ","shuppatsu","keberangkatan"],["とうちゃく","touchaku","kedatangan"],
+["カメラ","kamera","kamera"],["クラス","kurasu","kelas"],["シャツ","shatsu","kemeja/kaos"],["トイレ","toire","toilet"],
+["ラジオ","rajio","radio"],["タクシー","takushii","taksi"],["ポケット","poketto","saku/kantong"],["スプーン","supuun","sendok"],
+["ナイフ","naifu","pisau"],["フォーク","fooku","garpu"],["コップ","koppu","gelas/cangkir"],["ニュース","nyuusu","berita"],
+["ギター","gitaa","gitar"],["フィルム","firumu","film"],["エレベーター","erebeetaa","lift/elevator"],["エアコン","eakon","AC/pendingin ruangan"],
+["カレンダー","karendaa","kalender"],["ゼロ","zero","nol"],["スポーツ","supootsu","olahraga"],["コート","kooto","mantel/jas luar"],
+["セーター","seetaa","sweter"],["テーブル","teeburu","meja makan"],["ネクタイ","nekutai","dasi"],["カップ","kappu","mangkuk/cangkir"],
+["マッチ","macchi","korek api"],["シャワー","shawaa","pancuran/shower"],["ベッド","beddo","tempat tidur"]
 ];
 /* Database kotoba dapat dikembangkan lebih lanjut dengan menambah entri di atas */
 
@@ -933,57 +946,565 @@ const KOTOBA_DB = [
    Format: [kanji, hiragana, romaji, arti_indonesia]
 ============================================================ */
 const KANJI_DB = [
-  ["一","いち","ichi","satu"],
-  ["二","に","ni","dua"],
-  ["三","さん","san","tiga"],
-  ["四","よん","yon","empat"],
-  ["五","ご","go","lima"],
-  ["六","ろく","roku","enam"],
-  ["七","なな","nana","tujuh"],
-  ["八","はち","hachi","delapan"],
-  ["九","きゅう","kyuu","sembilan"],
-  ["十","じゅう","juu","sepuluh"],
-  ["百","ひゃく","hyaku","seratus"],
-  ["千","せん","sen","seribu"],
-  ["日","ひ","hi","hari"],
-  ["月","げつ","getsu","bulan"],
-  ["年","ねん","nen","tahun"],
-  ["人","じん","jin","orang"],
-  ["男","おとこ","otoko","laki-laki"],
-  ["女","おんな","onna","perempuan"],
-  ["子","こ","ko","anak"],
-  ["母","はは","haha","ibu"],
-  ["父","ちち","chichi","ayah"],
-  ["友","とも","tomo","teman"],
-  ["上","うえ","ue","atas"],
-  ["下","した","shita","bawah"],
-  ["中","なか","naka","tengah"],
-  ["外","そと","soto","luar"],
-  ["左","ひだり","hidari","kiri"],
-  ["右","みぎ","migi","kanan"],
-  ["北","きた","kita","utara"],
-  ["南","みなみ","minami","selatan"],
-  ["東","ひがし","higashi","timur"],
-  ["西","にし","nishi","barat"],
-  ["国","くに","kuni","negara"],
-  ["学","がく","gaku","belajar"],
-  ["校","こう","kou","sekolah"],
-  ["本","ほん","hon","buku"],
-  ["語","ご","go","bahasa"],
-  ["円","えん","en","yen"],
-  ["時","じ","ji","jam"],
-  ["分","ふん","fun","menit"],
-  ["半","はん","han","setengah"],
-  ["見","みる","miru","melihat"],
-  ["行","いく","iku","pergi"],
-  ["来","くる","kuru","datang"],
-  ["食","たべる","taberu","makan"],
-  ["飲","のむ","nomu","minum"],
-  ["大","おおきい","ookii","besar"],
-  ["小","ちいさい","chiisai","kecil"],
-  ["新","あたらしい","atarashii","baru"],
-  ["天","てん","ten","langit"]
+  {
+    "kanji": "一",
+    "arti": ["satu"],
+    "kunyomi": ["ひとつ", "ひと"],
+    "onyomi": ["いち", "いつ"],
+    "contoh": [
+      {"kata": "一つ", "baca": "ひとつ", "romaji": "hitotsu", "arti": "satu buah", "jenis": "kunyomi"},
+      {"kata": "一人", "baca": "ひとり", "romaji": "hitori", "arti": "satu orang", "jenis": "kunyomi"},
+      {"kata": "一月", "baca": "いちがつ", "romaji": "ichigatsu", "arti": "Januari", "jenis": "onyomi"}
+    ]
+  },
+  {
+    "kanji": "二",
+    "arti": ["dua"],
+    "kunyomi": ["ふたつ", "ふた"],
+    "onyomi": ["ni", "に", "じ"],
+    "contoh": [
+      {"kata": "二つ", "baca": "ふたつ", "romaji": "futatsu", "arti": "dua buah", "jenis": "kunyomi"},
+      {"kata": "二人", "baca": "ふたり", "romaji": "futari", "arti": "dua orang", "jenis": "kunyomi"},
+      {"kata": "二月", "baca": "にがつ", "romaji": "nigatsu", "arti": "Februari", "jenis": "onyomi"}
+    ]
+  },
+  {
+    "kanji": "三",
+    "arti": ["tiga"],
+    "kunyomi": ["みっつ", "み"],
+    "onyomi": ["san", "さん"],
+    "contoh": [
+      {"kata": "三つ", "baca": "みっつ", "romaji": "mittsu", "arti": "tiga buah", "jenis": "kunyomi"},
+      {"kata": "三人", "baca": "さんにん", "romaji": "sannin", "arti": "tiga orang", "jenis": "onyomi"},
+      {"kata": "三月", "baca": "さんがつ", "romaji": "sangatsu", "arti": "Maret", "jenis": "onyomi"}
+    ]
+  },
+  {
+    "kanji": "四",
+    "arti": ["empat"],
+    "kunyomi": ["よっつ", "よん", "よ"],
+    "onyomi": ["し"],
+    "contoh": [
+      {"kata": "四つ", "baca": "よっつ", "romaji": "yottsu", "arti": "empat buah", "jenis": "kunyomi"},
+      {"kata": "四月", "baca": "しがつ", "romaji": "shigatsu", "arti": "April", "jenis": "onyomi"},
+      {"kata": "四人", "baca": "よにん", "romaji": "yonin", "arti": "empat orang", "jenis": "kunyomi"}
+    ]
+  },
+  {
+    "kanji": "五",
+    "arti": ["lima"],
+    "kunyomi": ["いつつ", "いつ"],
+    "onyomi": ["ご"],
+    "contoh": [
+      {"kata": "五つ", "baca": "いつつ", "romaji": "itsutsu", "arti": "lima buah", "jenis": "kunyomi"},
+      {"kata": "五月", "baca": "ごがつ", "romaji": "gogatsu", "arti": "Mei", "jenis": "onyomi"},
+      {"kata": "五人", "baca": "ごにん", "romaji": "gonin", "arti": "lima orang", "jenis": "onyomi"}
+    ]
+  },
+  {
+    "kanji": "六",
+    "arti": ["enam"],
+    "kunyomi": ["むっつ", "む"],
+    "onyomi": ["ろく"],
+    "contoh": [
+      {"kata": "六つ", "baca": "むっつ", "romaji": "muttsu", "arti": "enam buah", "jenis": "kunyomi"},
+      {"kata": "六月", "baca": "ろくがつ", "romaji": "rokugatsu", "arti": "Juni", "jenis": "onyomi"},
+      {"kata": "六人", "baca": "ろくにん", "romaji": "rokunin", "arti": "enam orang", "jenis": "onyomi"}
+    ]
+  },
+  {
+    "kanji": "七",
+    "arti": ["tujuh"],
+    "kunyomi": ["ななつ", "なな"],
+    "onyomi": ["しち"],
+    "contoh": [
+      {"kata": "七つ", "baca": "ななつ", "romaji": "nanatsu", "arti": "tujuh buah", "jenis": "kunyomi"},
+      {"kata": "七月", "baca": "しちがつ", "romaji": "shichigatsu", "arti": "Juli", "jenis": "onyomi"},
+      {"kata": "七日", "baca": "なのか", "romaji": "nanoka", "arti": "hari ketujuh", "jenis": "kunyomi"}
+    ]
+  },
+  {
+    "kanji": "八",
+    "arti": ["delapan"],
+    "kunyomi": ["やっつ", "や"],
+    "onyomi": ["はち"],
+    "contoh": [
+      {"kata": "八つ", "baca": "やっつ", "romaji": "yattsu", "arti": "delapan buah", "jenis": "kunyomi"},
+      {"kata": "八月", "baca": "はちがつ", "romaji": "hachigatsu", "arti": "Agustus", "jenis": "onyomi"},
+      {"kata": "八日", "baca": "ようか", "romaji": "youka", "arti": "hari kedelapan", "jenis": "kunyomi"}
+    ]
+  },
+  {
+    "kanji": "九",
+    "arti": ["sembilan"],
+    "kunyomi": ["ここのつ", "ここの"],
+    "onyomi": ["きゅう", "く"],
+    "contoh": [
+      {"kata": "九つ", "baca": "ここのつ", "romaji": "kokonotsu", "arti": "sembilan buah", "jenis": "kunyomi"},
+      {"kata": "九月", "baca": "くがつ", "romaji": "kugatsu", "arti": "September", "jenis": "onyomi"},
+      {"kata": "九日", "baca": "ここのか", "romaji": "kokonoka", "arti": "hari kesembilan", "jenis": "kunyomi"}
+    ]
+  },
+  {
+    "kanji": "十",
+    "arti": ["sepuluh"],
+    "kunyomi": ["とお"],
+    "onyomi": ["じゅう"],
+    "contoh": [
+      {"kata": "十", "baca": "とお", "romaji": "too", "arti": "sepuluh", "jenis": "kunyomi"},
+      {"kata": "十月", "baca": "じゅうがつ", "romaji": "juugatsu", "arti": "Oktober", "jenis": "onyomi"},
+      {"kata": "十日", "baca": "とおか", "romaji": "tooka", "arti": "hari kesepuluh", "jenis": "kunyomi"}
+    ]
+  },
+  {
+    "kanji": "百",
+    "arti": ["seratus"],
+    "kunyomi": [],
+    "onyomi": ["ひゃく", "びゃく", "ぴゃく"],
+    "contoh": [
+      {"kata": "百", "baca": "ひゃく", "romaji": "hyaku", "arti": "seratus", "jenis": "onyomi"},
+      {"kata": "三百", "baca": "さんびゃく", "romaji": "sanbyaku", "arti": "tiga ratus", "jenis": "onyomi"},
+      {"kata": "六百", "baca": "ろっぴゃく", "romaji": "roppyaku", "arti": "enam ratus", "jenis": "onyomi"}
+    ]
+  },
+  {
+    "kanji": "千",
+    "arti": ["seribu"],
+    "kunyomi": ["ち"],
+    "onyomi": ["せん", "ぜん"],
+    "contoh": [
+      {"kata": "千", "baca": "せん", "romaji": "sen", "arti": "seribu", "jenis": "onyomi"},
+      {"kata": "三千", "baca": "さんぜん", "romaji": "sanzen", "arti": "tiga ribu", "jenis": "onyomi"},
+      {"kata": "千円", "baca": "せんえん", "romaji": "sen'en", "arti": "seribu yen", "jenis": "onyomi"}
+    ]
+  },
+  {
+    "kanji": "日",
+    "arti": ["hari", "matahari"],
+    "kunyomi": ["ひ", "び", "か"],
+    "onyomi": ["にち", "じつ"],
+    "contoh": [
+      {"kata": "日", "baca": "ひ", "romaji": "hi", "arti": "hari/matahari", "jenis": "kunyomi"},
+      {"kata": "日曜日", "baca": "にちようび", "romaji": "nichiyoubi", "arti": "hari Minggu", "jenis": "onyomi"},
+      {"kata": "今日", "baca": "きょう", "romaji": "kyou", "arti": "hari ini", "jenis": "onyomi"}
+    ]
+  },
+  {
+    "kanji": "月",
+    "arti": ["bulan", "bulan (kalender)"],
+    "kunyomi": ["つき"],
+    "onyomi": ["げつ", "がつ"],
+    "contoh": [
+      {"kata": "月", "baca": "つき", "romaji": "tsuki", "arti": "Bulan (moon)", "jenis": "kunyomi"},
+      {"kata": "月曜日", "baca": "げつようび", "romaji": "getsuyoubi", "arti": "Hari Senin", "jenis": "onyomi"},
+      {"kata": "一月", "baca": "いちがつ", "romaji": "ichigatsu", "arti": "Januari", "jenis": "onyomi"}
+    ]
+  },
+  {
+    "kanji": "年",
+    "arti": ["tahun"],
+    "kunyomi": ["とし"],
+    "onyomi": ["ねん"],
+    "contoh": [
+      {"kata": "年", "baca": "とし", "romaji": "toshi", "arti": "tahun", "jenis": "kunyomi"},
+      {"kata": "来年", "baca": "らいねん", "romaji": "rainen", "arti": "tahun depan", "jenis": "onyomi"},
+      {"kata": "今年", "baca": "ことし", "romaji": "kotoshi", "arti": "tahun ini", "jenis": "kunyomi"}
+    ]
+  },
+  {
+    "kanji": "人",
+    "arti": ["orang"],
+    "kunyomi": ["ひと"],
+    "onyomi": ["じん", "にん"],
+    "contoh": [
+      {"kata": "人", "baca": "ひと", "romaji": "hito", "arti": "orang", "jenis": "kunyomi"},
+      {"kata": "日本人", "baca": "にほんじん", "romaji": "nihonjin", "arti": "orang Jepang", "jenis": "onyomi"},
+      {"kata": "三人", "baca": "さんにん", "romaji": "sannin", "arti": "tiga orang", "jenis": "onyomi"}
+    ]
+  },
+  {
+    "kanji": "男",
+    "arti": ["laki-laki"],
+    "kunyomi": ["おとこ"],
+    "onyomi": ["だん", "なん"],
+    "contoh": [
+      {"kata": "男", "baca": "おとこ", "romaji": "otoko", "arti": "laki-laki", "jenis": "kunyomi"},
+      {"kata": "男の子", "baca": "おとこのこ", "romaji": "otokonoko", "arti": "anak laki-laki", "jenis": "kunyomi"},
+      {"kata": "男子", "baca": "だんし", "romaji": "danshi", "arti": "pemuda/anak laki-laki", "jenis": "onyomi"}
+    ]
+  },
+  {
+    "kanji": "女",
+    "arti": ["perempuan"],
+    "kunyomi": ["おんな"],
+    "onyomi": ["じょ", "にょ"],
+    "contoh": [
+      {"kata": "女", "baca": "おんな", "romaji": "onna", "arti": "perempuan", "jenis": "kunyomi"},
+      {"kata": "女の子", "baca": "おんなのこ", "romaji": "onnanoko", "arti": "anak perempuan", "jenis": "kunyomi"},
+      {"kata": "女子", "baca": "じょし", "romaji": "joshi", "arti": "gadis/anak perempuan", "jenis": "onyomi"}
+    ]
+  },
+  {
+    "kanji": "子",
+    "arti": ["anak"],
+    "kunyomi": ["こ"],
+    "onyomi": ["し"],
+    "contoh": [
+      {"kata": "子", "baca": "こ", "romaji": "ko", "arti": "anak", "jenis": "kunyomi"},
+      {"kata": "子ども", "baca": "こども", "romaji": "kodomo", "arti": "anak-anak", "jenis": "kunyomi"},
+      {"kata": "電子", "baca": "でんし", "romaji": "denshi", "arti": "elektron", "jenis": "onyomi"}
+    ]
+  },
+  {
+    "kanji": "母",
+    "arti": ["ibu"],
+    "kunyomi": ["はは", "かあ"],
+    "onyomi": ["ぼ"],
+    "contoh": [
+      {"kata": "母", "baca": "はは", "romaji": "haha", "arti": "ibu saya", "jenis": "kunyomi"},
+      {"kata": "お母さん", "baca": "おかあさん", "romaji": "okaasan", "arti": "Ibu (sapaan)", "jenis": "kunyomi"},
+      {"kata": "祖母", "baca": "そぼ", "romaji": "sobo", "arti": "nenek saya", "jenis": "onyomi"}
+    ]
+  },
+  {
+    "kanji": "父",
+    "arti": ["ayah"],
+    "kunyomi": ["ちち", "とう"],
+    "onyomi": ["ふ"],
+    "contoh": [
+      {"kata": "父", "baca": "ちち", "romaji": "chichi", "arti": "ayah saya", "jenis": "kunyomi"},
+      {"kata": "お父さん", "baca": "おとうさん", "romaji": "otousan", "arti": "Ayah (sapaan)", "jenis": "kunyomi"},
+      {"kata": "祖父", "baca": "そふ", "romaji": "sofu", "arti": "kakek saya", "jenis": "onyomi"}
+    ]
+  },
+  {
+    "kanji": "友",
+    "arti": ["teman"],
+    "kunyomi": ["とも"],
+    "onyomi": ["ゆう"],
+    "contoh": [
+      {"kata": "友だち", "baca": "ともだち", "romaji": "tomodachi", "arti": "teman", "jenis": "kunyomi"},
+      {"kata": "友人", "baca": "ゆうじん", "romaji": "yuujin", "arti": "teman/sahabat", "jenis": "onyomi"},
+      {"kata": "親友", "baca": "しんゆう", "romaji": "shinyuu", "arti": "sahabat karib", "jenis": "onyomi"}
+    ]
+  },
+  {
+    "kanji": "上",
+    "arti": ["atas"],
+    "kunyomi": ["うえ", "あげる", "のぼる"],
+    "onyomi": ["じょう"],
+    "contoh": [
+      {"kata": "上", "baca": "うえ", "romaji": "ue", "arti": "atas", "jenis": "kunyomi"},
+      {"kata": "上げる", "baca": "あげる", "romaji": "ageru", "arti": "menaikkan", "jenis": "kunyomi"},
+      {"kata": "上手", "baca": "じょうず", "romaji": "jouzu", "arti": "mahir/pintar", "jenis": "onyomi"}
+    ]
+  },
+  {
+    "kanji": "下",
+    "arti": ["bawah"],
+    "kunyomi": ["した", "さげる", "くだる"],
+    "onyomi": ["か", "げ"],
+    "contoh": [
+      {"kata": "下", "baca": "した", "romaji": "shita", "arti": "bawah", "jenis": "kunyomi"},
+      {"kata": "下げる", "baca": "さげる", "romaji": "sageru", "arti": "menurunkan", "jenis": "kunyomi"},
+      {"kata": "地下鉄", "baca": "ちかてつ", "romaji": "chikatetsu", "arti": "kereta bawah tanah", "jenis": "onyomi"}
+    ]
+  },
+  {
+    "kanji": "中",
+    "arti": ["tengah", "dalam"],
+    "kunyomi": ["なか"],
+    "onyomi": ["ちゅう", "じゅう"],
+    "contoh": [
+      {"kata": "中", "baca": "なか", "romaji": "naka", "arti": "dalam", "jenis": "kunyomi"},
+      {"kata": "一日中", "baca": "いちにちじゅう", "romaji": "ichinichijuu", "arti": "sepanjang hari", "jenis": "onyomi"},
+      {"kata": "中国", "baca": "ちゅうごく", "romaji": "chuugoku", "arti": "Tiongkok/China", "jenis": "onyomi"}
+    ]
+  },
+  {
+    "kanji": "外",
+    "arti": ["luar"],
+    "kunyomi": ["そと", "ほか"],
+    "onyomi": ["がい", "げ"],
+    "contoh": [
+      {"kata": "外", "baca": "そと", "romaji": "soto", "arti": "luar", "jenis": "kunyomi"},
+      {"kata": "外国人", "baca": "がいこくじん", "romaji": "gaikokujin", "arti": "orang asing", "jenis": "onyomi"},
+      {"kata": "外科", "baca": "げか", "romaji": "geka", "arti": "bedah", "jenis": "onyomi"}
+    ]
+  },
+  {
+    "kanji": "左",
+    "arti": ["kiri"],
+    "kunyomi": ["ひだり"],
+    "onyomi": ["さ"],
+    "contoh": [
+      {"kata": "左", "baca": "ひだり", "romaji": "hidari", "arti": "kiri", "jenis": "kunyomi"},
+      {"kata": "左手", "baca": "ひだりて", "romaji": "hidarite", "arti": "tangan kiri", "jenis": "kunyomi"},
+      {"kata": "左右", "baca": "さゆう", "romaji": "sayuu", "arti": "kiri dan kanan", "jenis": "onyomi"}
+    ]
+  },
+  {
+    "kanji": "右",
+    "arti": ["kanan"],
+    "kunyomi": ["みぎ"],
+    "onyomi": ["う", "ゆう"],
+    "contoh": [
+      {"kata": "右", "baca": "みぎ", "romaji": "migi", "arti": "kanan", "jenis": "kunyomi"},
+      {"kata": "右手", "baca": "みぎて", "romaji": "migite", "arti": "tangan kanan", "jenis": "kunyomi"},
+      {"kata": "右折", "baca": "うせつ", "romaji": "usetsu", "arti": "belok kanan", "jenis": "onyomi"}
+    ]
+  },
+  {
+    "kanji": "北",
+    "arti": ["utara"],
+    "kunyomi": ["kita"],
+    "onyomi": ["hoku"],
+    "contoh": [
+      {"kata": "北", "baca": "kita", "romaji": "kita", "arti": "utara", "jenis": "kunyomi"},
+      {"kata": "北海道", "baca": "ほっかいどう", "romaji": "hokkaido", "arti": "Hokkaido", "jenis": "onyomi"},
+      {"kata": "北口", "baca": "きたぐち", "romaji": "kitaguchi", "arti": "pintu utara", "jenis": "kunyomi"}
+    ]
+  },
+  {
+    "kanji": "南",
+    "arti": ["selatan"],
+    "kunyomi": ["みなみ"],
+    "onyomi": ["なん"],
+    "contoh": [
+      {"kata": "南", "baca": "みなみ", "romaji": "minami", "arti": "selatan", "jenis": "kunyomi"},
+      {"kata": "南国", "baca": "なんごく", "romaji": "nangoku", "arti": "negara selatan", "jenis": "onyomi"},
+      {"kata": "南口", "baca": "みなみぐち", "romaji": "minamiguchi", "arti": "pintu selatan", "jenis": "kunyomi"}
+    ]
+  },
+  {
+    "kanji": "東",
+    "arti": ["timur"],
+    "kunyomi": ["ひがし"],
+    "onyomi": ["とう"],
+    "contoh": [
+      {"kata": "東", "baca": "ひがし", "romaji": "higashi", "arti": "timur", "jenis": "kunyomi"},
+      {"kata": "東京", "baca": "とうきょう", "romaji": "toukyou", "arti": "Tokyo", "jenis": "onyomi"},
+      {"kata": "東口", "baca": "ひがしぐち", "romaji": "higashiguchi", "arti": "pintu timur", "jenis": "kunyomi"}
+    ]
+  },
+  {
+    "kanji": "西",
+    "arti": ["barat"],
+    "kunyomi": ["にし"],
+    "onyomi": ["せい", "さい"],
+    "contoh": [
+      {"kata": "西", "baca": "にし", "romaji": "nishi", "arti": "barat", "jenis": "kunyomi"},
+      {"kata": "関西", "baca": "かんさい", "romaji": "kansai", "arti": "wilayah Kansai", "jenis": "onyomi"},
+      {"kata": "西口", "baca": "にしぐち", "romaji": "nishiguchi", "arti": "pintu barat", "jenis": "kunyomi"}
+    ]
+  },
+  {
+    "kanji": "国",
+    "arti": ["negara"],
+    "kunyomi": ["くに"],
+    "onyomi": ["こく"],
+    "contoh": [
+      {"kata": "国", "baca": "くに", "romaji": "kuni", "arti": "negara", "jenis": "kunyomi"},
+      {"kata": "外国", "baca": "がいこく", "romaji": "gaikoku", "arti": "luar negeri", "jenis": "onyomi"},
+      {"kata": "中国", "baca": "ちゅうごく", "romaji": "chuugoku", "arti": "Tiongkok/China", "jenis": "onyomi"}
+    ]
+  },
+  {
+    "kanji": "学",
+    "arti": ["belajar"],
+    "kunyomi": ["まなぶ"],
+    "onyomi": ["がく", "がっ"],
+    "contoh": [
+      {"kata": "学ぶ", "baca": "まなぶ", "romaji": "manabu", "arti": "belajar", "jenis": "kunyomi"},
+      {"kata": "学生", "baca": "がくせい", "romaji": "gakusei", "arti": "siswa", "jenis": "onyomi"},
+      {"kata": "大学", "baca": "だいがく", "romaji": "daigaku", "arti": "universitas", "jenis": "onyomi"}
+    ]
+  },
+  {
+    "kanji": "校",
+    "arti": ["sekolah"],
+    "kunyomi": [],
+    "onyomi": ["こう"],
+    "contoh": [
+      {"kata": "学校", "baca": "がっこう", "romaji": "gakkou", "arti": "sekolah", "jenis": "onyomi"},
+      {"kata": "小学校", "baca": "しょうがっこう", "romaji": "shougakkou", "arti": "SD", "jenis": "onyomi"},
+      {"kata": "高校", "baca": "こうこう", "romaji": "koukou", "arti": "SMA", "jenis": "onyomi"}
+    ]
+  },
+  {
+    "kanji": "本",
+    "arti": ["buku", "asal"],
+    "kunyomi": ["moto"],
+    "onyomi": ["ほん"],
+    "contoh": [
+      {"kata": "本", "baca": "ほん", "romaji": "hon", "arti": "buku", "jenis": "onyomi"},
+      {"kata": "日本", "baca": "にほん", "romaji": "nihon", "arti": "Jepang", "jenis": "onyomi"},
+      {"kata": "本屋", "baca": "ほんや", "romaji": "honya", "arti": "toko buku", "jenis": "kunyomi"}
+    ]
+  },
+  {
+    "kanji": "語",
+    "arti": ["bahasa", "bercerita"],
+    "kunyomi": ["かたる"],
+    "onyomi": ["ご"],
+    "contoh": [
+      {"kata": "語る", "baca": "かたる", "romaji": "kataru", "arti": "bercerita", "jenis": "kunyomi"},
+      {"kata": "日本語", "baca": "にほんご", "romaji": "nihongo", "arti": "bahasa Jepang", "jenis": "onyomi"},
+      {"kata": "英語", "baca": "えいご", "romaji": "eigo", "arti": "bahasa Inggris", "jenis": "onyomi"}
+    ]
+  },
+  {
+    "kanji": "円",
+    "arti": ["yen", "bulat"],
+    "kunyomi": ["まるい"],
+    "onyomi": ["えん"],
+    "contoh": [
+      {"kata": "円", "baca": "えん", "romaji": "en", "arti": "yen", "jenis": "onyomi"},
+      {"kata": "丸い", "baca": "まるい", "romaji": "marui", "arti": "bulat", "jenis": "kunyomi"},
+      {"kata": "円高", "baca": "えんだか", "romaji": "endaka", "arti": "yen naik", "jenis": "onyomi"}
+    ]
+  },
+  {
+    "kanji": "時",
+    "arti": ["jam", "waktu"],
+    "kunyomi": ["とき"],
+    "onyomi": ["じ"],
+    "contoh": [
+      {"kata": "時", "baca": "とき", "romaji": "toki", "arti": "waktu/saat", "jenis": "kunyomi"},
+      {"kata": "一時", "baca": "いちじ", "romaji": "ichiji", "arti": "jam 1", "jenis": "onyomi"},
+      {"kata": "時間", "baca": "じかん", "romaji": "jikan", "arti": "waktu/durasi", "jenis": "onyomi"}
+    ]
+  },
+  {
+    "kanji": "分",
+    "arti": ["menit", "bagian"],
+    "kunyomi": ["わける", "わかる"],
+    "onyomi": ["ふん", "ぶん", "ぷん"],
+    "contoh": [
+      {"kata": "分かる", "baca": "わかる", "romaji": "wakaru", "arti": "mengerti/paham", "jenis": "kunyomi"},
+      {"kata": "五分", "baca": "ごふん", "romaji": "gofun", "arti": "5 menit", "jenis": "onyomi"},
+      {"kata": "半分", "baca": "はんぶん", "romaji": "hanbun", "arti": "setengah", "jenis": "onyomi"}
+    ]
+  },
+  {
+    "kanji": "半",
+    "arti": ["setengah"],
+    "kunyomi": ["なかば"],
+    "onyomi": ["はん"],
+    "contoh": [
+      {"kata": "半分", "baca": "はんぶん", "romaji": "hanbun", "arti": "setengah", "jenis": "onyomi"},
+      {"kata": "四時半", "baca": "よじはん", "romaji": "yojihan", "arti": "jam 4 setengah", "jenis": "onyomi"},
+      {"kata": "半年", "baca": "はんとし", "romaji": "hantoshi", "arti": "setengah tahun", "jenis": "kunyomi"}
+    ]
+  },
+  {
+    "kanji": "見",
+    "arti": ["melihat"],
+    "kunyomi": ["みる", "みせる"],
+    "onyomi": ["けん"],
+    "contoh": [
+      {"kata": "見る", "baca": "みる", "romaji": "miru", "arti": "melihat", "jenis": "kunyomi"},
+      {"kata": "見せる", "baca": "みせる", "romaji": "miseru", "arti": "memperlihatkan", "jenis": "kunyomi"},
+      {"kata": "見学", "baca": "けんがく", "romaji": "kengaku", "arti": "studi tur", "jenis": "onyomi"}
+    ]
+  },
+  {
+    "kanji": "行",
+    "arti": ["pergi"],
+    "kunyomi": ["いく", "おこなう"],
+    "onyomi": ["こう", "ぎょう"],
+    "contoh": [
+      {"kata": "行く", "baca": "いく", "romaji": "iku", "arti": "pergi", "jenis": "kunyomi"},
+      {"kata": "銀行", "baca": "ぎんこう", "romaji": "ginkou", "arti": "bank", "jenis": "onyomi"},
+      {"kata": "旅行", "baca": "りょこう", "romaji": "ryokou", "arti": "wisata/perjalanan", "jenis": "onyomi"}
+    ]
+  },
+  {
+    "kanji": "来",
+    "arti": ["datang"],
+    "kunyomi": ["くる", "きたる"],
+    "onyomi": ["らい"],
+    "contoh": [
+      {"kata": "来る", "baca": "くる", "romaji": "kuru", "arti": "datang", "jenis": "kunyomi"},
+      {"kata": "来年", "baca": "らいねん", "romaji": "rainen", "arti": "tahun depan", "jenis": "onyomi"},
+      {"kata": "来月", "baca": "らいげつ", "romaji": "raigetsu", "arti": "bulan depan", "jenis": "onyomi"}
+    ]
+  },
+  {
+    "kanji": "食",
+    "arti": ["makan"],
+    "kunyomi": ["たべる"],
+    "onyomi": ["shoku"],
+    "contoh": [
+      {"kata": "食べる", "baca": "たべる", "romaji": "taberu", "arti": "makan", "jenis": "kunyomi"},
+      {"kata": "食べ物", "baca": "tabemono", "romaji": "tabemono", "arti": "makanan", "jenis": "kunyomi"},
+      {"kata": "朝食", "baca": "ちょうしょく", "romaji": "choushoku", "arti": "sarapan", "jenis": "onyomi"}
+    ]
+  },
+  {
+    "kanji": "飲",
+    "arti": ["minum"],
+    "kunyomi": ["のむ"],
+    "onyomi": ["いん"],
+    "contoh": [
+      {"kata": "飲む", "baca": "のむ", "romaji": "nomu", "arti": "minum", "jenis": "kunyomi"},
+      {"kata": "飲み物", "baca": "のみもの", "romaji": "nomimono", "arti": "minuman", "jenis": "kunyomi"},
+      {"kata": "飲食店", "baca": "いんしょくてん", "romaji": "inshokuten", "arti": "restoran", "jenis": "onyomi"}
+    ]
+  },
+  {
+    "kanji": "大",
+    "arti": ["besar"],
+    "kunyomi": ["おおきい"],
+    "onyomi": ["だい", "たい"],
+    "contoh": [
+      {"kata": "大きい", "baca": "おおきい", "romaji": "ookii", "arti": "besar", "jenis": "kunyomi"},
+      {"kata": "大学", "baca": "だいがく", "romaji": "daigaku", "arti": "universitas", "jenis": "onyomi"},
+      {"kata": "大人", "baca": "おとな", "romaji": "otona", "arti": "dewasa", "jenis": "kunyomi"}
+    ]
+  },
+  {
+    "kanji": "小",
+    "arti": ["kecil"],
+    "kunyomi": ["ちいさい", "こ"],
+    "onyomi": ["しょう"],
+    "contoh": [
+      {"kata": "小さい", "baca": "ちいさい", "romaji": "chiisai", "arti": "kecil", "jenis": "kunyomi"},
+      {"kata": "小学校", "baca": "しょうがっこう", "romaji": "shougakkou", "arti": "SD", "jenis": "onyomi"},
+      {"kata": "小川", "baca": "おがわ", "romaji": "ogawa", "arti": "sungai kecil", "jenis": "kunyomi"}
+    ]
+  },
+  {
+    "kanji": "新",
+    "arti": ["baru"],
+    "kunyomi": ["あたらしい"],
+    "onyomi": ["しん"],
+    "contoh": [
+      {"kata": "新しい", "baca": "あたらしい", "romaji": "atarashii", "arti": "baru", "jenis": "kunyomi"},
+      {"kata": "新聞", "baca": "しんぶん", "romaji": "shinbun", "arti": "koran", "jenis": "onyomi"},
+      {"kata": "新年", "baca": "しんねん", "romaji": "shinnen", "arti": "tahun baru", "jenis": "onyomi"}
+    ]
+  },
+  {
+    "kanji": "天",
+    "arti": ["langit"],
+    "kunyomi": ["あまつ"],
+    "onyomi": ["てん"],
+    "contoh": [
+      {"kata": "天気", "baca": "てんき", "romaji": "tenki", "arti": "cuaca", "jenis": "onyomi"},
+      {"kata": "天国", "baca": "てんごく", "romaji": "tengoku", "arti": "surga", "jenis": "onyomi"},
+      {"kata": "天才", "baca": "てんさい", "romaji": "tensai", "arti": "jenius", "jenis": "onyomi"}
+    ]
+  }
 ];
+
+const KANJI_DB_SIMPLE = KANJI_DB.map(k => {
+  const kanji = k.kanji;
+  const hira = k.kunyomi.length > 0 ? k.kunyomi[0] : k.onyomi[0];
+  const romaji = k.contoh.length > 0 ? k.contoh[0].romaji : ""; 
+  const arti = k.arti[0];
+  return [kanji, hira, romaji, arti];
+});
 
 /* ============================================================
    DATABASE GABUNGAN KANJI (untuk Test Kanji Level 2)
@@ -1352,7 +1873,7 @@ const LEVEL_INFO = {
     title:"💬 Test Kotoba",
     levels:[
       {n:1, tag:"Hanya Hiragana", desc:"100% Pilihan Ganda dari kosakata JLPT N5 dasar, khusus menggunakan huruf Hiragana saja. 50 soal."},
-      {n:2, tag:"Hiragana & Katakana", desc:"100% Pilihan Ganda dari kosakata JLPT N5, menggunakan Hiragana dan Katakana tanpa Kanji. 50 soal."},
+      {n:2, tag:"Hiragana & Katakana", desc:"100% Pilihan Ganda dengan porsi seimbang (50% Hiragana & 50% Katakana) dari kosakata JLPT N5 tanpa Kanji. 50 soal."},
       {n:3, tag:"Kanji JLPT N5", desc:"100% Pilihan Ganda dari kosakata JLPT N5, menggunakan Kanji yang ada pada tabel Hafalan Kanji. 50 soal."},
       {n:4, tag:"Campuran Lengkap", desc:"Campuran Hiragana, Katakana, dan Kanji JLPT N5. 70% Pilihan Ganda dan 30% Isian Keyboard (mengetik arti Indonesia). 50 soal."}
     ]
@@ -1545,7 +2066,7 @@ function generateKotobaQuestions(level){
       return !hasKatakana && !hasKanji;
     });
   } else if (level === 2) {
-    pool = KOTOBA_DB.map(item => {
+    const allNoKanji = KOTOBA_DB.map(item => {
       const [word, reading, meaning] = item;
       const hWord = getHiraganaOnlyWord(word);
       return [hWord, reading, meaning];
@@ -1554,13 +2075,24 @@ function generateKotobaQuestions(level){
       const hasKanji = /[\u4e00-\u9faf]/.test(word);
       return !hasKanji;
     });
+
+    const katakanaPool = allNoKanji.filter(item => /[\u30a0-\u30ff]/.test(item[0]));
+    const hiraganaPool = allNoKanji.filter(item => !/[\u30a0-\u30ff]/.test(item[0]));
+
+    const selectedKatakana = shuffle(katakanaPool).slice(0, 25);
+    const selectedHiragana = shuffle(hiraganaPool).slice(0, 25);
+
+    pool = selectedKatakana.concat(selectedHiragana);
   } else if (level === 3) {
     const seen = new Set();
     KANJI_DB.forEach(item => {
-      const [kanji, hira, romaji, arti] = item;
-      const key = kanji + "_" + arti;
+      const { kanji, arti, kunyomi, onyomi, contoh } = item;
+      const hira = kunyomi[0] || onyomi[0] || "";
+      const romaji = (contoh && contoh.length > 0) ? contoh[0].romaji : "";
+      const art = arti[0] || "";
+      const key = kanji + "_" + art;
       if (!seen.has(key)) {
-        pool.push([kanji, romaji, arti]);
+        pool.push([kanji, romaji, art]);
         seen.add(key);
       }
     });
@@ -1651,32 +2183,67 @@ function pickWrongOptions(pool, correct, count){
 
 function generateKanjiLevel1(){
   const questions = [];
-  const mcTypes = [1,2,3,4]; // 1:kanji->arti 2:kanji->bacaan 3:hiragana->kanji 4:arti->kanji
-
-  for(let i=0;i<50;i++){
-    const item = KANJI_DB[randInt(0,KANJI_DB.length-1)];
-    const [kanji, hira, romaji, arti] = item;
-    const type = mcTypes[randInt(0,mcTypes.length-1)];
-    let prompt, correct, optionsPool, smallText;
-    if(type===1){
-      prompt = kanji; correct = arti; smallText = false;
-      optionsPool = KANJI_DB.filter(k=>k[3]!==arti).map(k=>k[3]);
-    }else if(type===2){
-      prompt = kanji; correct = hira; smallText = false;
-      optionsPool = KANJI_DB.filter(k=>k[1]!==hira).map(k=>k[1]);
-    }else if(type===3){
-      prompt = hira; correct = kanji; smallText = true;
-      optionsPool = KANJI_DB.filter(k=>k[0]!==kanji).map(k=>k[0]);
-    }else{
-      prompt = arti; correct = kanji; smallText = true;
-      optionsPool = KANJI_DB.filter(k=>k[0]!==kanji).map(k=>k[0]);
+  
+  for(let i=0; i<50; i++){
+    const item = KANJI_DB[randInt(0, KANJI_DB.length-1)];
+    const { kanji, arti, kunyomi, onyomi, contoh } = item;
+    
+    // Choose a question type randomly
+    // 1: Kanji -> Arti, 2: Kunyomi reading, 3: Onyomi reading, 4: Contoh reading
+    let type = randInt(1, 4);
+    
+    // Fallback if kunyomi or onyomi is empty, or if examples are empty
+    if(type === 2 && kunyomi.length === 0) type = 3;
+    if(type === 3 && onyomi.length === 0) type = 2;
+    if(type === 4 && (!contoh || contoh.length === 0)) type = 1;
+    
+    let prompt, correct, optionsPool, smallText = false;
+    
+    if(type === 1){
+      prompt = `Apa arti dari Kanji "${kanji}"?`;
+      correct = arti.join(", ");
+      optionsPool = KANJI_DB.filter(k => k.kanji !== kanji).map(k => k.arti.join(", "));
+    } else if(type === 2){
+      prompt = `Bagaimana bacaan Kunyomi (訓読み) dari Kanji "${kanji}"?`;
+      correct = kunyomi.join(", ");
+      optionsPool = KANJI_DB.filter(k => k.kanji !== kanji && k.kunyomi.length > 0).map(k => k.kunyomi.join(", "));
+    } else if(type === 3){
+      prompt = `Bagaimana bacaan Onyomi (音読み) dari Kanji "${kanji}"?`;
+      correct = onyomi.join(", ");
+      optionsPool = KANJI_DB.filter(k => k.kanji !== kanji && k.onyomi.length > 0).map(k => k.onyomi.join(", "));
+    } else {
+      // Pick a random example
+      const ex = contoh[randInt(0, contoh.length-1)];
+      prompt = `Bagaimana cara membaca kata "${ex.kata}" (${ex.arti})?`;
+      correct = ex.baca;
+      
+      // Get other example readings as wrong options
+      const otherExamples = [];
+      KANJI_DB.forEach(k => {
+        if(k.kanji !== kanji) {
+          k.contoh.forEach(c => otherExamples.push(c.baca));
+        }
+      });
+      optionsPool = otherExamples;
     }
+    
     const wrongs = pickWrongOptions(optionsPool, correct, 3);
     const options = shuffle([correct, ...wrongs]);
-    questions.push({id:0, type:"mc", prompt, options, correct, userAnswer:null, status:"unanswered", locked:false, smallText});
+    
+    questions.push({
+      id: 0,
+      type: "mc",
+      prompt,
+      options,
+      correct,
+      userAnswer: null,
+      status: "unanswered",
+      locked: false,
+      smallText
+    });
   }
-
-  return shuffle(questions).map((q,idx)=>({...q, id:idx+1}));
+  
+  return shuffle(questions).map((q, idx) => ({...q, id: idx+1}));
 }
 
 function generateKanjiLevel2(){
@@ -1801,7 +2368,7 @@ function generateKanjiLevel3(){
 }
 
 function generateKanjiLevel4(){
-  const poolN5 = KANJI_DB.concat(KANJI_COMPOUND_DB);
+  const poolN5 = KANJI_DB_SIMPLE.concat(KANJI_COMPOUND_DB);
   const poolN4 = KANJI_N4_SINGLE.concat(KANJI_N4_COMPOUND);
   const ALL_COMBINED = poolN5.concat(poolN4);
 
@@ -2399,9 +2966,41 @@ function renderKanjiHafalanTable(){
   const tbody = document.getElementById("hafalan-kanji-tbody");
   if(!tbody) return;
   tbody.innerHTML = "";
-  KANJI_DB.forEach(([kanji, hira, romaji, arti])=>{
+  KANJI_DB.forEach((item)=>{
+    const { kanji, arti, kunyomi, onyomi, contoh } = item;
     const tr = document.createElement("tr");
-    tr.innerHTML = `<td>${kanji}</td><td>${hira}</td><td>${romaji}</td><td>${arti}</td>`;
+    
+    // Format kunyomi and onyomi badges
+    const kunBadges = kunyomi && kunyomi.length > 0 
+      ? kunyomi.map(k => `<span class="px-2 py-0.5 text-xs bg-emerald-100 text-emerald-800 border border-emerald-300 rounded font-semibold inline-block m-0.5">${k}</span>`).join("")
+      : `<span class="text-xs text-gray-400 italic">Tidak ada</span>`;
+      
+    const onBadges = onyomi && onyomi.length > 0 
+      ? onyomi.map(o => `<span class="px-2 py-0.5 text-xs bg-sky-100 text-sky-800 border border-sky-300 rounded font-semibold inline-block m-0.5">${o}</span>`).join("")
+      : `<span class="text-xs text-gray-400 italic">Tidak ada</span>`;
+
+    // Format examples
+    const examplesHtml = contoh && contoh.length > 0
+      ? contoh.map(c => {
+          const badgeClass = c.jenis === "kunyomi" 
+            ? "bg-emerald-50 text-emerald-600 border border-emerald-100" 
+            : "bg-sky-50 text-sky-600 border border-sky-100";
+          return `<div class="mb-2 text-sm leading-relaxed border-b border-gray-100 pb-1 last:border-0 last:pb-0">
+            <span class="font-bold text-gray-800">${c.kata}</span> 
+            <span class="text-xs text-gray-500">(${c.baca})</span> : 
+            <span class="text-gray-600">${c.arti}</span>
+            <span class="text-[10px] px-1 py-0.2 rounded ${badgeClass}">${c.jenis}</span>
+          </div>`;
+        }).join("")
+      : `<span class="text-xs text-gray-400 italic">Tidak ada contoh</span>`;
+
+    tr.innerHTML = `
+      <td class="text-center align-middle"><span class="text-3xl font-extrabold text-indigo-700 block my-1">${kanji}</span></td>
+      <td class="align-middle font-semibold text-gray-800">${arti.join(", ")}</td>
+      <td class="align-middle">${kunBadges}</td>
+      <td class="align-middle">${onBadges}</td>
+      <td class="align-middle text-left max-w-xs">${examplesHtml}</td>
+    `;
     tbody.appendChild(tr);
   });
 }
