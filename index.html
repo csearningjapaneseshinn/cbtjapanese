@@ -362,6 +362,7 @@ input{font-family:'Poppins',sans-serif;}
         <button class="menu-btn" data-menu="kotoba"><span class="emoji">💬</span>Test Kotoba</button>
         <button class="menu-btn" data-menu="kanji"><span class="emoji">🈶</span>Test Kanji</button>
         <button class="menu-btn" data-menu="riwayat"><span class="emoji">⭐</span>Riwayat Nilai</button>
+        <button class="menu-btn wide" data-menu="simulasi"><span class="emoji">🇯🇵</span>Simulasi JLPT</button>
         <button class="menu-btn wide" data-menu="hafalan"><span class="emoji">📖</span>Tabel Hikana & Kanji</button>
         <button class="menu-btn wide" data-menu="highscore"><span class="emoji">🏆</span>High Score</button>
       </div>
@@ -463,6 +464,73 @@ input{font-family:'Poppins',sans-serif;}
       <div style="display:flex;gap:10px;flex-wrap:wrap;">
         <button class="btn btn-outline" style="flex:1;" id="btn-review">🔍 Lihat Koreksi</button>
         <button class="btn btn-primary" style="flex:1;" id="btn-home-from-result">🏠 Menu Utama</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SIMULASI JLPT CATEGORY ============ -->
+  <section class="screen" id="screen-simulasi">
+    <div class="back-row"><button class="back-btn" data-back="home">← Kembali ke Menu</button></div>
+    <div class="card">
+      <div class="section-title">🇯🇵 Simulasi JLPT</div>
+      <div class="section-sub">Latihan simulasi yang dirancang menyerupai format ujian JLPT untuk membantu meningkatkan kemampuan bahasa Jepang. Soal, tingkat kesulitan, dan sistem penilaian dibuat sebagai media belajar dan evaluasi mandiri.</div>
+      <div style="background:rgba(239,68,68,0.05); border:1px solid rgba(239,68,68,0.2); border-radius:12px; padding:12px; font-size:12px; color:#B91C1C; margin-bottom:20px; line-height:1.5;">
+        ⚠️ Aplikasi ini bukan ujian JLPT resmi dan tidak berafiliasi dengan Japan Foundation maupun JEES.
+      </div>
+      <div class="level-grid" style="display:grid; grid-template-columns:1fr; gap:16px;">
+        <div class="level-card" style="cursor:pointer;" onclick="selectSimulasiCategory('simulasi_n5')">
+          <span class="tag" style="background:#EEF2F6; color:#1E293B;">JLPT N5</span>
+          <h3>🇯🇵 JLPT N5 (Dasar)</h3>
+          <p>Materi tingkat dasar meliputi tata bahasa dasar, kanji pemula, kosakata umum, dan bacaan sederhana.</p>
+          <button class="btn btn-primary btn-block">Pilih JLPT N5</button>
+        </div>
+        <div class="level-card" style="cursor:pointer;" onclick="selectSimulasiCategory('simulasi_n4')">
+          <span class="tag" style="background:#EEF2F6; color:#1E293B;">JLPT N4</span>
+          <h3>🇯🇵 JLPT N4 (Menengah-Dasar)</h3>
+          <p>Materi tingkat menengah-dasar meliputi ekspresi sehari-hari, kanji tingkat lanjutan dasar, dan pemahaman bacaan.</p>
+          <button class="btn btn-primary btn-block">Pilih JLPT N4</button>
+        </div>
+        <div class="level-card" style="cursor:pointer;" onclick="selectSimulasiCategory('simulasi_n3')">
+          <span class="tag" style="background:#EEF2F6; color:#1E293B;">JLPT N3</span>
+          <h3>🇯🇵 JLPT N3 (Menengah)</h3>
+          <p>Materi jembatan antara dasar dan lanjutan. Menguji tata bahasa menengah, kosakata abstrak, dan artikel opini pendek.</p>
+          <button class="btn btn-primary btn-block">Pilih JLPT N3</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ DETAIL RIWAYAT ============ -->
+  <section class="screen" id="screen-history-detail">
+    <div class="back-row"><button class="back-btn" data-back="dashboard">← Kembali ke Riwayat</button></div>
+    <div class="card result-card">
+      <div class="result-title">DETAIL RIWAYAT UJIAN</div>
+      <div class="result-score" id="h-detail-nilai">0</div>
+      <div class="result-grade" id="h-detail-grade">E</div>
+      <div class="result-info-grid">
+        <div class="result-info-item"><div class="l">Nama Peserta</div><div class="v" id="hd-nama"></div></div>
+        <div class="result-info-item"><div class="l">Jenis Ujian</div><div class="v" id="hd-jenis"></div></div>
+        <div class="result-info-item"><div class="l">Level</div><div class="v" id="hd-level"></div></div>
+        <div class="result-info-item"><div class="l">Lama Pengerjaan</div><div class="v" id="hd-waktu"></div></div>
+        <div class="result-info-item"><div class="l">Benar</div><div class="v" id="hd-benar"></div></div>
+        <div class="result-info-item"><div class="l">Salah</div><div class="v" id="hd-salah"></div></div>
+        <div class="result-info-item"><div class="l">Tidak Dijawab</div><div class="v" id="hd-kosong"></div></div>
+        <div class="result-info-item"><div class="l">Persentase</div><div class="v" id="hd-persen"></div></div>
+        <div class="result-info-item"><div class="l">Tanggal Ujian</div><div class="v" id="hd-tanggal"></div></div>
+        <div class="result-info-item"><div class="l">Jam Ujian</div><div class="v" id="hd-jam"></div></div>
+      </div>
+      <div style="background:linear-gradient(120deg,var(--primary),var(--primary-dark));border-radius:14px;padding:16px;margin-bottom:20px;display:flex;justify-content:space-around;color:#fff;flex-wrap:wrap;gap:10px;">
+        <div style="text-align:center;">
+          <div style="font-size:10.5px;opacity:.85;font-weight:600;letter-spacing:.5px;">🏆 TOTAL SCORE</div>
+          <div style="font-size:20px;font-weight:800;" id="hd-global-score">0</div>
+        </div>
+        <div style="text-align:center;">
+          <div style="font-size:10.5px;opacity:.85;font-weight:600;letter-spacing:.5px;">⚡ WAKTU TERCEPAT</div>
+          <div style="font-size:20px;font-weight:800;" id="hd-global-time">--:--:--</div>
+        </div>
+      </div>
+      <div style="display:flex;gap:10px;flex-wrap:wrap;">
+        <button class="btn btn-primary btn-block" data-back="dashboard">Kembali ke Riwayat</button>
       </div>
     </div>
   </section>
@@ -1837,9 +1905,43 @@ document.querySelectorAll(".menu-btn[data-menu]").forEach(btn=>{
     }
     State.name = name;
     saveLastName(name);
+    if(menu==="simulasi"){
+      goScreen("simulasi");
+      return;
+    }
     openLevelSelect(menu);
   });
 });
+
+function selectSimulasiCategory(category) {
+  openLevelSelect(category);
+}
+window.selectSimulasiCategory = selectSimulasiCategory;
+
+function openHistoryDetail(index) {
+  const history = getHistory();
+  const h = history[index];
+  if(!h) return;
+
+  document.getElementById("h-detail-nilai").textContent = h.nilai;
+  document.getElementById("h-detail-grade").textContent = h.grade || getGrade(h.nilai);
+  document.getElementById("hd-nama").textContent = h.nama || "-";
+  document.getElementById("hd-jenis").textContent = h.jenis || "-";
+  document.getElementById("hd-level").textContent = h.level !== undefined ? "Level " + h.level : "-";
+  document.getElementById("hd-waktu").textContent = h.waktu || "-";
+  document.getElementById("hd-benar").textContent = h.benar !== undefined ? h.benar : "-";
+  document.getElementById("hd-salah").textContent = h.salah !== undefined ? h.salah : "-";
+  document.getElementById("hd-kosong").textContent = h.kosong !== undefined ? h.kosong : "-";
+  document.getElementById("hd-persen").textContent = h.persen || "-";
+  document.getElementById("hd-tanggal").textContent = h.tanggal || "-";
+  document.getElementById("hd-jam").textContent = h.jam || "-";
+
+  document.getElementById("hd-global-score").textContent = getGlobalScore();
+  const fastest = getFastestTime();
+  document.getElementById("hd-global-time").textContent = fastest===null ? "--:--:--" : formatHMS(fastest);
+
+  goScreen("history-detail");
+}
 
 document.querySelectorAll("[data-back]").forEach(btn=>{
   btn.addEventListener("click", ()=>{
@@ -1885,6 +1987,30 @@ const LEVEL_INFO = {
       {n:2, tag:"Gabungan Kanji", desc:"Fokus membaca gabungan kanji (nama tempat, nama orang, kata umum JLPT N5). Campuran 25 pilihan ganda & 25 isian (isian wajib diketik full romaji, tidak boleh hiragana/indo). 50 soal, diacak."},
       {n:3, tag:"50 Kanji JLPT N4", desc:"Level lebih sulit, fokus banyak kosakata gabungan (jukugo) JLPT N4. 80% isian wajib full romaji (40 soal) & 20% pilihan ganda (10 soal). Semua soal dijamin unik (anti-duplikat), diacak."},
       {n:4, tag:"Campuran N5 & N4", desc:"Uji campuran seluruh Kanji JLPT N5 dan N4. Campuran 25 pilihan ganda & 25 isian keyboard (Romaji). 50 soal."}
+    ]
+  },
+  simulasi_n5: {
+    title: "🇯🇵 Simulasi JLPT N5",
+    levels: [
+      { n: 1, tag: "Moji-Goi", desc: "Fokus pada Hiragana, Katakana, dan Kanji dasar JLPT N5. 50 soal pilihan ganda." },
+      { n: 2, tag: "Bunpou & Dokkai", desc: "Fokus pada partikel, pola kalimat dasar, dan pemahaman bacaan pendek N5. 50 soal pilihan ganda." },
+      { n: 3, tag: "Campuran Lengkap", desc: "Uji komprehensif seluruh materi N5 dalam satu paket simulasi terpadu. 50 soal pilihan ganda." }
+    ]
+  },
+  simulasi_n4: {
+    title: "🇯🇵 Simulasi JLPT N4",
+    levels: [
+      { n: 1, tag: "Moji-Goi", desc: "Kosakata JLPT N4, kata kerja, kata sifat, dan kanji tingkat N4. 50 soal pilihan ganda." },
+      { n: 2, tag: "Bunpou & Dokkai", desc: "Pola kalimat tingkat menengah-dasar (N4) dan pemahaman teks bacaan N4. 50 soal pilihan ganda." },
+      { n: 3, tag: "Campuran Lengkap", desc: "Uji komprehensif seluruh materi N4 dalam satu paket simulasi terpadu. 50 soal pilihan ganda." }
+    ]
+  },
+  simulasi_n3: {
+    title: "🇯🇵 Simulasi JLPT N3",
+    levels: [
+      { n: 1, tag: "Moji-Goi", desc: "Kosakata JLPT N3, idiom, ekspresi, dan kanji tingkat N3. 50 soal pilihan ganda." },
+      { n: 2, tag: "Bunpou & Dokkai", desc: "Pola kalimat menengah (N3), konjungsi, partikel tingkat lanjut, dan pemahaman artikel/bacaan. 50 soal pilihan ganda." },
+      { n: 3, tag: "Campuran Lengkap", desc: "Uji komprehensif seluruh materi N3 dalam satu paket simulasi terpadu. 50 soal pilihan ganda." }
     ]
   }
 };
@@ -2151,8 +2277,8 @@ function generateKotobaQuestions(level){
         id: i + 1,
         type: "fill",
         prompt: word,
-        extra: reading,
-        correct: meaning,
+        extra: meaning,
+        correct: reading,
         userAnswer: null,
         status: "unanswered",
         locked: false
@@ -2463,7 +2589,596 @@ function generateKanjiQuestions(level){
   return level===2 ? generateKanjiLevel2() : generateKanjiLevel1();
 }
 
+const N3_VOCAB_DB = [
+  { kanji: "解決", hira: "かいけつ", romaji: "kaiketsu", arti: "solusi/penyelesaian" },
+  { kanji: "改善", hira: "かいぜん", romaji: "kaizen", arti: "perbaikan" },
+  { kanji: "技術", hira: "ぎじゅつ", romaji: "gijutsu", arti: "teknologi/keahlian" },
+  { kanji: "効果", hira: "こうか", romaji: "kouka", arti: "efek/khasiat" },
+  { kanji: "準備", hira: "じゅんび", romaji: "junbi", arti: "persiapan" },
+  { kanji: "将来", hira: "しょうらい", romaji: "shourai", arti: "masa depan" },
+  { kanji: "経済", hira: "けいざい", romaji: "keizai", arti: "ekonomi" },
+  { kanji: "環境", hira: "かんきょう", romaji: "kankyou", arti: "lingkungan" },
+  { kanji: "努力", hira: "どりょく", romaji: "doryoku", arti: "usaha/upaya" },
+  { kanji: "調査", hira: "ちょうさ", romaji: "chousa", arti: "penyelidikan/survei" },
+  { kanji: "必要", hira: "ひつよう", romaji: "hitsuyou", arti: "penting/perlu" },
+  { kanji: "表現", hira: "ひょうげん", romaji: "hyougen", arti: "ekspresi/ungkapan" },
+  { kanji: "関係", hira: "かんけい", romaji: "kankei", arti: "hubungan" },
+  { kanji: "活動", hira: "かつどう", romaji: "katsudou", arti: "aktivitas" },
+  { kanji: "記録", hira: "きろく", romaji: "kiroku", arti: "rekor/catatan" },
+  { kanji: "決定", hira: "けってい", romaji: "kettei", arti: "keputusan" },
+  { kanji: "参加", hira: "さんか", romaji: "sanka", arti: "partisipasi" },
+  { kanji: "結果", hira: "けっか", romaji: "kekka", arti: "hasil" },
+  { kanji: "健康", hira: "けんこう", romaji: "kenkou", arti: "kesehatan" },
+  { kanji: "目的", hira: "もくてき", romaji: "mokuteki", arti: "tujuan" },
+  { kanji: "理由", hira: "りゆう", romaji: "riyuu", arti: "alasan" },
+  { kanji: "経験", hira: "けいけん", romaji: "keiken", arti: "pengalaman" },
+  { kanji: "変化", hira: "へんか", romaji: "henka", arti: "perubahan" },
+  { kanji: "理解", hira: "りかい", romaji: "rikai", arti: "pemahaman" },
+  { kanji: "想像", hira: "そうぞう", romaji: "souzou", arti: "imajinasi/dugaan" },
+  { kanji: "希望", hira: "きぼう", romaji: "kibou", arti: "harapan" },
+  { kanji: "科学", hira: "かがく", romaji: "kagaku", arti: "sains/ilmu pengetahuan" },
+  { kanji: "社会", hira: "しゃかい", romaji: "shakai", arti: "masyarakat" },
+  { kanji: "法律", hira: "ほうりつ", romaji: "houritsu", arti: "hukum" },
+  { kanji: "普通", hira: "ふつう", romaji: "futsuu", arti: "biasa/normal" }
+];
+
+const SIMULASI_GRAMMAR_DB = {
+  n5: [
+    { prompt: "私は毎日学校（　）行きます。", correct: "へ", wrongs: ["を", "が", "は"] },
+    { prompt: "つくえの上に本（　）あります。", correct: "が", wrongs: ["を", "に", "は"] },
+    { prompt: "食堂でテレビ（　）見ながらご飯を食べます。", correct: "を", wrongs: ["に", "が", "で"] },
+    { prompt: "駅（　）友達と会います。", correct: "で", wrongs: ["に", "へ", "を"] },
+    { prompt: "お酒は二十歳（　）飲むことができません。", correct: "からしか", wrongs: ["まで", "より", "から"] },
+    { prompt: "昨日、私はデパートへ行って、シャツ（　）靴を買いました。", correct: "と", wrongs: ["を", "が", "で"] },
+    { prompt: "お姉さんはピアノを弾く（　）が上手です。", correct: "こと", wrongs: ["もの", "とき", "ところ"] },
+    { prompt: "この部屋は少し（　）ないですか。", correct: "寒く", wrongs: ["寒い", "寒さ", "寒くて"] },
+    { prompt: "日曜日、天気が（　）なら、ピクニックに行きましょう。", correct: "よければ", wrongs: ["いい", "よく", "よさ"] },
+    { prompt: "李さんは日本語（　）話すことができます。", correct: "が", wrongs: ["を", "に", "で"] },
+    { prompt: "このお茶は（　）すぎて飲めません。", correct: "熱", wrongs: ["熱い", "熱く", "熱くて"] },
+    { prompt: "あそこにいる人は（　）ですか。", correct: "だれ", wrongs: ["なん", "どこ", "いつ"] },
+    { prompt: "日曜日、買い物に行ったり、映画（　）見たりしました。", correct: "を", wrongs: ["が", "に", "と"] },
+    { prompt: "お腹がすいたから、何か（　）たいです。", correct: "食べ", wrongs: ["食べる", "食べて", "食べよ"] },
+    { prompt: "窓を（　）もいいですか。", correct: "開けて", wrongs: ["開ける", "開けた", "開け"] },
+    { prompt: "【読解 / Reading】<br>A: 「明日のパーティー、何時ですか。」<br>B: 「夜の７時からです。６時半にロビーに集まってください。」<br><br><b>Pertanyaan:</b> Kapan mereka harus berkumpul di lobby?", correct: "Jam 6.30 sore (18:30)", wrongs: ["Jam 7.00 malam (19:00)", "Jam 6.00 sore (18:00)", "Jam 7.30 malam (19:30)"] },
+    { prompt: "【読解 / Reading】<br>木村さんへ<br>今日、図書館で本を借りました。明日の朝、あなたに返します。ありがとうございました。 — 田中より<br><br><b>Pertanyaan:</b> Apa yang akan dilakukan Tanaka besok pagi?", correct: "Mengembalikan buku ke Kimura", wrongs: ["Meminjam buku di perpustakaan", "Mengembalikan buku ke perpustakaan", "Membeli buku baru"] }
+  ],
+  n4: [
+    { prompt: "熱がありますから、早く（　）ほうがいいです。", correct: "帰った", wrongs: ["帰る", "帰って", "帰るの"] },
+    { prompt: "この仕事を終わらせて（　）から、休みます。", correct: "しまって", wrongs: ["しまう", "しまった", "しまい"] },
+    { prompt: "あそこはうるさくて、何も（　）。", correct: "聞こえません", wrongs: ["聞きません", "聞こえられます", "聞けません"] },
+    { prompt: "あの映画は（　）そうです。", correct: "面白", wrongs: ["面白い", "面白く", "面白そう"] },
+    { prompt: "先生は明日、何時に（　）ますか。", correct: "いらっしゃい", wrongs: ["まいり", "おいでになり", "き"] },
+    { prompt: "これは私のために（　）本です。", correct: "買った", wrongs: ["買って", "買わせた", "買われた"] },
+    { prompt: "日本のアニメ（　）興味があります。", correct: "に", wrongs: ["を", "が", "で"] },
+    { prompt: "雨が降り（　）から、傘を持っていきましょう。", correct: "そう", wrongs: ["そうだ", "そうに", "そうだし"] },
+    { prompt: "もっと早く（　）いいのに、遅れました。", correct: "来れば", wrongs: ["来たら", "すると", "来て"] },
+    { prompt: "日本語を（　）ために、毎日勉強しています。", correct: "話せるようになる", wrongs: ["話す", "話せる", "話して"] },
+    { prompt: "【読解 / Reading】<br>リーさん、昨日貸した傘は、来週の月曜日に持ってきてください。今週は使いませんから。 — 山田<br><br><b>Pertanyaan:</b> Kapan Lee harus mengembalikan payung Yamada?", correct: "Senin depan", wrongs: ["Minggu ini", "Kemarin", "Hari ini"] }
+  ],
+  n3: [
+    { prompt: "遅れてすみません。途中で事故が（　）、電車が止まってしまったんです。", correct: "あったため", wrongs: ["あったから", "あって", "あったのに"] },
+    { prompt: "親を（　）心配させるものではありません。", correct: "これ以上", wrongs: ["もう一度", "あまり", "ちっとom"] },
+    { prompt: "どれだけ練習（　）、なかなか上手になりません。", correct: "しても", wrongs: ["したら", "すれば", "するなら"] },
+    { prompt: "最近忙しくて、休み（　）ありません。", correct: "さえ", wrongs: ["こそ", "だけ", "ばかり"] },
+    { prompt: "試験が終わった。合格した（　）がない。", correct: "わけ", wrongs: ["はず", "こと", "つもり"] },
+    { prompt: "あの二人はまるで本当の兄弟の（　）仲が良い。", correct: "ように", wrongs: ["ような", "よう", "ようには"] },
+    { prompt: "【読解 / Reading】<br>最近はパソコンだけでなく、スマートフォンを使って家で仕事をする人が増えています。これにより、会社に通勤する必要がなくなり、時間を有効に使えるようになりました。<br><br><b>Pertanyaan:</b> Apa manfaat bekerja menggunakan smartphone di rumah berdasarkan teks di atas?", correct: "Tidak perlu komuter ke kantor dan waktu bisa digunakan secara efisien", wrongs: ["Bisa membeli komputer baru dengan harga murah", "Menghabiskan lebih banyak waktu di jalan", "Bisa bermain game di rumah saja"] }
+  ]
+};
+
+function generateDynamicN5Grammar(count) {
+  const questions = [];
+  const templates = [
+    { prompt: "私は毎日 [word]（　）食べます。", correct: "を", wrongs: ["が", "に", "で"] },
+    { prompt: "デパートで [word]（　）買いました。", correct: "を", wrongs: ["は", "に", "が"] },
+    { prompt: "あそこに [word]（　）あります。", correct: "が", wrongs: ["を", "に", "へ"] },
+    { prompt: "私は [word]（　）好きです。", correct: "が", wrongs: ["を", "に", "で"] },
+    { prompt: "図書館で [word]（　）読みました。", correct: "を", wrongs: ["が", "に", "へ"] }
+  ];
+  const words = shuffle([...KOTOBA_DB]);
+  for(let i=0; i<count; i++) {
+    const w = words[i % words.length];
+    const temp = templates[randInt(0, templates.length-1)];
+    const prompt = temp.prompt.replace("[word]", `<b>${w[0]}</b> (${w[2]})`);
+    questions.push({
+      prompt,
+      correct: temp.correct,
+      wrongs: temp.wrongs
+    });
+  }
+  return questions;
+}
+
+function generateDynamicN4Grammar(count) {
+  const questions = [];
+  const templates = [
+    { prompt: "友達に [word] について（　）あげました。", correct: "教えて", wrongs: ["教える", "教えた", "教えるの"] },
+    { prompt: "日本語で [word] を（　）ことができるようになりました。", correct: "書く", wrongs: ["書いて", "書いた", "書くの"] },
+    { prompt: "私は [word] を（　）ことがあります。", correct: "見た", wrongs: ["見る", "見て", "見たい"] },
+    { prompt: "日本で [word] の仕事を（　）ために、毎日頑張っています。", correct: "する", wrongs: ["して", "した", "しな"] }
+  ];
+  const words = shuffle([...KANJI_N4_COMPOUND]);
+  for(let i=0; i<count; i++) {
+    const w = words[i % words.length];
+    const temp = templates[randInt(0, templates.length-1)];
+    const prompt = temp.prompt.replace("[word]", `<b>${w[0]}</b> (${w[3]})`);
+    questions.push({
+      prompt,
+      correct: temp.correct,
+      wrongs: temp.wrongs
+    });
+  }
+  return questions;
+}
+
+function generateDynamicN3Grammar(count) {
+  const questions = [];
+  const templates = [
+    { prompt: "今回の [word] について（　）ことになりました。", correct: "調べる", wrongs: ["調べて", "調べた", "調べるの"] },
+    { prompt: "どんなに大変な状況（　）、私たちは諦めません。", correct: "であっても", wrongs: ["だから", "にしても", "であるのに"] },
+    { prompt: "将来の [word] のために、今から準備（　）べきだ。", correct: "する", wrongs: ["して", "した", "しな"] },
+    { prompt: "私たちの努力（　）よって、問題は解決されるはずだ。", correct: "に", wrongs: ["を", "が", "で"] }
+  ];
+  const words = shuffle([...N3_VOCAB_DB]);
+  for(let i=0; i<count; i++) {
+    const w = words[i % words.length];
+    const temp = templates[randInt(0, templates.length-1)];
+    const prompt = temp.prompt.replace("[word]", `<b>${w.kanji}</b> (${w.arti})`);
+    questions.push({
+      prompt,
+      correct: temp.correct,
+      wrongs: temp.wrongs
+    });
+  }
+  return questions;
+}
+
+function speakJapanese(text) {
+  if ('speechSynthesis' in window) {
+    window.speechSynthesis.cancel();
+    const utterance = new SpeechSynthesisUtterance(text);
+    utterance.lang = 'ja-JP';
+    utterance.rate = 0.8;
+    window.speechSynthesis.speak(utterance);
+  } else {
+    showToast("Speech Synthesis tidak didukung.");
+  }
+}
+window.speakJapanese = speakJapanese;
+
+function getStaticPool(category, level) {
+  const pool = [];
+  function getWrongs(list, correct, count) {
+    return list.filter(x => x !== correct).sort(() => 0.5 - Math.random()).slice(0, count);
+  }
+
+  if (category === "simulasi_n5") {
+    if (level === 1) {
+      // Hiragana questions (30)
+      HIRAGANA_BASE.forEach(([h, r], i) => {
+        pool.push({
+          prompt: i % 2 === 0 ? `Bagaimana cara membaca Hiragana berikut: <b>${h}</b>?` : `Huruf Hiragana apakah yang dibaca sebagai: <b>${r}</b>?`,
+          correct: i % 2 === 0 ? r : h,
+          wrongs: getWrongs(i % 2 === 0 ? HIRAGANA_BASE.map(x=>x[1]) : HIRAGANA_BASE.map(x=>x[0]), i % 2 === 0 ? r : h, 3),
+          isRomaji: i % 2 === 0
+        });
+      });
+      // Katakana questions (30)
+      KATAKANA_BASE.forEach(([k, r], i) => {
+        pool.push({
+          prompt: i % 2 === 0 ? `Bagaimana cara membaca Katakana berikut: <b>${k}</b>?` : `Huruf Katakana apakah yang dibaca sebagai: <b>${r}</b>?`,
+          correct: i % 2 === 0 ? r : k,
+          wrongs: getWrongs(i % 2 === 0 ? KATAKANA_BASE.map(x=>x[1]) : KATAKANA_BASE.map(x=>x[0]), i % 2 === 0 ? r : k, 3),
+          isRomaji: i % 2 === 0
+        });
+      });
+      // Kosakata dasar N5 (30)
+      KOTOBA_DB.slice(0, 30).forEach(([w, r, m], i) => {
+        pool.push({
+          prompt: i % 2 === 0 ? `Apa arti dari kosakata <b>${w}</b>?` : `Bagaimana cara membaca kosakata <b>${w}</b>?`,
+          correct: i % 2 === 0 ? m : r,
+          wrongs: getWrongs(i % 2 === 0 ? KOTOBA_DB.map(x=>x[2]) : KOTOBA_DB.map(x=>x[1]), i % 2 === 0 ? m : r, 3),
+          isRomaji: i % 2 !== 0
+        });
+      });
+      // Kanji dasar N5 (30)
+      KANJI_DB.slice(0, 30).forEach((item, i) => {
+        const correct = item.arti[0];
+        pool.push({
+          prompt: `Apa arti dari Kanji N5 <b>${item.kanji}</b>?`,
+          correct,
+          wrongs: getWrongs(KANJI_DB.map(x=>x.arti[0]), correct, 3)
+        });
+      });
+      // Grammar N5 dasar (30)
+      const grammar = [
+        { prompt: "私は毎日学校（　）行きます。", correct: "へ", wrongs: ["を", "が", "は"] },
+        { prompt: "つくえの上に本（　）あります。", correct: "が", wrongs: ["を", "に", "は"] },
+        { prompt: "食堂でテレビ（　）見ながらご飯を食べます。", correct: "を", wrongs: ["に", "が", "で"] },
+        { prompt: "駅（　）友達と会います。", correct: "で", wrongs: ["に", "へ", "を"] },
+        { prompt: "お酒は二十歳（　）飲むことができません。", correct: "からしか", wrongs: ["まで", "より", "から"] }
+      ];
+      for (let idx = 0; idx < 30; idx++) {
+        const g = grammar[idx % grammar.length];
+        pool.push({ prompt: `[N5 Grammar] ${g.prompt}`, correct: g.correct, wrongs: g.wrongs });
+      }
+    } else if (level === 2) {
+      // Kosakata more (40)
+      KOTOBA_DB.slice(30, 70).forEach(([w, r, m], i) => {
+        pool.push({
+          prompt: i % 2 === 0 ? `Apa arti dari kosakata <b>${w}</b>?` : `Bagaimana cara membaca kosakata <b>${w}</b>?`,
+          correct: i % 2 === 0 ? m : r,
+          wrongs: getWrongs(i % 2 === 0 ? KOTOBA_DB.map(x=>x[2]) : KOTOBA_DB.map(x=>x[1]), i % 2 === 0 ? m : r, 3),
+          isRomaji: i % 2 !== 0
+        });
+      });
+      // Kanji more (40)
+      KANJI_DB.slice(20, 60).forEach((item, i) => {
+        const correct = item.kunyomi[0] || item.onyomi[0] || "n/a";
+        pool.push({
+          prompt: `Bagaimana cara membaca Kanji N5 berikut: <b>${item.kanji}</b>?`,
+          correct,
+          wrongs: getWrongs(KANJI_DB.map(x=>x.kunyomi[0]||x.onyomi[0]||"x"), correct, 3)
+        });
+      });
+      // Grammar harder N5 (20)
+      const grammarHard = [
+        { prompt: "この部屋は少し（　）ないですか。エアコンを消しましょう。", correct: "寒く", wrongs: ["寒い", "寒さ", "寒くて"] },
+        { prompt: "日曜日、天気が（　）なら、ピクニックに行きましょう。", correct: "よければ", wrongs: ["いい", "よく", "よさ"] },
+        { prompt: "このお茶は（　）すぎて飲めません。", correct: "熱", wrongs: ["熱い", "熱く", "熱くて"] },
+        { prompt: "窓を（　）もいいですか。", correct: "開けて", wrongs: ["開ける", "開けた", "開け"] }
+      ];
+      for (let idx = 0; idx < 20; idx++) {
+        const g = grammarHard[idx % grammarHard.length];
+        pool.push({ prompt: `[N5 Grammar Hard] ${g.prompt}`, correct: g.correct, wrongs: g.wrongs });
+      }
+      // Reading pendek (15)
+      const readPassages = [
+        { text: "２月１０日（水）晴れ。今日、私は友達と日本のレストランへ行きました。寿司をたくさん食べました。とてもおいしかったです。それから、デパートで買い物をしました。", q: "Kapan penulis pergi ke restoran Jepang?", a: "Hari Rabu", w: ["Hari Kamis", "Hari Senin", "Hari Selasa"] },
+        { text: "田中さん、土曜日に一緒に映画を見に行きませんか。駅の近くの新しい映画館です。午後２時に駅の前で会いましょう。 — 山田より", q: "Di mana mereka akan bertemu pada hari Sabtu?", a: "Di depan stasiun", w: ["Di dalam bioskop", "Di restoran terdekat", "Di rumah Tanaka"] },
+        { text: "【としょかんからのお知らせ】開館時間：午前９時〜午後５時。休みの日：毎週月曜日、祝日（しゅくじつ）。", q: "Kapan perpustakaan tutup?", a: "Setiap hari Senin & libur nasional", w: ["Setiap hari Minggu", "Pagi hari", "Setiap hari Sabtu"] }
+      ];
+      for (let idx = 0; idx < 15; idx++) {
+        const rp = readPassages[idx % readPassages.length];
+        pool.push({
+          prompt: `【読解 / Reading】<br>${rp.text}<br><br><b>Pertanyaan:</b> ${rp.q}`,
+          correct: rp.a,
+          wrongs: rp.w
+        });
+      }
+      // Listening pendek (15)
+      const listenPassages = [
+        { audio: "佐藤：田中さん、今何時ですか。田中：今ですか、３時半ですよ。", q: "Jam berapakah sekarang berdasarkan audio?", a: "3.30", w: ["3.00", "4.30", "2.30"] },
+        { audio: "佐藤：今日は雨が降っていますね。田中：そうですね。明日は晴れますよ。", q: "Bagaimana cuaca esok hari berdasarkan percakapan?", a: "cerah", w: ["hujan", "mendung", "salju"] },
+        { audio: "店員：いらっしゃいませ。何にしますか。田中：ラーメンを一つと、お茶をください。", q: "Apa saja makanan/minuman yang dipesan Tanaka?", a: "ramen dan teh", w: ["sushi dan kopi", "ramen dan air", "ramen dan bir"] }
+      ];
+      for (let idx = 0; idx < 15; idx++) {
+        const lp = listenPassages[idx % listenPassages.length];
+        pool.push({
+          prompt: `【聴解 / Listening】<br><i>Dengarkan percakapan berikut dengan menekan tombol putar di bawah:</i><br><br>
+          <div style="background:rgba(30,41,59,0.05); border-left:4px solid var(--primary); padding:10px; margin:10px 0; border-radius:4px; display:flex; align-items:center; justify-content:space-between; gap:12px;">
+            <div>
+              <strong>Audio Latihan N5</strong><br>
+              <span style="font-size:12px; color:#64748B;">Klik putar untuk mendengarkan audio.</span>
+            </div>
+            <button type="button" class="btn btn-primary" style="margin:0; padding:6px 12px; font-size:12px;" onclick="speakJapanese('${lp.audio}')">🔊 Putar Audio</button>
+          </div>
+          <br><b>Pertanyaan:</b> ${lp.q}`,
+          correct: lp.a,
+          wrongs: lp.w
+        });
+      }
+    } else {
+      // Level 3: Simulasi Lengkap N5 (Combine L1 and L2 pools)
+      pool.push(...getStaticPool("simulasi_n5", 1), ...getStaticPool("simulasi_n5", 2));
+    }
+  } else if (category === "simulasi_n4") {
+    if (level === 1) {
+      // Review N5 (40)
+      KOTOBA_DB.slice(0, 40).forEach(([w, r, m], i) => {
+        pool.push({
+          prompt: `[Review N5] Apa arti dari <b>${w}</b>?`,
+          correct: m,
+          wrongs: getWrongs(KOTOBA_DB.map(x=>x[2]), m, 3)
+        });
+      });
+      // Kanji N4 dasar (40)
+      KANJI_N4_SINGLE.slice(0, 40).forEach(([k, r, h, a], i) => {
+        pool.push({
+          prompt: i % 2 === 0 ? `Apa arti dari Kanji N4 <b>${k}</b>?` : `Bagaimana cara membaca Kanji N4 <b>${k}</b>?`,
+          correct: i % 2 === 0 ? a : h,
+          wrongs: getWrongs(i % 2 === 0 ? KANJI_N4_SINGLE.map(x=>x[3]) : KANJI_N4_SINGLE.map(x=>x[2]), i % 2 === 0 ? a : h, 3)
+        });
+      });
+      // Grammar N4 dasar (40)
+      const grammarN4 = [
+        { prompt: "熱がありますから、早く（　）ほうがいいです。", correct: "帰った", wrongs: ["帰る", "帰って", "帰るの"] },
+        { prompt: "この仕事を終わらせて（　）から、休みます。", correct: "しまって", wrongs: ["しまう", "しまった", "しまい"] },
+        { prompt: "あそこはうるさくて、何も（　）。", correct: "聞こえません", wrongs: ["聞きません", "聞こえられます", "聞けません"] }
+      ];
+      for (let idx = 0; idx < 40; idx++) {
+        const g = grammarN4[idx % grammarN4.length];
+        pool.push({ prompt: `[N4 Grammar] ${g.prompt}`, correct: g.correct, wrongs: g.wrongs });
+      }
+    } else if (level === 2) {
+      // Kanji N4 Compound (40)
+      KANJI_N4_COMPOUND.slice(0, 40).forEach(([w, h, r, a], i) => {
+        pool.push({
+          prompt: i % 2 === 0 ? `Apa arti dari kosakata Kanji <b>${w}</b>?` : `Bagaimana cara membaca kosakata Kanji <b>${w}</b>?`,
+          correct: i % 2 === 0 ? a : h,
+          wrongs: getWrongs(i % 2 === 0 ? KANJI_N4_COMPOUND.map(x=>x[3]) : KANJI_N4_COMPOUND.map(x=>x[1]), i % 2 === 0 ? a : h, 3)
+        });
+      });
+      // Grammar N4 (30)
+      const grammarN4Hard = [
+        { prompt: "あの映画は（　）そうです。", correct: "面白", wrongs: ["面白い", "面白く", "面白そう"] },
+        { prompt: "先生は明日、何時に（　）ますか。", correct: "いらっしゃい", wrongs: ["まいり", "おいでになり", "き"] },
+        { prompt: "日本語を（　）ために、毎日勉強しています。", correct: "話せるようになる", wrongs: ["話す", "話せる", "話して"] }
+      ];
+      for (let idx = 0; idx < 30; idx++) {
+        const g = grammarN4Hard[idx % grammarN4Hard.length];
+        pool.push({ prompt: `[N4 Grammar Hard] ${g.prompt}`, correct: g.correct, wrongs: g.wrongs });
+      }
+      // Reading N4 (15)
+      const readingN4Passages = [
+        { text: "リーさん、昨日貸した傘は、来週の月曜日に持ってきてください。今週は使いませんから。 — 山田", q: "Kapan Lee harus mengembalikan payung Yamada?", a: "Senin depan", w: ["Minggu ini", "Kemarin", "Hari ini"] },
+        { text: "日本のゴミの出し方は難しいです。月曜日は燃えるゴミ、水曜日はプラスチックを出します。ゴミは朝の８時までに出してください。", q: "Hari apakah plastik dibuang berdasarkan teks?", a: "Hari Rabu (Suiyoubi)", w: ["Hari Senin", "Hari Kamis", "Hari Jumat"] }
+      ];
+      for (let idx = 0; idx < 15; idx++) {
+        const rp = readingN4Passages[idx % readingN4Passages.length];
+        pool.push({
+          prompt: `【読解 / Reading】<br>${rp.text}<br><br><b>Pertanyaan:</b> ${rp.q}`,
+          correct: rp.a,
+          wrongs: rp.w
+        });
+      }
+      // Listening N4 (15)
+      const listeningN4Passages = [
+        { audio: "佐藤：リーさん、昨日の授業のノートを貸してくれませんか。リー：あ、はい、どうぞ。でも、明日返してくださいね。佐藤：わかりました。", q: "Kapan Sato harus mengembalikan catatan Lee?", a: "Besok (Ashita)", w: ["Minggu depan", "Hari ini juga", "Lusa"] },
+        { audio: "佐藤：すみません、駅はどこですか。田中：この道を真っ直ぐ行って、次の交差点を左に曲がってください。", q: "Apa petunjuk arah yang diberikan Tanaka?", a: "Jalan lurus, lalu belok kiri di persimpangan berikutnya", w: ["Jalan lurus belok kanan", "Naik bus depan jalan", "Belok kanan di persimpangan"] }
+      ];
+      for (let idx = 0; idx < 15; idx++) {
+        const lp = listeningN4Passages[idx % listeningN4Passages.length];
+        pool.push({
+          prompt: `【聴解 / Listening】<br><i>Dengarkan percakapan berikut:</i><br><br>
+          <div style="background:rgba(30,41,59,0.05); border-left:4px solid var(--primary); padding:10px; margin:10px 0; border-radius:4px; display:flex; align-items:center; justify-content:space-between; gap:12px;">
+            <div>
+              <strong>Audio Latihan N4</strong><br>
+              <span style="font-size:12px; color:#64748B;">Klik putar untuk mendengarkan.</span>
+            </div>
+            <button type="button" class="btn btn-primary" style="margin:0; padding:6px 12px; font-size:12px;" onclick="speakJapanese('${lp.audio}')">🔊 Putar Audio</button>
+          </div>
+          <br><b>Pertanyaan:</b> ${lp.q}`,
+          correct: lp.a,
+          wrongs: lp.w
+        });
+      }
+    } else {
+      // Level 3: Simulasi Lengkap N4
+      pool.push(...getStaticPool("simulasi_n4", 1), ...getStaticPool("simulasi_n4", 2));
+    }
+  } else {
+    // JLPT N3
+    if (level === 1) {
+      // Review N4 (40)
+      KANJI_N4_COMPOUND.slice(0, 40).forEach(([w, h, r, a], i) => {
+        pool.push({
+          prompt: `[Review N4] Apa arti dari <b>${w}</b>?`,
+          correct: a,
+          wrongs: getWrongs(KANJI_N4_COMPOUND.map(x=>x[3]), a, 3)
+        });
+      });
+      // Kanji N3 dasar (40)
+      N3_VOCAB_DB.slice(0, 40).forEach((item, i) => {
+        pool.push({
+          prompt: i % 2 === 0 ? `Apa arti dari Kanji N3 <b>${item.kanji}</b>?` : `Bagaimana cara membaca Kanji N3 <b>${item.kanji}</b>?`,
+          correct: i % 2 === 0 ? item.arti : item.hira,
+          wrongs: getWrongs(i % 2 === 0 ? N3_VOCAB_DB.map(x=>x.arti) : N3_VOCAB_DB.map(x=>x.hira), i % 2 === 0 ? item.arti : item.hira, 3)
+        });
+      });
+      // Grammar N3 dasar (40)
+      const grammarN3 = [
+        { prompt: "遅れてすみません。途中で事故が（　）、電車が止まってしまったんです。", correct: "あったため", wrongs: ["あったから", "あって", "あったのに"] },
+        { prompt: "親を（　）心配させるものではありません。", correct: "これ以上", wrongs: ["もう一度", "あまり", "ちっとも"] },
+        { prompt: "どれだけ練習（　）、なかなか上手になりません。", correct: "しても", wrongs: ["したら", "すれば", "するなら"] }
+      ];
+      for (let idx = 0; idx < 40; idx++) {
+        const g = grammarN3[idx % grammarN3.length];
+        pool.push({ prompt: `[N3 Grammar] ${g.prompt}`, correct: g.correct, wrongs: g.wrongs });
+      }
+    } else if (level === 2) {
+      // Kanji N3 (40)
+      N3_VOCAB_DB.slice(10, 50).forEach((item, i) => {
+        pool.push({
+          prompt: `Kosa kata Kanji N3 manakah yang dibaca sebagai: <b>${item.hira}</b>?`,
+          correct: item.kanji,
+          wrongs: getWrongs(N3_VOCAB_DB.map(x=>x.kanji), item.kanji, 3)
+        });
+      });
+      // Grammar N3 (30)
+      const grammarN3Hard = [
+        { prompt: "最近忙しくて、休み（　）ありません。", correct: "さえ", wrongs: ["こそ", "だけ", "ばかり"] },
+        { prompt: "試験が終わった。合格した（　）がない。", correct: "わけ", wrongs: ["はず", "こと", "つもり"] },
+        { prompt: "あの二人はまるで本当の兄弟の（　）仲が良い。", correct: "ように", wrongs: ["ような", "よう", "ようには"] }
+      ];
+      for (let idx = 0; idx < 30; idx++) {
+        const g = grammarN3Hard[idx % grammarN3Hard.length];
+        pool.push({ prompt: `[N3 Grammar Hard] ${g.prompt}`, correct: g.correct, wrongs: g.wrongs });
+      }
+      // Reading N3 (15)
+      const readingN3Passages = [
+        { text: "最近はパソコンだけでなく、スマートフォンを使って家で仕事をする人が増えています。これにより、会社に通勤する必要がなくなり、時間を有効に使えるようになりました。", q: "Apa manfaat bekerja menggunakan smartphone di rumah?", a: "Tidak perlu komuter ke kantor dan waktu lebih efisien", w: ["Bisa membeli komputer murah", "Menghabiskan lebih banyak waktu", "Bisa bermain game di rumah"] },
+        { text: "日本の伝統的なお茶「緑茶（りょくちゃ）」は、体に良い健康飲料として注目されています。リラックス効果だけでなくビタミンも豊富です。", q: "Mengapa teh hijau sangat dihargai menurut teks?", a: "Sangat menyehatkan, memberikan efek relaksasi dan kaya vitamin", w: ["Karena teh termurah di Jepang", "Hanya diproduksi di Kyoto", "Rasanya manis sekali"] }
+      ];
+      for (let idx = 0; idx < 15; idx++) {
+        const rp = readingN3Passages[idx % readingN3Passages.length];
+        pool.push({
+          prompt: `【読解 / Reading】<br>${rp.text}<br><br><b>Pertanyaan:</b> ${rp.q}`,
+          correct: rp.a,
+          wrongs: rp.w
+        });
+      }
+      // Listening N3 (15)
+      const listeningN3Passages = [
+        { audio: "店員：お客様、こちらの商品は１年の保証がついておりますが、いかがいたしますか。客：あ、じゃあ、それをお願いします。", q: "Apa yang disetujui pelanggan dalam percakapan tersebut?", a: "Memasang garansi 1 tahun untuk produk tersebut", w: ["Membatalkan pembelian barang", "Minta diskon langsung", "Membeli asuransi jiwa"] },
+        { audio: "佐藤：鈴木さん、今日の残業を少し減らすことはできませんか。鈴木：そうですね、仕事をみんなで分担すれば早く終わると思います。", q: "Solusi apa yang ditawarkan Suzuki untuk mengurangi jam lembur?", a: "Membagi pekerjaan bersama-sama", w: ["Menunda pekerjaan besok", "Mengabaikan beberapa tugas", "Naik gaji lembur"] }
+      ];
+      for (let idx = 0; idx < 15; idx++) {
+        const lp = listeningN3Passages[idx % listeningN3Passages.length];
+        pool.push({
+          prompt: `【聴解 / Listening】<br><i>Dengarkan percakapan berikut:</i><br><br>
+          <div style="background:rgba(30,41,59,0.05); border-left:4px solid var(--primary); padding:10px; margin:10px 0; border-radius:4px; display:flex; align-items:center; justify-content:space-between; gap:12px;">
+            <div>
+              <strong>Audio Latihan N3</strong><br>
+              <span style="font-size:12px; color:#64748B;">Klik putar untuk mendengarkan.</span>
+            </div>
+            <button type="button" class="btn btn-primary" style="margin:0; padding:6px 12px; font-size:12px;" onclick="speakJapanese('${lp.audio}')">🔊 Putar Audio</button>
+          </div>
+          <br><b>Pertanyaan:</b> ${lp.q}`,
+          correct: lp.a,
+          wrongs: lp.w
+        });
+      }
+    } else {
+      // Level 3: Simulasi Lengkap N3
+      pool.push(...getStaticPool("simulasi_n3", 1), ...getStaticPool("simulasi_n3", 2));
+    }
+  }
+
+  return pool;
+}
+
+function generateSimulasiQuestions(category, level) {
+  const pool = getStaticPool(category, level);
+  let list = [];
+
+  if (level === 2 || level === 3) {
+    // 50:50 audio vs non-audio split
+    const isListen = (q) => q.isListening || q.prompt.includes("【聴解") || q.prompt.includes("🔊 Putar Audio") || q.prompt.includes("speakJapanese");
+    const listeningPool = pool.filter(isListen);
+    const nonListeningPool = pool.filter(q => !isListen(q));
+
+    // Helper to select questions with tracking
+    const selectFromSubPool = (subPool, count, suffix) => {
+      const storageKey = `seen_sub_${category}_${level}_${suffix}`;
+      let seenIds = [];
+      try {
+        seenIds = JSON.parse(localStorage.getItem(storageKey) || "[]");
+      } catch(e) {
+        seenIds = [];
+      }
+
+      if (seenIds.length >= subPool.length) {
+        seenIds = [];
+      }
+
+      const unseen = subPool.filter((_, idx) => !seenIds.includes(idx));
+      let selected = [];
+
+      if (unseen.length >= count) {
+        const shuffled = [...unseen].sort(() => 0.5 - Math.random());
+        selected = shuffled.slice(0, count);
+      } else {
+        selected = [...unseen];
+        const seenCandidates = subPool.filter((_, idx) => seenIds.includes(idx));
+        const shuffledSeen = [...seenCandidates].sort(() => 0.5 - Math.random());
+        const needed = count - selected.length;
+        for (let i = 0; i < needed; i++) {
+          selected.push(shuffledSeen[i % shuffledSeen.length] || subPool[i % subPool.length]);
+        }
+      }
+
+      const selectedIndices = selected.map(item => subPool.indexOf(item));
+      const newSeen = Array.from(new Set([...seenIds, ...selectedIndices]));
+      localStorage.setItem(storageKey, JSON.stringify(newSeen));
+
+      return selected;
+    };
+
+    const selectedListening = selectFromSubPool(listeningPool, 25, "listening");
+    const selectedNonListening = selectFromSubPool(nonListeningPool, 25, "nonlistening");
+
+    // Shuffle them together to mix listening and non-listening questions
+    list = shuffle([...selectedListening, ...selectedNonListening]);
+  } else {
+    // Standard pool selection for level 1
+    const storageKey = `seen_questions_${category}_${level}`;
+    let seenIndices = [];
+    try {
+      seenIndices = JSON.parse(localStorage.getItem(storageKey) || "[]");
+    } catch(e) {
+      seenIndices = [];
+    }
+
+    let unseenIndices = [];
+    pool.forEach((q, idx) => {
+      if (!seenIndices.includes(idx)) {
+        unseenIndices.push(idx);
+      }
+    });
+
+    const countNeeded = 50;
+    let selectedIndices = [];
+
+    if (unseenIndices.length < countNeeded) {
+      selectedIndices = [...unseenIndices];
+      seenIndices = [];
+      const freshlyAvailable = [];
+      pool.forEach((q, idx) => {
+        if (!selectedIndices.includes(idx)) {
+          freshlyAvailable.push(idx);
+        }
+      });
+      const randomFresh = [...freshlyAvailable].sort(() => 0.5 - Math.random());
+      const elementsToTake = countNeeded - selectedIndices.length;
+      for (let i = 0; i < elementsToTake && i < randomFresh.length; i++) {
+        selectedIndices.push(randomFresh[i]);
+      }
+      const newSeen = selectedIndices.filter(idx => !unseenIndices.includes(idx));
+      localStorage.setItem(storageKey, JSON.stringify(newSeen));
+    } else {
+      const randomUnseen = [...unseenIndices].sort(() => 0.5 - Math.random());
+      selectedIndices = randomUnseen.slice(0, countNeeded);
+      const updatedSeen = seenIndices.concat(selectedIndices);
+      localStorage.setItem(storageKey, JSON.stringify(updatedSeen));
+    }
+
+    list = selectedIndices.map(idx => pool[idx]);
+  }
+
+  const questions = list.map((q, idx) => {
+    const isListening = q.isListening || q.prompt.includes("【聴解") || q.prompt.includes("🔊 Putar Audio") || q.prompt.includes("speakJapanese");
+    
+    let type = "mc";
+    if ((level === 2 || level === 3) && !isListening && q.isRomaji) {
+      // 50% (13 out of 25) of non-listening questions should be fill
+      const nonListenIndex = list.filter((item, i) => i < idx && item.isRomaji && !(item.isListening || item.prompt.includes("【聴解") || item.prompt.includes("🔊 Putar Audio") || item.prompt.includes("speakJapanese"))).length;
+      if (nonListenIndex < 13) {
+        type = "fill";
+      }
+    }
+
+    const options = shuffle([q.correct, ...q.wrongs]);
+    return {
+      id: idx + 1,
+      type: type,
+      prompt: q.prompt,
+      options,
+      correct: q.correct,
+      userAnswer: null,
+      status: "unanswered",
+      locked: false,
+      smallText: q.prompt.length > 25
+    };
+  });
+
+  return questions;
+}
+
 function buildQuestions(){
+  if(State.examType.startsWith("simulasi_")){
+    return generateSimulasiQuestions(State.examType, State.level);
+  }
   if(State.examType==="hiragana"){
     return generateKanaQuestions(HIRAGANA_BASE, HIRAGANA_DAKUTEN, HIRAGANA_HANDAKUTEN, State.level);
   }else if(State.examType==="katakana"){
@@ -2501,6 +3216,10 @@ function examTypeLabel(t){
   if(t==="hiragana") return "Hiragana";
   if(t==="katakana") return "Katakana";
   if(t==="kanji") return "Kanji";
+  if(t==="kotoba") return "Kotoba";
+  if(t==="simulasi_n5") return "Simulasi JLPT N5";
+  if(t==="simulasi_n4") return "Simulasi JLPT N4";
+  if(t==="simulasi_n3") return "Simulasi JLPT N3";
   return "Kotoba";
 }
 
@@ -2599,31 +3318,23 @@ function renderQuestion(){
   if(State.examType==="kotoba"){
     qTextEl.classList.add("small-text");
     if(q.type==="fill"){
-      if(State.level===4){
-        qTextEl.innerHTML = `${q.prompt} <div style="font-size:13px;color:#64748B;margin-top:6px;font-weight:500;">Bacaan: ${q.extra}</div>`;
-      } else {
-        qTextEl.innerHTML = `${q.prompt} <div style="font-size:13px;color:#64748B;margin-top:6px;font-weight:500;">Arti: ${q.extra}</div>`;
-      }
+      qTextEl.innerHTML = `${q.prompt} <div style="font-size:13px;color:#64748B;margin-top:6px;font-weight:500;">Arti: ${q.extra}</div>`;
     } else {
       qTextEl.innerHTML = `${q.prompt}`;
     }
   }else if(State.examType==="kanji"){
     qTextEl.classList.toggle("small-text", !!q.smallText);
-    qTextEl.textContent = q.prompt;
+    qTextEl.innerHTML = q.prompt;
   }else{
     qTextEl.classList.remove("small-text");
-    qTextEl.textContent = q.prompt;
+    qTextEl.innerHTML = q.prompt;
   }
 
   if(q.type==="fill"){
     const input = document.createElement("input");
     input.type = "text";
     input.className = "fill-input";
-    if(State.examType==="kotoba" && State.level===4){
-      input.placeholder = "Ketik arti dalam bahasa Indonesia lalu tekan Enter...";
-    } else {
-      input.placeholder = State.examType==="kanji" ? "Ketik jawaban pakai ROMAJI lalu tekan Enter..." : "Ketik jawaban lalu tekan Enter...";
-    }
+    input.placeholder = "Ketik jawaban pakai ROMAJI lalu tekan Enter...";
     input.value = q.userAnswer || "";
     if(State.submitted || q.locked) input.classList.add("locked");
     if(!State.submitted && !q.locked){
@@ -2910,7 +3621,10 @@ const CATEGORY_LABELS = [
   {key:"hiragana", emoji:"📖", label:"Hiragana", maxLevel:3},
   {key:"katakana", emoji:"✍️", label:"Katakana", maxLevel:3},
   {key:"kotoba", emoji:"💬", label:"Kotoba", maxLevel:4},
-  {key:"kanji", emoji:"🈶", label:"Kanji", maxLevel:4}
+  {key:"kanji", emoji:"🈶", label:"Kanji", maxLevel:4},
+  {key:"simulasi_n5", emoji:"🇯🇵", label:"Simulasi JLPT N5", maxLevel:3},
+  {key:"simulasi_n4", emoji:"🇯🇵", label:"Simulasi JLPT N4", maxLevel:3},
+  {key:"simulasi_n3", emoji:"🇯🇵", label:"Simulasi JLPT N3", maxLevel:3}
 ];
 
 function openDashboard(tab){
@@ -2945,15 +3659,28 @@ function renderDashboardTab(tab){
       div.innerHTML = `<h3>${cat.emoji} ${cat.label}</h3>${rows}`;
       content.appendChild(div);
     });
+
+    // Add Reset buttons at the bottom of highscore tab
+    const resetContainer = document.createElement("div");
+    resetContainer.style.margin = "24px 0 12px 0";
+    resetContainer.style.display = "flex";
+    resetContainer.style.gap = "12px";
+    resetContainer.innerHTML = `
+      <button class="btn btn-danger btn-block" style="flex:1; margin:0;" onclick="resetGlobalScore()">Reset Total Score</button>
+      <button class="btn btn-danger btn-block" style="flex:1; margin:0;" onclick="resetFastestTime()">Reset Fast Time</button>
+    `;
+    content.appendChild(resetContainer);
   }else{
     const history = getHistory();
     if(history.length===0){
       content.innerHTML = `<div class="empty-state"><span class="emoji">📭</span>Belum ada riwayat ujian.<br>Mulai ujian pertamamu sekarang!</div>`;
       return;
     }
-    history.forEach(h=>{
+    history.forEach((h, index)=>{
       const div = document.createElement("div");
       div.className = "history-item";
+      div.style.cursor = "pointer";
+      div.addEventListener("click", () => openHistoryDetail(index));
       div.innerHTML = `
         <div class="h-left">
           <b>${h.jenis} — Level ${h.level}</b>
@@ -2965,6 +3692,38 @@ function renderDashboardTab(tab){
     });
   }
 }
+
+function resetGlobalScore() {
+  showPopup(
+    "🏆 Reset Total Score?",
+    "Apakah Anda yakin ingin mereset total score? Jika memilih Ya maka hanya data tersebut yang dihapus.",
+    [
+      {label:"Batal", cls:"btn-outline", onClick:()=>{}},
+      {label:"Ya, Hapus", cls:"btn-danger", onClick:()=>{
+        localStorage.removeItem("cbt_global_score");
+        showToast("Total Score berhasil direset!");
+        openDashboard("highscore");
+      }}
+    ]
+  );
+}
+window.resetGlobalScore = resetGlobalScore;
+
+function resetFastestTime() {
+  showPopup(
+    "⚡ Reset Waktu Tercepat?",
+    "Apakah Anda yakin ingin mereset waktu tercepat? Jika memilih Ya maka hanya data tersebut yang dihapus.",
+    [
+      {label:"Batal", cls:"btn-outline", onClick:()=>{}},
+      {label:"Ya, Hapus", cls:"btn-danger", onClick:()=>{
+        localStorage.removeItem("cbt_global_time");
+        showToast("Waktu Tercepat berhasil direset!");
+        openDashboard("highscore");
+      }}
+    ]
+  );
+}
+window.resetFastestTime = resetFastestTime;
 
 /* ============================================================
    HAFALAN AKSARA (referensi belajar, tidak dapat diedit)
